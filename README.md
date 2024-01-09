@@ -16,3 +16,8 @@
 5. git commit -m " text "
 4. git remote add origin git@github.com:antuanuran/get_course.git 
 5. git push -u origin master
+
+### для инфо по Докеру:
+1. Проверить порты:  netstat -ntlp | grep 80
+2. Остановить порт:  fuser -n tcp -k 8000
+3. Остановить nginx: systemctl stop nginx
