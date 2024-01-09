@@ -7,7 +7,7 @@
 4. **pip install -r requirements-dev.txt**
 
 
-### Настройка (for linux):
+### Git settings:
 1. git clone https://github.com/antuanuran/get_course
 2. git pull
 3. git branch -M master
