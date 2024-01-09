@@ -46,7 +46,9 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = []
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'apps.users',
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -94,6 +96,8 @@ DATABASES = {
         'PORT': int(os.getenv('POSTGRES_PORT', '5432')),
     }
 }
+
+AUTH_USER_MODEL = 'users.User'
 
 
 # Password validation
