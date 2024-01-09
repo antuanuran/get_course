@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.8"
 
 networks:
   private:
@@ -15,5 +15,4 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     ports:
-      - 5433:5432
-
+      - "5433:5432"
