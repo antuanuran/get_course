@@ -5,6 +5,7 @@
 2. Активируем виртуальное окружение: **source .venv/bin/activate**
 3. **pip install -r requirements.txt**
 4. **pip install -r requirements-dev.txt**
+5. 
 
 
 ### Git settings:
