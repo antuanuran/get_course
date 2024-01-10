@@ -49,6 +49,3 @@ class User(AbstractUser):
     class Meta:
         verbose_name = "Администратор / Пользователь"
         verbose_name_plural = "Администраторы / Пользователи"
-
-    def __str__(self):
-        return self.email
