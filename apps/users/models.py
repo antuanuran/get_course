@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
-    # пробный комментарий
 
     username = None
     email = models.EmailField(
@@ -17,6 +16,3 @@ class User(AbstractUser):
             "unique": _("A user with that username already exists."),
         },
     )
-
-
-
