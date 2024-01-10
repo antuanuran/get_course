@@ -53,7 +53,7 @@ class Version(models.Model):
         verbose_name_plural = "Версии курса (стандарт / расширенная)"
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} [{self.product.name}]"
 
 
 class Course(models.Model):
