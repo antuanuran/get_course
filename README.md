@@ -1,6 +1,7 @@
 # "Get course" PROJECT Uranov Anton
 
 ## Idea
+MIRO: https://miro.com/app/board/uXjVMn6bPlI=/ 
 
 1. Юзер логинится и видит все свои покупки
 2. Каталог курсов для покупки с поиском по тегам и названию
