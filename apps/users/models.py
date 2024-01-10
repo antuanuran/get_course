@@ -1,12 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from time import sleep
 
 
 class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+    # пробный комментарий
 
     username = None
     email = models.EmailField(
@@ -18,4 +18,5 @@ class User(AbstractUser):
         },
     )
 
-sleep(2)
+
+
