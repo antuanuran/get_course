@@ -30,7 +30,7 @@ class Teacher(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
-    teachers = models.ManyToManyField(Teacher, related_name="products", blank=True)
+    # teachers = models.ManyToManyField(Teacher, related_name="products", blank=True)
     # versions
     # courses
 
@@ -59,6 +59,7 @@ class Version(models.Model):
 class Course(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="courses")
     level = models.CharField(max_length=100)  # Для новичков/Pro
+    upc = models.CharField(max_length=64, null=True, blank=True, db_index=True)
 
     class Meta:
         verbose_name = "3. Курс"
@@ -74,8 +75,8 @@ class Course_version(models.Model):
     price = models.IntegerField(validators=[MinValueValidator(1)])
 
     class Meta:
-        verbose_name = "конкретный курс"
-        verbose_name_plural = "конкретные курсы"
+        verbose_name = "Версия курса"
+        verbose_name_plural = "Версии курса"
 
     def __str__(self):
         return f"{self.price}"

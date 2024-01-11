@@ -1,7 +1,7 @@
 # "Get course" PROJECT Uranov Anton
 
 ## Idea
-MIRO: https://miro.com/app/board/uXjVMn6bPlI=/ 
+MIRO: https://miro.com/app/board/uXjVMn6bPlI=/
 
 1. Юзер логинится и видит все свои покупки
 2. Каталог курсов для покупки с поиском по тегам и названию
@@ -10,6 +10,7 @@ MIRO: https://miro.com/app/board/uXjVMn6bPlI=/
 5. Подсистема отзывов
 6. Открытие уроков по расписанию или по прохождению (опционально)
 7. Генерация сертификатов по прохождению
+8. Экспорт и импорт информации
 
 ## Develop
 

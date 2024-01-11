@@ -46,6 +46,8 @@ class User(AbstractUser):
         },
     )
 
+    is_admin = models.BooleanField(default=False)
+
     class Meta:
-        verbose_name = "Администратор / Пользователь"
-        verbose_name_plural = "Администраторы / Пользователи"
+        verbose_name = "Админ / Пользователь"
+        verbose_name_plural = "Админы / Пользователи"

@@ -1,5 +1,8 @@
-# from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-#
-#
-# class UserAdmin(BaseUserAdmin):
-#     pass
+from django.contrib import admin
+
+from .models import User
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ["email", "id", "is_admin"]
