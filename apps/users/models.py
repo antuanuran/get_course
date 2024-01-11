@@ -46,4 +46,3 @@ class User(AbstractUser):
             "unique": _("A user with that username already exists."),
         },
     )
-
