@@ -33,6 +33,7 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+    # пробный комментарий
 
     objects = UserManager()
 
@@ -46,8 +47,3 @@ class User(AbstractUser):
         },
     )
 
-    is_admin = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name = "Админ / Пользователь"
-        verbose_name_plural = "Админы / Пользователи"
