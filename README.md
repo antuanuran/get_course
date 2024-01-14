@@ -35,3 +35,5 @@ MIRO: https://miro.com/app/board/uXjVMn6bPlI=/
 1. Проверить порты:  netstat -ntlp | grep 80
 2. Остановить порт:  fuser -n tcp -k 8000
 3. Остановить nginx: systemctl stop nginx
+
+Комментарий temp/branch
