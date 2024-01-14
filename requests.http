@@ -1,4 +1,4 @@
-### 1. Создать токен для дальнейшего использования 
+### 1. Создать токен для дальнейшего использования
 POST http://localhost:8000/auth/jwt/create/
 Content-Type: application/json
 
@@ -34,11 +34,11 @@ Authorization: JWT TOKEN JWT.................
 
 ### Дополнительно.
 
-### Вывод всех товаров с Фильтрацией, сортировкой и пагинацией. 
+### Вывод всех товаров с Фильтрацией, сортировкой и пагинацией.
 #    limit             - пагинация (кол-во на страницу)
-#    ordering          - сортировка 
+#    ordering          - сортировка
 #    product__category - сортировка по категории
-#    search            - поиск по слову  
+#    search            - поиск по слову
 GET http://localhost:8000/NAMES/?limit=5&ordering=-price&product__category=1&search=XS
 Content-Type: application/json
 Authorization: JWT TOKEN JWT.................
@@ -59,6 +59,6 @@ GET http://localhost:8000/auth/users/me/
 Authorization: JWT TOKEN JWT.................
 
 
-
+# коммит
 
 
