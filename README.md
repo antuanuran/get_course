@@ -37,3 +37,4 @@ MIRO: https://miro.com/app/board/uXjVMn6bPlI=/
 3. Остановить nginx: systemctl stop nginx
 
 комментарий temp2/branch2
+2 coomit
