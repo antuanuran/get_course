@@ -1,0 +1,64 @@
+### 1. Создать токен для дальнейшего использования
+POST http://localhost:8000/auth/jwt/create/
+Content-Type: application/json
+
+{
+  "email": "admin@admin.org",
+  "password": "admin"
+}
+
+# затем копируем значение (сам токен) по ключу: "access": "....." и вставляем ниже во всех запросах после префикса JWT [скопированный Токен]
+
+
+### 2. POST - запрос
+POST http://localhost:8000/NAMES/
+Content-Type: application/json
+Authorization: JWT TOKEN JWT.................
+
+{
+  "key": 1,
+  "key2": 2
+}
+
+
+### 3. PATCH - запрос
+PATCH http://localhost:8000/NAMES/
+Content-Type: application/json
+Authorization: JWT TOKEN JWT.................
+
+{
+  "key": "value"
+}
+
+
+
+### Дополнительно.
+
+### Вывод всех товаров с Фильтрацией, сортировкой и пагинацией.
+#    limit             - пагинация (кол-во на страницу)
+#    ordering          - сортировка
+#    product__category - сортировка по категории
+#    search            - поиск по слову
+GET http://localhost:8000/NAMES/?limit=5&ordering=-price&product__category=1&search=XS
+Content-Type: application/json
+Authorization: JWT TOKEN JWT.................
+
+
+###  Создание Юзера
+POST http://localhost:8000/auth/users/
+Content-Type: application/json
+
+{
+  "email": "admin5@admin.org",
+  "password": "develop12345"
+}
+
+
+### Проверка данных Юзера
+GET http://localhost:8000/auth/users/me/
+Authorization: JWT TOKEN JWT.................
+
+
+# коммит
+
+
