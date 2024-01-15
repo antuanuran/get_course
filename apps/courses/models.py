@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from taggit.managers import TaggableManager
 
 from apps.users.models import User
 
@@ -45,7 +46,11 @@ class Course(models.Model):
     price = models.PositiveIntegerField()
     poster = models.ImageField(upload_to="courses/posters/", null=True, blank=True)
     # TODO: add https://github.com/jazzband/django-taggit
+    # tags = TaggableManager()
 
     @property
     def free(self) -> bool:
-        return self.price == 0
+        if self.price == 0:
+            return "free"
+        else:
+            return "-"
