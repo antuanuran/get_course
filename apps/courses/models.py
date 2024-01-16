@@ -50,7 +50,4 @@ class Course(models.Model):
 
     @property
     def free(self) -> bool:
-        if self.price == 0:
-            return "free"
-        else:
-            return "-"
+        return self.price == 0
