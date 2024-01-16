@@ -18,7 +18,8 @@
 #                 course.save(update_fields=["product", "level"])
 #
 #             else:
-#                 course = Course.objects.create(product_id=product.id, level=entity["version"], upc=entity["product_id"])
+#                 course = Course.objects.create(product_id=product.id,
+#                 level=entity["version"], upc=entity["product_id"],)
 #
 #     else:
 #         raise ValidationError(f" format: '{data_format}' not supported")

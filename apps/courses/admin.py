@@ -15,4 +15,11 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ["name", "poster", "author", "price", "free"]
+    list_display = ["name", "tag_list", "poster", "author", "price", "free"]
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related("tags")
+
+    @admin.display()
+    def tag_list(self, obj: Course) -> str:
+        return ", ".join(o.name for o in obj.tags.all())

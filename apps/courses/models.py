@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 from taggit.managers import TaggableManager
 
@@ -39,14 +38,14 @@ class Course(models.Model):
             models.UniqueConstraint(fields=["product", "name"], name="unique_course_name_per_product"),
         ]
 
+    tags = TaggableManager(blank=True)
+
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="courses")
     name = models.CharField(max_length=100)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="courses")
     description = models.TextField(null=True, blank=True)
     price = models.PositiveIntegerField()
     poster = models.ImageField(upload_to="courses/posters/", null=True, blank=True)
-    # TODO: add https://github.com/jazzband/django-taggit
-    # tags = TaggableManager()
 
     @property
     def free(self) -> bool:
