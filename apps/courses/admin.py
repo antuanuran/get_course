@@ -15,7 +15,9 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ["name", "tag_list", "poster", "price", "author", "free"]
+    list_display = ["name", "tag_list", "poster", "price", "author", "is_sellable", "free"]
+    list_filter = ["is_sellable"]
+    filter_horizontal = ["favourites"]
 
     def get_queryset(self, request):
         return super().get_queryset(request).prefetch_related("tags")

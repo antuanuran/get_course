@@ -46,6 +46,9 @@ class Course(models.Model):
     description = models.TextField(null=True, blank=True)
     price = models.PositiveIntegerField()
     poster = models.ImageField(upload_to="courses/posters/", null=True, blank=True)
+    is_sellable = models.BooleanField(default=True)
+
+    favourites = models.ManyToManyField(User, related_name="favourites", blank=True)
 
     @property
     def free(self) -> bool:
