@@ -21,5 +21,5 @@ class CourseAdmin(admin.ModelAdmin):
         return super().get_queryset(request).prefetch_related("tags")
 
     @admin.display()
-    def tag_list(self, obj: Course) -> str:
-        return ", ".join(o.name for o in obj.tags.all())
+    def tag_list(self, obj: Course) -> list:
+        return list(obj.tags.all())

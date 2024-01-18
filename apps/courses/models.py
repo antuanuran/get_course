@@ -50,3 +50,6 @@ class Course(models.Model):
     @property
     def free(self) -> bool:
         return self.price == 0
+
+    def __str__(self) -> str:
+        return self.name
