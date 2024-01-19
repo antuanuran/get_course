@@ -45,6 +45,8 @@ class User(AbstractUser):
             "unique": _("A user with that username already exists."),
         },
     )
+    # purchases (ForeignKey: Purchase)
+    # favourites (ManyToManyField: Course)
 
     available_courses = models.ManyToManyField(
         "courses.Course",
@@ -52,3 +54,11 @@ class User(AbstractUser):
         related_name="users",
         blank=True,
     )
+
+    @property
+    def favourites_courses(self):
+        return " + ".join(i.name for i in self.favourites.all())
+
+    @property
+    def purchases_courses(self):
+        return " + ".join(i.name for i in self.available_courses.all())

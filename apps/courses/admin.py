@@ -25,3 +25,7 @@ class CourseAdmin(admin.ModelAdmin):
     @admin.display()
     def tag_list(self, obj: Course) -> list:
         return list(obj.tags.all())
+
+    @admin.display(boolean=True)
+    def free(self, obj):
+        return obj.free
