@@ -45,3 +45,12 @@ class User(AbstractUser):
             "unique": _("A user with that username already exists."),
         },
     )
+    # purchases (ForeignKey: Purchase)
+    # favourites (ManyToManyField: Course)
+
+    available_courses = models.ManyToManyField(
+        "courses.Course",
+        through="purchases.Purchase",
+        related_name="users",
+        blank=True,
+    )
