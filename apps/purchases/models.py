@@ -17,12 +17,8 @@ class Purchase(models.Model):
             self.price = self.course.price
         return super().save(*args, **kwargs)
 
-    @property
-    def purchase(self):
-        return f"Purchase №{self.id}"
-
     def __str__(self) -> str:
-        return self.course.name
+        return f"Purchase №{self.id}"
 
     class Meta:
         verbose_name = "покупка"

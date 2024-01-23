@@ -36,5 +36,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
+            options={"verbose_name": "покупка", "verbose_name_plural": "покупки"},
         ),
     ]
