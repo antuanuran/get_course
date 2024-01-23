@@ -1,13 +1,24 @@
-### 1. Создать токен для дальнейшего использования
-POST http://localhost:8000/auth/jwt/create/
+###  Создание Юзера
+POST http://localhost:8000/api/v1/auth/users/
 Content-Type: application/json
 
 {
-  "email": "admin@admin.org",
-  "password": "admin"
+  "email": "admin5@admin.org",
+  "password": "develop12345"
 }
 
-# затем копируем значение (сам токен) по ключу: "access": "....." и вставляем ниже во всех запросах после префикса JWT [скопированный Токен]
+### 1. Создать токен для дальнейшего использования
+POST http://localhost:8000/api/v1/auth/jwt/create/
+Content-Type: application/json
+
+{
+  "email": "admin5@admin.org",
+  "password": "develop12345"
+}
+
+### Проверка данных Юзера
+GET http://localhost:8000/api/v1/users/me/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1OTk2NjY1LCJpYXQiOjE3MDU5OTYzNjUsImp0aSI6ImVmYjUwNzVjMTEzMjQ3MTJiNTBkMzM4NzQxYjVkMzVhIiwidXNlcl9pZCI6Mn0.Uausx8_ximi1GMy4Qv9mcOAsBXyKClj-J5zKVyLceKc
 
 
 ### 2. POST - запрос
@@ -52,8 +63,3 @@ Content-Type: application/json
   "email": "admin5@admin.org",
   "password": "develop12345"
 }
-
-
-### Проверка данных Юзера
-GET http://localhost:8000/auth/users/me/
-Authorization: JWT TOKEN JWT.................

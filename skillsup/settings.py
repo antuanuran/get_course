@@ -28,12 +28,15 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "taggit",
+    "rest_framework",
+    "djoser",
 ]
 
 LOCAL_APPS = [
     "apps.users",
     "apps.courses",
     "apps.purchases",
+    "apps.api",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -125,3 +128,11 @@ MEDIA_ROOT = BASE_DIR / "media"
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
+}
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
