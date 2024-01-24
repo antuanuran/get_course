@@ -6,8 +6,8 @@ from apps.users.models import User
 
 class Category(models.Model):
     class Meta:
-        verbose_name = "направление"
-        verbose_name_plural = "направления"
+        verbose_name = "направление/линейка курсов"
+        verbose_name_plural = "направления/линейки курсов"
 
     name = models.CharField(max_length=100, unique=True)
 
@@ -41,8 +41,8 @@ class Course(models.Model):
     tags = TaggableManager(blank=True)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="courses")
-    name = models.CharField(max_length=100)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="courses")
+    name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     price = models.PositiveIntegerField()
     poster = models.ImageField(upload_to="courses/posters/", null=True, blank=True)
