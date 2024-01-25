@@ -1,5 +1,6 @@
 from django.contrib import admin
-from django.db.models import Count
+from django.db.models import Count, OuterRef, Subquery
+from django.db.models.functions import Coalesce
 
 from apps.courses.models import Course
 from apps.purchases.models import Purchase
@@ -31,13 +32,21 @@ class UserAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        # fav_subq = Course.favourites.through.objects.annotate(
-        #     fav_count=Count("course_id"),
-        # ).filter(user_id=OuterRef("id"))
+        favourites_sub_query = (
+            Course.favourites.through.objects.values("user_id")
+            .annotate(count=Count("course_id"))
+            .filter(user_id=OuterRef("id"))
+            .values("count")
+        )
+        purchases_sub_query = (
+            Purchase.objects.values("user_id")
+            .annotate(count=Count("course_id"))
+            .filter(user_id=OuterRef("id"))
+            .values("count")
+        )
         qs = qs.annotate(
-            # favourites_course_count=Subquery(fav_subq.values("fav_count")),
-            favourites_course_count=Count("favourites"),
-            purchases_course_count=Count("purchases"),
+            favourites_course_count=Coalesce(Subquery(favourites_sub_query), 0),
+            purchases_course_count=Coalesce(Subquery(purchases_sub_query), 0),
         )
         return qs
 
