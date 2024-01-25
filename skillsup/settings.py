@@ -1,3 +1,4 @@
+import datetime as dt
 import os
 from distutils.util import strtobool
 from pathlib import Path
@@ -135,4 +136,5 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
+    "ACCESS_TOKEN_LIFETIME": dt.timedelta(days=365),
 }
