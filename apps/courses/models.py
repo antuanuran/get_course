@@ -10,6 +10,7 @@ class Category(models.Model):
         verbose_name_plural = "направления/линейки курсов"
 
     name = models.CharField(max_length=100, unique=True)
+    # products
 
     def __str__(self):
         return self.name
@@ -49,6 +50,8 @@ class Course(models.Model):
     is_sellable = models.BooleanField(default=True)
 
     favourites = models.ManyToManyField(User, related_name="favourites", blank=True)
+    # purchases (Course.purchases) - ForeighnKey - Purchase
+    # lessons (Course.lessons) -  ForeighnKey - Lesson
 
     @property
     def free(self) -> bool:
@@ -65,6 +68,13 @@ class Lesson(models.Model):
 
     # videos
     # links
+
+    def __str__(self) -> str:
+        return f"Занятие: {self.name}"
+
+    class Meta:
+        verbose_name = "урок"
+        verbose_name_plural = "уроки"
 
 
 class Link(models.Model):

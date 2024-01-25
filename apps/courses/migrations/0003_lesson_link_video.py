@@ -23,6 +23,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
+            options={
+                "verbose_name": "урок",
+                "verbose_name_plural": "уроки",
+            },
         ),
         migrations.CreateModel(
             name="Link",

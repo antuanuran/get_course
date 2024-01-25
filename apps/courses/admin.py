@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import Count
 
-from .models import Category, Course, Lesson, Product
+from .models import Category, Course, Lesson, Link, Product, Video
 
 
 class ProductInline(admin.TabularInline):
@@ -11,21 +11,35 @@ class ProductInline(admin.TabularInline):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ["name", "id"]
+    list_display = ["name_category", "count_products", "id"]
     inlines = [ProductInline]
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.annotate(count_products=Count("products"))
+        return qs
 
-# @admin.register(Product)
-# class ProductAdmin(admin.ModelAdmin):
-#     list_display = ["name", "category", "id"]
+    @admin.display(description="кол-во линеек курсов", ordering="count_products")
+    def count_products(self, obj):
+        return obj.count_products
+
+    @admin.display(description="направление", ordering="name_category")
+    def name_category(self, obj):
+        return obj.name
+
+
+class LessonInline(admin.TabularInline):
+    model = Lesson
+    extra = 0
 
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ["name_course", "tag_list", "poster", "price", "author", "is_sellable", "free"]
+    list_display = ["name_course", "tag_list", "poster", "price", "author", "is_sellable", "free", "id"]
     list_filter = ["is_sellable"]
     filter_horizontal = ["favourites"]
     search_fields = ["name"]
+    inlines = [LessonInline]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -45,6 +59,21 @@ class CourseAdmin(admin.ModelAdmin):
         return obj.name
 
 
+class LinkInline(admin.TabularInline):
+    model = Link
+    extra = 0
+
+
+class VideoInline(admin.TabularInline):
+    model = Video
+    extra = 0
+
+
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ["name", "id"]
+    list_display = ["name_lesson", "course", "id"]
+    inlines = [LinkInline, VideoInline]
+
+    @admin.display(description="название урока", ordering="id")
+    def name_lesson(self, obj):
+        return f"Курс: {obj.course.name} (id курса={obj.course.id}). Название занятия: {obj.name}"
