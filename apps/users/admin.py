@@ -31,7 +31,14 @@ class UserAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.annotate(favourites_course_count=Count("favourites"), purchases_course_count=Count("purchases"))
+        # fav_subq = Course.favourites.through.objects.annotate(
+        #     fav_count=Count("course_id"),
+        # ).filter(user_id=OuterRef("id"))
+        qs = qs.annotate(
+            # favourites_course_count=Subquery(fav_subq.values("fav_count")),
+            favourites_course_count=Count("favourites"),
+            purchases_course_count=Count("purchases"),
+        )
         return qs
 
     @admin.display(description="favourite count", ordering="favourites_course_count")

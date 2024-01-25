@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import Count
 
-from .models import Category, Course, Product
+from .models import Category, Course, Lesson, Product
 
 
 class ProductInline(admin.TabularInline):
@@ -36,10 +36,15 @@ class CourseAdmin(admin.ModelAdmin):
     def tag_list(self, obj):
         return obj.tag_list
 
-    @admin.display(boolean=True)
+    @admin.display(boolean=True, ordering="price")
     def free(self, obj):
         return obj.free
 
-    @admin.display(description="полное название курса")
+    @admin.display(description="полное название курса", ordering="name")
     def name_course(self, obj):
         return obj.name
+
+
+@admin.register(Lesson)
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ["name", "id"]
