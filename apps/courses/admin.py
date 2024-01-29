@@ -77,3 +77,8 @@ class LessonAdmin(admin.ModelAdmin):
     @admin.display(description="название урока", ordering="id")
     def name_lesson(self, obj):
         return f"Курс: {obj.course.name} (id курса={obj.course.id}). Название занятия: {obj.name}"
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ["name", "id", "category"]

@@ -32,10 +32,20 @@ https://jwt.io/
 
 
 
-# 2. COURSES (просмотр всех курсов)
+# 2. COURSES
 
 ###  Просмотр всех курсов
 GET http://localhost:8000/api/v1/courses/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
+
+
+###  Сортировка и Фильтрация курсов
+GET http://localhost:8000/api/v1/courses/?ordering=price&product=3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
+
+
+### Загрузка файла
+POST http://localhost:8000/api/v1/import/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
 
 

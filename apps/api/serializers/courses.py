@@ -45,7 +45,7 @@ class CourseSerializer(TaggitSerializer, serializers.ModelSerializer):
             "price",
             "tags",
             # "description",
-            # "product",
+            "product",
             "is_sellable",
             "is_purchased",
             "is_favourite",

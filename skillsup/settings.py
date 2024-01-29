@@ -31,6 +31,7 @@ THIRD_PARTY_APPS = [
     "taggit",
     "rest_framework",
     "djoser",
+    "django_filters",
 ]
 
 LOCAL_APPS = [
