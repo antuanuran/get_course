@@ -1,3 +1,4 @@
+import datetime as dt
 import os
 from distutils.util import strtobool
 from pathlib import Path
@@ -30,6 +31,7 @@ THIRD_PARTY_APPS = [
     "taggit",
     "rest_framework",
     "djoser",
+    "django_filters",
 ]
 
 LOCAL_APPS = [
@@ -135,4 +137,5 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
+    "ACCESS_TOKEN_LIFETIME": dt.timedelta(days=365),
 }

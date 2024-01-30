@@ -1,65 +1,52 @@
-###  Создание Юзера
-POST http://localhost:8000/api/v1/auth/users/
+# Работаем через Postman.
+# https://skills-up.postman.co/workspace/skills-up~532ccf51-bc2b-4914-ac2d-6ad0831f096c/overview
+
+# 1. USER (создание, токен, проверка)
+
+### Создание Юзера
+POST http://localhost:8000/api/v1/users/
 Content-Type: application/json
 
 {
-  "email": "admin5@admin.org",
+  "email": "admin10@admin.org",
   "password": "develop12345"
 }
 
-### 1. Создать токен для дальнейшего использования
+### Создать TOKEN для Юзера
 POST http://localhost:8000/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
-  "email": "admin5@admin.org",
+  "email": "admin10@admin.org",
   "password": "develop12345"
 }
 
 ### Проверка данных Юзера
 GET http://localhost:8000/api/v1/users/me/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1OTk2NjY1LCJpYXQiOjE3MDU5OTYzNjUsImp0aSI6ImVmYjUwNzVjMTEzMjQ3MTJiNTBkMzM4NzQxYjVkMzVhIiwidXNlcl9pZCI6Mn0.Uausx8_ximi1GMy4Qv9mcOAsBXyKClj-J5zKVyLceKc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
 
 
-### 2. POST - запрос
-POST http://localhost:8000/NAMES/
-Content-Type: application/json
-Authorization: JWT TOKEN JWT.................
-
-{
-  "key": 1,
-  "key2": 2
-}
-
-
-### 3. PATCH - запрос
-PATCH http://localhost:8000/NAMES/
-Content-Type: application/json
-Authorization: JWT TOKEN JWT.................
-
-{
-  "key": "value"
-}
+### Проверка самого Токена
+https://jwt.io/
+#*********************************************************************************************
 
 
 
-### Дополнительно.
+# 2. COURSES
 
-### Вывод всех товаров с Фильтрацией, сортировкой и пагинацией.
-#    limit             - пагинация (кол-во на страницу)
-#    ordering          - сортировка
-#    product__category - сортировка по категории
-#    search            - поиск по слову
-GET http://localhost:8000/NAMES/?limit=5&ordering=-price&product__category=1&search=XS
-Content-Type: application/json
-Authorization: JWT TOKEN JWT.................
+###  Просмотр всех курсов
+GET http://localhost:8000/api/v1/courses/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
 
 
-###  Создание Юзера
-POST http://localhost:8000/auth/users/
-Content-Type: application/json
+###  Сортировка и Фильтрация курсов
+GET http://localhost:8000/api/v1/courses/?ordering=price&product=3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
 
-{
-  "email": "admin5@admin.org",
-  "password": "develop12345"
-}
+
+### Загрузка файла
+POST http://localhost:8000/api/v1/import/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
+
+
+###

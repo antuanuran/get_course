@@ -22,8 +22,8 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=100, unique=True)),
             ],
             options={
-                "verbose_name": "направление",
-                "verbose_name_plural": "направления",
+                "verbose_name": "направление/линейка курсов",
+                "verbose_name_plural": "направления/линейки курсов",
             },
         ),
         migrations.CreateModel(
