@@ -7,10 +7,7 @@ from apps.courses.models import Course, Lesson, Link, Video
 class LinksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Link
-        fields = [
-            "description",
-            "link",
-        ]
+        fields = ["description", "link"]
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -44,7 +41,7 @@ class CourseSerializer(TaggitSerializer, serializers.ModelSerializer):
             "poster",
             "price",
             "tags",
-            # "description",
+            "description",
             "product",
             "is_sellable",
             "is_purchased",
