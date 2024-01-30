@@ -1,34 +1,37 @@
+from dynamic_rest.fields import DynamicRelationField
 from rest_framework import serializers
 from taggit.serializers import TaggitSerializer, TagListSerializerField
 
+from apps.api.serializers.base import BaseModelSerializer
+from apps.api.serializers.users import UserSerializer
 from apps.courses.models import Course, Lesson, Link, Video
 
 
-class LinksSerializer(serializers.ModelSerializer):
+class LinksSerializer(BaseModelSerializer):
     class Meta:
         model = Link
         fields = ["description", "link"]
 
 
-class VideoSerializer(serializers.ModelSerializer):
+class VideoSerializer(BaseModelSerializer):
     class Meta:
         model = Video
         fields = ["description", "video"]
 
 
-class LessonSerializer(serializers.ModelSerializer):
-    links = LinksSerializer(read_only=True, many=True)
-    videos = VideoSerializer(read_only=True, many=True)
+class LessonSerializer(BaseModelSerializer):
+    links = DynamicRelationField(LinksSerializer, read_only=True, many=True)
+    videos = DynamicRelationField(VideoSerializer, read_only=True, many=True)
     lesson = serializers.CharField(source="name")
 
     class Meta:
         model = Lesson
-        fields = ["lesson", "links", "videos"]
+        fields = ["lesson", "links", "videos", "annotation"]
 
 
-class CourseSerializer(TaggitSerializer, serializers.ModelSerializer):
-    lessons = LessonSerializer(read_only=True, many=True)
-    author_course = serializers.SlugRelatedField(slug_field="email", read_only=True, source="author")
+class CourseSerializer(TaggitSerializer, BaseModelSerializer):
+    lessons = DynamicRelationField(LessonSerializer, read_only=True, many=True)
+    author = DynamicRelationField(UserSerializer, read_only=True)
     name_course = serializers.CharField(source="name")
     id_course = serializers.IntegerField(source="id")
 
@@ -37,7 +40,7 @@ class CourseSerializer(TaggitSerializer, serializers.ModelSerializer):
         fields = [
             "id_course",
             "name_course",
-            "author_course",
+            "author",
             "poster",
             "price",
             "tags",

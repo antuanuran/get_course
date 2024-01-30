@@ -32,6 +32,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "djoser",
     "django_filters",
+    "dynamic_rest",
 ]
 
 LOCAL_APPS = [
