@@ -32,21 +32,29 @@ https://jwt.io/
 
 
 
-# 2. COURSES
+# 2. COURSES (Просмотр всех курсов)
 
-###  Просмотр всех курсов
+### Без авторизации выводится весь список действующих курсов, is_selible=True. При авторизации - добавляются те курсы, которые уже куплены текущим юзером)
 GET http://localhost:8000/api/v1/courses/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
 
 
-###  Сортировка и Фильтрация курсов
-GET http://localhost:8000/api/v1/courses/?ordering=price&product=3
+# 3. ДИНАМИЧЕСКИЙ ПРОСМОТР с фильтрацией и исключением/добавлением полей:
+
+### 1. Исключаем поле "description"
+GET http://localhost:8000/api/v1/courses/?exclude[]=description
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
+
+### 2. Добавляем поле
+GET http://localhost:8000/api/v1/courses/?exclude[]=description&include[]=lessons.*
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
 
 
-### Загрузка файла
-POST http://localhost:8000/api/v1/import/
+### 3. Добавляем вложенную группу Videos
+GET http://localhost:8000/api/v1/courses/?include[]=lessons.videos.*
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
 
 
-###
+### 4. Добавили вложенного автора
+GET http://localhost:8000/api/v1/courses/?include[]=author.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s

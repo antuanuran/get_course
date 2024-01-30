@@ -7,26 +7,32 @@ from apps.api.serializers.users import UserSerializer
 from apps.courses.models import Course, Lesson, Link, Video
 
 
-class LinksSerializer(BaseModelSerializer):
+class LinkSerializer(BaseModelSerializer):
     class Meta:
         model = Link
-        fields = ["description", "link"]
+        fields = ["id", "description", "link"]
 
 
 class VideoSerializer(BaseModelSerializer):
     class Meta:
         model = Video
-        fields = ["description", "video"]
+        fields = ["id", "description", "video"]
 
 
 class LessonSerializer(BaseModelSerializer):
-    links = DynamicRelationField(LinksSerializer, read_only=True, many=True)
+    links = DynamicRelationField(LinkSerializer, read_only=True, many=True)
     videos = DynamicRelationField(VideoSerializer, read_only=True, many=True)
     lesson = serializers.CharField(source="name")
 
     class Meta:
         model = Lesson
-        fields = ["lesson", "links", "videos", "annotation"]
+        fields = [
+            "lesson",
+            "id",
+            "annotation",
+            "links",
+            "videos",
+        ]
 
 
 class CourseSerializer(TaggitSerializer, BaseModelSerializer):
