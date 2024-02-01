@@ -5,4 +5,4 @@ from apps.holder.models import Video
 
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ["name", "video_link", "id"]
+    list_display = ["name", "file", "id"]

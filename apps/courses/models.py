@@ -1,6 +1,7 @@
 from django.db import models
 from taggit.managers import TaggableManager
 
+from apps.holder.models import Video
 from apps.users.models import User
 
 
@@ -65,8 +66,8 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
     name = models.CharField(max_length=100)
     annotation = models.TextField(null=True, blank=True)
+    videos = models.ManyToManyField(Video, related_name="+", blank=True)
 
-    # videos (ManyToMany) - Lesson.videos
     # links
 
     def __str__(self) -> str:
