@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import Count
 
-from .models import Category, Course, Lesson, Link, Product, Video
+from .models import Category, Course, Lesson, Link, Product
 
 
 class ProductInline(admin.TabularInline):
@@ -65,14 +65,16 @@ class LinkInline(admin.TabularInline):
 
 
 class VideoInline(admin.TabularInline):
-    model = Video
+    model = Lesson.videos.through
     extra = 0
+    raw_id_fields = ["video"]
 
 
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     list_display = ["name_lesson", "course", "id"]
     inlines = [LinkInline, VideoInline]
+    exclude = ["videos"]
 
     @admin.display(description="название урока", ordering="id")
     def name_lesson(self, obj):

@@ -32,6 +32,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "djoser",
     "django_filters",
+    "dynamic_rest",
 ]
 
 LOCAL_APPS = [
@@ -39,6 +40,7 @@ LOCAL_APPS = [
     "apps.courses",
     "apps.purchases",
     "apps.api",
+    "apps.holder",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
