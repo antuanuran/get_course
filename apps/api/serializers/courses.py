@@ -3,6 +3,7 @@ from rest_framework import serializers
 from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 from apps.api.serializers.base import BaseModelSerializer
+from apps.api.serializers.holder import VideoSerializer
 from apps.api.serializers.users import UserSerializer
 from apps.courses.models import Course, Lesson, Link
 
@@ -15,6 +16,7 @@ class LinkSerializer(BaseModelSerializer):
 
 class LessonSerializer(BaseModelSerializer):
     links = DynamicRelationField(LinkSerializer, read_only=True, many=True)
+    videos = DynamicRelationField(VideoSerializer, read_only=True, many=True)
     lesson = serializers.CharField(source="name")
 
     class Meta:
@@ -24,6 +26,7 @@ class LessonSerializer(BaseModelSerializer):
             "id",
             "annotation",
             "links",
+            "videos",
         ]
 
 
