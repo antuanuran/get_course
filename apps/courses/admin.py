@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.db.models import Count
 
-from .models import Category, Course, Lesson, Link, Product, Video
+from apps.holder.models import Video
+
+from .models import Category, Course, Lesson, Link, Product
 
 
 class ProductInline(admin.TabularInline):
@@ -65,7 +67,7 @@ class LinkInline(admin.TabularInline):
 
 
 class VideoInline(admin.TabularInline):
-    model = Video
+    model = Video.lessons.through
     extra = 0
 
 
