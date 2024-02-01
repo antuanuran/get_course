@@ -63,3 +63,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 ### 4. Добавили вложенного автора
 GET http://localhost:8000/api/v1/courses/?include[]=author.*
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzkzMTM3LCJpYXQiOjE3MDYyNTcxMzcsImp0aSI6IjRlZGQzMDQzYjRjMDQxZWE4MzllNWE5NzM4MGNjOGFlIiwidXNlcl9pZCI6MTl9.j1vX6WJjow9NsxCkvThxNQ1fhQXSw4CkZT3sOy12M7s
+
+###
+POST http://localhost:8000/api/v1/courses/1/toggle-favourite/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzA5MDgzLCJpYXQiOjE3MDY3NzMwODMsImp0aSI6IjA5YzRhMWUwMDY4YjRkZGRiMDcyNzRkM2QzNmM2ZjkxIiwidXNlcl9pZCI6NH0.gjqfAg2jx2IkqIWlKsCo8UHkvqjYdZCMzlazWc4dQUw
