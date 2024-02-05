@@ -27,13 +27,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = [
-    "taggit",
-    "rest_framework",
-    "djoser",
-    "django_filters",
-    "dynamic_rest",
-]
+THIRD_PARTY_APPS = ["taggit", "rest_framework", "djoser", "django_filters", "dynamic_rest", "drf_yasg"]
 
 LOCAL_APPS = [
     "apps.users",
@@ -140,6 +134,13 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
     "ACCESS_TOKEN_LIFETIME": dt.timedelta(days=365),
+}
+
+SWAGGER_SETTINGS = {
+    "USE_SESSION_AUTH": False,
+    "SECURITY_DEFINITIONS": {
+        "JWT": {"type": "apiKey", "name": "Authorization", "in": "header"},
+    },
 }
 
 DYNAMIC_REST = {
