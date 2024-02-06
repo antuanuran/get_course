@@ -139,7 +139,7 @@ SIMPLE_JWT = {
 SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
     "SECURITY_DEFINITIONS": {
-        "JWT": {"type": "apiKey", "name": "Authorization", "in": "header"},
+        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"},
     },
 }
 
