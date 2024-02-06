@@ -71,3 +71,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 ###
 POST http://localhost:8000/api/v1/courses/3/toggle-favourite/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NTYwNjAwLCJpYXQiOjE3MDcwMjQ2MDAsImp0aSI6IjI5NmVkZDA3MTM3ZjQ2ZmY4MTIwNjc5YjE5OWMzNzY5IiwidXNlcl9pZCI6Mn0.v9F4G4yLT1y6bKA2_MS6sV1AU-q_XU2H6iSFngXGINE
+
+###
+POST http://localhost:8000/api/v1/purchases/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NzQyNjUyLCJpYXQiOjE3MDcyMDY2NTIsImp0aSI6ImY2YjYxNGUwZjQzMzQzNjhiZWZiM2NmNzIyNTM0NDVjIiwidXNlcl9pZCI6NH0.2OrJ11gWyvdiNSvJaJHgBiHqvhPwx5fh6uQ9WgfW1es
+Content-Type: application/json
+
+{
+  "course_id": 2
+}
