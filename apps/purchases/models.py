@@ -12,6 +12,8 @@ class Purchase(models.Model):
         CANCELED_BY_MANAGER = "CANCELED_BY_MANAGER"
         REFUND = "REFUND"
         COMPLETED = "COMPLETED"
+        SUSPECTED = "SUSPECTED"
+        FAILED = "FAILED"
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="purchases")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="purchases")

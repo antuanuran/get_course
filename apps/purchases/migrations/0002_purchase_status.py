@@ -19,6 +19,8 @@ class Migration(migrations.Migration):
                     ("CANCELED_BY_MANAGER", "Canceled By Manager"),
                     ("REFUND", "Refund"),
                     ("COMPLETED", "Completed"),
+                    ("SUSPECTED", "Suspected"),
+                    ("FAILED", "Failed"),
                 ],
                 default="CREATED",
                 max_length=20,

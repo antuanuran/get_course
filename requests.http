@@ -21,7 +21,7 @@ POST http://localhost:8000/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
-  "email": "admin15@admin.org",
+  "email": "admin10@admin.org",
   "password": "develop12345"
 }
 
@@ -79,14 +79,29 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### 4.1 Просмотр всех покупок + описание курсов
 GET http://localhost:8000/api/v1/purchases/?include[]=course.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODE0OTMwLCJpYXQiOjE3MDcyNzg5MzAsImp0aSI6IjkzODBiNGZhYTkzODRkOGRiNjlmNGJhOTkzYjQwMWI2IiwidXNlcl9pZCI6M30.4MzaMQXHXLfmYk1ZxsZjy7d8StYgVZUsflGISJ_C_a4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4OTE2MTQ4LCJpYXQiOjE3MDczODAxNDgsImp0aSI6ImJiMWVmMzUxMDNjMTQ1NmY4MTcyODZmN2E0MjllNjhmIiwidXNlcl9pZCI6NH0.FMihKoX6cHltb8Ks5W8KaRd51JzatlUD2qKUmMvOfxk
 
 
 ### 4.2 Добавление курса в покупку
 POST http://localhost:8000/api/v1/purchases/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODE0OTMwLCJpYXQiOjE3MDcyNzg5MzAsImp0aSI6IjkzODBiNGZhYTkzODRkOGRiNjlmNGJhOTkzYjQwMWI2IiwidXNlcl9pZCI6M30.4MzaMQXHXLfmYk1ZxsZjy7d8StYgVZUsflGISJ_C_a4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4OTE2MTQ4LCJpYXQiOjE3MDczODAxNDgsImp0aSI6ImJiMWVmMzUxMDNjMTQ1NmY4MTcyODZmN2E0MjllNjhmIiwidXNlcl9pZCI6NH0.FMihKoX6cHltb8Ks5W8KaRd51JzatlUD2qKUmMvOfxk
 Content-Type: application/json
 
 {
-  "course_id": 3
+  "course_id": 1
+}
+
+### 4.3 Получение ссылки на оплату
+GET http://localhost:8000/api/v1/purchases/7/payment-link/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4OTE2MTQ4LCJpYXQiOjE3MDczODAxNDgsImp0aSI6ImJiMWVmMzUxMDNjMTQ1NmY4MTcyODZmN2E0MjllNjhmIiwidXNlcl9pZCI6NH0.FMihKoX6cHltb8Ks5W8KaRd51JzatlUD2qKUmMvOfxk
+Content-Type: application/json
+
+### 4.4 Ответ от Leadpay
+POST http://localhost:8000/api/v1/leadpay-notification/
+Content-Type: application/json
+
+{
+  "status": "success",
+  "summa": "1",
+  "order_id": "7"
 }
