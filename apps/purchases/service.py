@@ -1,7 +1,6 @@
 import hmac
 
 import requests
-from django.urls import reverse
 
 from apps.purchases.models import Purchase
 
@@ -25,13 +24,14 @@ def generate_leadpay_payment_link(purchase: Purchase) -> str:
         email=purchase.user.email,
         phone="+79991112233",  # TODO: add phone to User model
         fio=purchase.user.get_full_name(),
-        notification_url=reverse("leadpay-notification"),  # TODO: add BASE_URL
+        notification_url="http://localhost:8000/api/v1/leadpay-notification/",  # TODO: add BASE_URL
     )
 
     payload["hash"] = calc_payload_hash(payload, "SECRET")
 
+    # Делаем фейковый Post-запрос на адрес (якобы платежного Шлюза)
     response = requests.post(
-        "https://app.leadpay.ru/api/v2/getLink/",
+        "http://localhost:8000/api/v1/fake-leadpay-link/",  # https://app.leadpay.ru/api/v2/getLink/
         json=payload,
     )
     if response.status_code != 200:
@@ -40,4 +40,6 @@ def generate_leadpay_payment_link(purchase: Purchase) -> str:
         except Exception as ex:
             raise LeadpayError(f"Unexpected error in Leadpay: {ex}")
         raise LeadpayError(error)
-    return response.json()["url"]
+
+    fake_link = response.json()["url"]
+    return fake_link

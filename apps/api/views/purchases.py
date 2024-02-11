@@ -33,7 +33,7 @@ class PurchaseViewSet(BaseModelViewSet):
         except LeadpayError as ex:
             raise APIException(detail=str(ex), code=status.HTTP_424_FAILED_DEPENDENCY)
 
-        return Response({"link": link}, status=status.HTTP_200_OK)
+        return Response({"link for pay: ": link}, status=status.HTTP_200_OK)
 
 
 @api_view(http_method_names=["post"])
@@ -50,4 +50,22 @@ def notification_link(request, *args, **kwargs):
         actual_status = obj.Status.SUSPECTED
     obj.status = actual_status
     obj.save(update_fields=["status"])
-    return Response(status=status.HTTP_200_OK)
+
+    if obj.status == obj.Status.COMPLETED:
+        return Response(
+            f"Спасибо за покупку курса: '{obj.course.name}'. Оплата прошла успешно!", status=status.HTTP_200_OK
+        )
+    else:
+        return Response(
+            f"К сожалению, оплата по курсу: '{obj.course.name}' не прошла. Попробуйте снова!", status=status.HTTP_200_OK
+        )
+
+
+# Создали Фейковый адрес (якобы Шлюза для отправки Post-запроса на получения ссылки для оплаты)
+@api_view(http_method_names=["post"])
+@permission_classes([AllowAny])
+def fake_leadpay_link(request, *args, **kwargs):
+    data = request.data
+    link_result_pay = {"url": f'http://{data["login"]}/{data["email"]}/id-{data["id"]}/{data["hash"]}'}
+
+    return Response(link_result_pay, status=status.HTTP_200_OK)
