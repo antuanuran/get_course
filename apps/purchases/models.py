@@ -36,3 +36,13 @@ class Purchase(models.Model):
         constraints = [
             models.UniqueConstraint(name="unique_course_per_user", fields=["user", "course"]),
         ]
+
+
+class LinkPay(models.Model):
+    purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE, related_name="links_pays")
+    reference = models.URLField(max_length=500, unique=False, blank=True, null=True)
+
+    # def save(self, *args, **kwargs):
+    #     if self.reference is None:
+    #         self.reference = f"http://link/"
+    #     return super().save(*args, **kwargs)
