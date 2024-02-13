@@ -23,7 +23,12 @@ class LinkAdmin(admin.ModelAdmin):
     @admin.display()
     def link_pay(self, obj):
         purch_obj = obj.purchase
-        link = generate_leadpay_payment_link(purch_obj)
-        obj.reference = link
-        obj.save(update_fields=["reference"])
-        return link
+
+        if obj.reference is None:
+            link = generate_leadpay_payment_link(purch_obj)
+            obj.reference = link
+            obj.save(update_fields=["reference"])
+            return link
+
+        else:
+            return obj.reference

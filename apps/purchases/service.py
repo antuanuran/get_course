@@ -42,6 +42,6 @@ def generate_leadpay_payment_link(purchase: Purchase) -> str:
         raise LeadpayError(error)
 
     fake_link = response.json()["url"]
-    print("********")
+    print("Запрос отправлен. Ссылка получена:")
     print(fake_link)
     return fake_link
