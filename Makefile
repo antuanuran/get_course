@@ -6,9 +6,10 @@ superuser:
 	python manage.py createsuperuser
 
 run: superuser
+	python manage.py import_data data_all/import.csv
 	python manage.py runserver
 
 
 min:
-	python manage.py migrate
+	python manage.py import_data data_all/import.csv
 	python manage.py runserver
