@@ -43,11 +43,11 @@ POST http://localhost:8000/api/v1/users/
 Content-Type: application/json
 
 {
-  "email": "admin15@admin.org",
+  "email": "admin10@admin.org",
   "password": "develop12345"
 }
 
-#____________________________________________________________________________#
+###____________________________________________________________________________#
 
 
 # 2. TOKEN
@@ -57,11 +57,11 @@ POST http://localhost:8000/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
-  "email": "admin15@admin.org",
+  "email": "admin10@admin.org",
   "password": "develop12345"
 }
 
-#____________________________________________________________________________#
+###____________________________________________________________________________#
 
 
 # 3. COURSES
@@ -89,7 +89,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 
 ### 3.4. Добавили вложенного автора
 GET http://localhost:8000/api/v1/courses/?include[]=author.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTE5Nzg1LCJpYXQiOjE3MDc5ODM3ODUsImp0aSI6IjZjMTE0NmE4ZTgyNDRiY2M5OTRjNzAyZTdlODczZjgwIiwidXNlcl9pZCI6NH0.LRVHqYh185MFNNzUjeJoEtV6zYK2qKGIlTXKI9eq41c
+
+
+
+
+### 3.5. Получить уроки
+GET http://localhost:8000/api/v1/lessons/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTE5Nzg1LCJpYXQiOjE3MDc5ODM3ODUsImp0aSI6IjZjMTE0NmE4ZTgyNDRiY2M5OTRjNzAyZTdlODczZjgwIiwidXNlcl9pZCI6NH0.LRVHqYh185MFNNzUjeJoEtV6zYK2qKGIlTXKI9eq41c
 
 
 #____________________________________________________________________________#

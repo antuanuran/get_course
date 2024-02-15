@@ -4,6 +4,7 @@ from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 from apps.api.serializers.base import BaseModelSerializer
 from apps.api.serializers.holder import VideoSerializer
+from apps.api.serializers.purchases import PurchaseSerializer
 from apps.api.serializers.users import UserSerializer
 from apps.courses.models import Course, Lesson, Link
 
@@ -48,18 +49,21 @@ class CourseSerializer(TaggitSerializer, BaseModelSerializer):
             "description",
             "product",
             "is_sellable",
-            "is_purchased",
+            "purchase",
             "is_favourite",
             "lessons",
         ]
 
     tags = TagListSerializerField()
-    is_purchased = serializers.SerializerMethodField()
+    purchase = serializers.SerializerMethodField()
     is_favourite = serializers.SerializerMethodField()
 
-    def get_is_purchased(self, obj: Course):
+    def get_purchase(self, obj: Course):
         current_user = self.context["request"].user.id
-        return obj.purchases.filter(user_id=current_user).exists()
+        obj = obj.purchases.filter(user_id=current_user).first()
+        if obj is None:
+            return None
+        return PurchaseSerializer(instance=obj).data
 
     def get_is_favourite(self, obj: Course):
         current_user = self.context["request"].user.id
