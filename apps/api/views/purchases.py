@@ -66,6 +66,6 @@ def notification_link(request, *args, **kwargs):
 @permission_classes([AllowAny])
 def fake_leadpay_link(request, *args, **kwargs):
     data = request.data
-    link_result_pay = {"url": f'http://{data["login"]}/{data["email"]}/id-{data["id"]}/{data["hash"]}'}
+    link_result_pay = {"url": f'http://{data["login"]}.ru/id-{data["id"]}/{data["hash"]}'}
 
     return Response(link_result_pay, status=status.HTTP_200_OK)
