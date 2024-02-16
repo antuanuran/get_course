@@ -11,8 +11,8 @@
 # ПЛАТЕЖНЫЙ ШЛЮЗ
 
 ### 1. Получение ссылки на оплату. Работаем с конкретным объектом
-GET http://localhost:8000/api/v1/purchases/4/payment-link/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5MTY5NTEyLCJpYXQiOjE3MDc2MzM1MTIsImp0aSI6Ijg5ZjkyN2IwMDgxZjQwNTY4M2RjZmFiYzY0MmU4NWY0IiwidXNlcl9pZCI6Mn0.F5axyM4P1arruwxQAQ6fZB7fZlNpfaPk58b_HIX1MOY
+GET http://localhost:8000/api/v1/purchases/1/payment-link/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NjAwODAxLCJpYXQiOjE3MDgwNjQ4MDEsImp0aSI6IjkzNmFjNjRmM2UzNDRiYjY4NTNhZjJjNDI1YzMzZmVhIiwidXNlcl9pZCI6MX0.6D_ycaz5ZBiFfc-7g4viu94xQGcTxrj0Tc1orMfZLQA
 Content-Type: application/json
 
 
@@ -22,8 +22,8 @@ Content-Type: application/json
 
 {
   "status": "success",
-  "summa": "2555",
-  "order_id": "4"
+  "summa": "10000",
+  "order_id": "1"
 }
 
 
@@ -57,8 +57,8 @@ POST http://localhost:8000/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
-  "email": "admin10@admin.org",
-  "password": "develop12345"
+  "email": "admin@admin.org",
+  "password": "admin"
 }
 
 ###____________________________________________________________________________#

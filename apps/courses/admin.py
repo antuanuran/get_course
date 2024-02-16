@@ -1,5 +1,8 @@
 from django.contrib import admin
 from django.db.models import Count
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import path, reverse
+from django.utils.safestring import mark_safe
 
 from .models import Category, Course, Lesson, Link, Product
 
@@ -35,7 +38,7 @@ class LessonInline(admin.TabularInline):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ["name_course", "tag_list", "poster", "price", "author", "is_sellable", "free", "id"]
+    list_display = ["name_course", "sellable", "tag_list", "poster", "price", "author", "is_sellable", "free", "id"]
     list_filter = ["is_sellable"]
     filter_horizontal = ["favourites"]
     search_fields = ["name"]
@@ -57,6 +60,29 @@ class CourseAdmin(admin.ModelAdmin):
     @admin.display(description="полное название курса", ordering="name")
     def name_course(self, obj):
         return obj.name
+
+    @admin.display(description="активировать / закрыть курс", ordering="name")
+    def sellable(self, obj: Course):
+        link = reverse("admin:sel", args=[obj.id])
+        return mark_safe(f"<a href='{link}'> вкл/выкл </a>")
+
+    def get_urls(self):
+        urls = [
+            path("<obj_id>/sellable/", self.sellable_viewset, name="sel"),
+        ] + super().get_urls()
+        return urls
+
+    def sellable_viewset(self, request, obj_id, *args, **kwargs):
+        obj = get_object_or_404(Course, id=obj_id)
+        if obj.is_sellable:
+            obj.is_sellable = False
+            obj.save(update_fields=["is_sellable"])
+
+        else:
+            obj.is_sellable = True
+            obj.save(update_fields=["is_sellable"])
+
+        return redirect("http://127.0.0.1:8000/admin/courses/course/")
 
 
 class LinkInline(admin.TabularInline):

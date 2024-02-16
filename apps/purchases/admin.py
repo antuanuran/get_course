@@ -22,15 +22,16 @@ class PurchaseAdmin(admin.ModelAdmin):
     def payment_link(self, obj: Purchase):
         if obj.status == obj.Status.COMPLETED:
             return "-"
-        link = reverse("admin:admin_payment_link", args=[obj.id])
-        return mark_safe(f"<a href='{link}' target='_blank' rel='noopener noreferrer'>Оплатить</a>")
+        link = reverse("admin:my_link", args=[obj.id])
+        return mark_safe(f"<a href='{link}' target='_blank'> Оплатить </a>")
 
     def get_urls(self):
         urls = [
-            path("<path:object_id>/payment_link/", self._generate_leadpay_payment_link, name="admin_payment_link"),
+            path("<object_id>/payment_link/", self._generate_leadpay_payment_link, name="my_link"),
         ] + super().get_urls()
         return urls
 
-    def _generate_leadpay_payment_link(self, request, object_id: int, *args, **kwargs):
+    def _generate_leadpay_payment_link(self, request, object_id, *args, **kwargs):
         obj = get_object_or_404(Purchase, id=object_id)
-        return redirect(generate_leadpay_payment_link(obj))
+        link = generate_leadpay_payment_link(obj)
+        return redirect(link)
