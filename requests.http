@@ -11,8 +11,8 @@
 # ПЛАТЕЖНЫЙ ШЛЮЗ
 
 ### 1. Получение ссылки на оплату. Работаем с конкретным объектом
-GET http://localhost:8000/api/v1/purchases/4/payment-link/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5MTY5NTEyLCJpYXQiOjE3MDc2MzM1MTIsImp0aSI6Ijg5ZjkyN2IwMDgxZjQwNTY4M2RjZmFiYzY0MmU4NWY0IiwidXNlcl9pZCI6Mn0.F5axyM4P1arruwxQAQ6fZB7fZlNpfaPk58b_HIX1MOY
+GET http://localhost:8000/api/v1/purchases/1/payment-link/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NjAwODAxLCJpYXQiOjE3MDgwNjQ4MDEsImp0aSI6IjkzNmFjNjRmM2UzNDRiYjY4NTNhZjJjNDI1YzMzZmVhIiwidXNlcl9pZCI6MX0.6D_ycaz5ZBiFfc-7g4viu94xQGcTxrj0Tc1orMfZLQA
 Content-Type: application/json
 
 
@@ -22,8 +22,8 @@ Content-Type: application/json
 
 {
   "status": "success",
-  "summa": "2555",
-  "order_id": "4"
+  "summa": "10000",
+  "order_id": "1"
 }
 
 
@@ -43,11 +43,11 @@ POST http://localhost:8000/api/v1/users/
 Content-Type: application/json
 
 {
-  "email": "admin15@admin.org",
+  "email": "admin10@admin.org",
   "password": "develop12345"
 }
 
-#____________________________________________________________________________#
+###____________________________________________________________________________#
 
 
 # 2. TOKEN
@@ -57,11 +57,11 @@ POST http://localhost:8000/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
-  "email": "admin15@admin.org",
-  "password": "develop12345"
+  "email": "admin@admin.org",
+  "password": "admin"
 }
 
-#____________________________________________________________________________#
+###____________________________________________________________________________#
 
 
 # 3. COURSES
@@ -89,7 +89,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 
 ### 3.4. Добавили вложенного автора
 GET http://localhost:8000/api/v1/courses/?include[]=author.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTE5Nzg1LCJpYXQiOjE3MDc5ODM3ODUsImp0aSI6IjZjMTE0NmE4ZTgyNDRiY2M5OTRjNzAyZTdlODczZjgwIiwidXNlcl9pZCI6NH0.LRVHqYh185MFNNzUjeJoEtV6zYK2qKGIlTXKI9eq41c
+
+
+
+
+### 3.5. Получить уроки
+GET http://localhost:8000/api/v1/lessons/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTE5Nzg1LCJpYXQiOjE3MDc5ODM3ODUsImp0aSI6IjZjMTE0NmE4ZTgyNDRiY2M5OTRjNzAyZTdlODczZjgwIiwidXNlcl9pZCI6NH0.LRVHqYh185MFNNzUjeJoEtV6zYK2qKGIlTXKI9eq41c
 
 
 #____________________________________________________________________________#

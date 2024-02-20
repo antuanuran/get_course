@@ -1,11 +1,12 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from apps.api.views.courses import CourseViewSet
+from apps.api.views.courses import CourseViewSet, LessonViewSet
 from apps.api.views.purchases import PurchaseViewSet, fake_leadpay_link, notification_link
 
 router = DefaultRouter()
 router.register("courses", CourseViewSet)
+router.register("lessons", LessonViewSet)
 router.register("purchases", PurchaseViewSet)
 
 # TODO: https://djoser.readthedocs.io/en/latest/settings.html

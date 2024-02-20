@@ -3,12 +3,11 @@ from dynamic_rest.fields import DynamicRelationField
 from rest_framework import serializers
 
 from apps.api.serializers.base import BaseModelSerializer
-from apps.api.serializers.courses import CourseSerializer
 from apps.purchases.models import Purchase
 
 
 class PurchaseSerializer(BaseModelSerializer):
-    course = DynamicRelationField(CourseSerializer, read_only=True)
+    course = DynamicRelationField("apps.api.serializers.courses.CourseSerializer", read_only=True)
     course_id = serializers.IntegerField(write_only=True)
 
     class Meta:

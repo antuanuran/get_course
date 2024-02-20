@@ -6,9 +6,10 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 
 from apps.api.permissions import IsAuthorOrReadOnly
-from apps.api.serializers.courses import CourseSerializer
+from apps.api.serializers.courses import CourseSerializer, LessonSerializer
 from apps.api.views.base import BaseModelViewSet
-from apps.courses.models import Course
+from apps.courses.models import Course, Lesson
+from apps.purchases.models import Purchase
 
 
 @method_decorator(
@@ -51,3 +52,18 @@ class CourseViewSet(BaseModelViewSet):
             course.favourites.add(user)
         serializer = self.get_serializer(instance=course)
         return Response(serializer.data)
+
+
+class LessonViewSet(BaseModelViewSet):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self, queryset=None):
+        user = self.request.user
+        filter_params = Q(
+            course__purchases__user=user,
+            course__purchases__status=Purchase.Status.COMPLETED,
+        ) | Q(course__author=user)
+        qs = super().get_queryset(queryset).filter(filter_params)
+        return qs
