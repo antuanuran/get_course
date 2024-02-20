@@ -1,7 +1,7 @@
 from django.db import models
 from taggit.managers import TaggableManager
 
-from apps.holder.models import Video
+from apps.holder.models import ImageHolder, Video
 from apps.users.models import User
 
 
@@ -82,3 +82,30 @@ class Link(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="links")
     description = models.TextField(null=True, blank=True)
     link = models.URLField(max_length=500, unique=False, blank=True, null=True)
+
+
+class LessonTask(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="tasks")
+    title = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    auto_test = models.BooleanField(default=False)
+    # possible_answers
+
+
+class LessonTaskAnswer(models.Model):
+    task = models.ForeignKey(LessonTask, on_delete=models.CASCADE, related_name="possible_answers")
+    text = models.TextField(null=True, blank=True)
+    image = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    is_correct = models.BooleanField(default=False)
+
+
+class UserAnswer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers")
+    task = models.ForeignKey(LessonTask, on_delete=models.CASCADE, related_name="user_answers")
+    predefined_answers = models.ManyToManyField(LessonTaskAnswer, blank=True, related_name="+")
+    custom_answer = models.TextField(null=True, blank=True)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    link = models.URLField(max_length=500, blank=True, null=True)
+    success = models.BooleanField(default=False)
+    finished_at = models.DateTimeField(null=True, blank=True)

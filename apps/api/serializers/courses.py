@@ -6,7 +6,7 @@ from apps.api.serializers.base import BaseModelSerializer
 from apps.api.serializers.holder import VideoSerializer
 from apps.api.serializers.purchases import PurchaseSerializer
 from apps.api.serializers.users import UserSerializer
-from apps.courses.models import Course, Lesson, Link
+from apps.courses.models import Course, Lesson, LessonTask, LessonTaskAnswer, Link
 
 
 class LinkSerializer(BaseModelSerializer):
@@ -68,3 +68,28 @@ class CourseSerializer(TaggitSerializer, BaseModelSerializer):
     def get_is_favourite(self, obj: Course):
         current_user = self.context["request"].user.id
         return obj.favourites.filter(id=current_user).exists()
+
+
+class LessonTaskAnswerSerializer(BaseModelSerializer):
+    task = DynamicRelationField("LessonTaskSerializer", read_only=True)
+
+    class Meta:
+        model = LessonTaskAnswer
+        fields = ["id", "task", "text", "image"]
+
+
+class LessonTaskSerializer(BaseModelSerializer):
+    lessons = DynamicRelationField(LessonSerializer, read_only=True)
+    possible_answers = DynamicRelationField(LessonTaskAnswerSerializer, read_only=True)
+
+    class Meta:
+        model = LessonTask
+        fields = [
+            "id",
+            "lesson",
+            "title",
+            "description",
+            "video",
+            "auto_test",
+            "possible_answers",
+        ]
