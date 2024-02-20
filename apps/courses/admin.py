@@ -40,6 +40,7 @@ class LessonInline(admin.TabularInline):
 class CourseAdmin(admin.ModelAdmin):
     list_display = ["name_course", "sellable", "tag_list", "poster", "price", "author", "is_sellable", "free", "id"]
     list_filter = ["is_sellable"]
+    list_editable = ["is_sellable"]
     filter_horizontal = ["favourites"]
     search_fields = ["name"]
     inlines = [LessonInline]
@@ -61,10 +62,10 @@ class CourseAdmin(admin.ModelAdmin):
     def name_course(self, obj):
         return obj.name
 
-    @admin.display(description="активировать / закрыть курс", ordering="name")
+    @admin.display(description="активировать / закрыть курс")
     def sellable(self, obj: Course):
         link = reverse("admin:sel", args=[obj.id])
-        return mark_safe(f"<a href='{link}'> вкл/выкл </a>")
+        return mark_safe(f"<a href='{link}'>вкл/выкл</a>")
 
     def get_urls(self):
         urls = [
@@ -74,15 +75,9 @@ class CourseAdmin(admin.ModelAdmin):
 
     def sellable_viewset(self, request, obj_id, *args, **kwargs):
         obj = get_object_or_404(Course, id=obj_id)
-        if obj.is_sellable:
-            obj.is_sellable = False
-            obj.save(update_fields=["is_sellable"])
-
-        else:
-            obj.is_sellable = True
-            obj.save(update_fields=["is_sellable"])
-
-        return redirect("http://127.0.0.1:8000/admin/courses/course/")
+        obj.is_sellable = not obj.is_sellable
+        obj.save(update_fields=["is_sellable"])
+        return redirect(reverse("admin:courses_course_changelist"))
 
 
 class LinkInline(admin.TabularInline):
