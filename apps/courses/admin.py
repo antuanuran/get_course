@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 
-from .models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Link, Product, UserAnswer
+from .models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Product, UserAnswer
 
 
 class ProductInline(admin.TabularInline):
@@ -81,11 +81,6 @@ class CourseAdmin(admin.ModelAdmin):
         return redirect(reverse("admin:courses_course_changelist"))
 
 
-class LinkInline(admin.TabularInline):
-    model = Link
-    extra = 0
-
-
 class VideoInline(admin.TabularInline):
     model = Lesson.videos.through
     extra = 0
@@ -101,7 +96,7 @@ class LessonTaskInline(admin.TabularInline):
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     list_display = ["name_lesson", "course", "course_id", "id"]
-    inlines = [LinkInline, VideoInline, LessonTaskInline]
+    inlines = [VideoInline, LessonTaskInline]
     exclude = ["videos"]
 
     @admin.display(description="название урока", ordering="id")
@@ -109,10 +104,16 @@ class LessonAdmin(admin.ModelAdmin):
         return obj.name
 
 
+class LessonTaskAnswerInline(admin.TabularInline):
+    model = LessonTaskAnswer
+    extra = 0
+
+
 @admin.register(LessonTask)
 class LessonTaskAdmin(admin.ModelAdmin):
     list_display = ["title", "lesson", "course", "auto_test", "id"]
     list_editable = ["auto_test"]
+    inlines = [LessonTaskAnswerInline]
 
 
 @admin.register(LessonTaskAnswer)

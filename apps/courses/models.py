@@ -1,7 +1,7 @@
 from django.db import models
 from taggit.managers import TaggableManager
 
-from apps.holder.models import ImageHolder, VideoHolder
+from apps.holder.models import ImageHolder, LinkHolder, VideoHolder
 from apps.users.models import User
 
 
@@ -47,7 +47,7 @@ class Course(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     price = models.PositiveIntegerField()
-    poster = models.ImageField(upload_to="courses/posters/", null=True, blank=True)
+    poster = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
     is_sellable = models.BooleanField(default=True)
 
     favourites = models.ManyToManyField(User, related_name="favourites", blank=True)
@@ -66,8 +66,10 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
     name = models.CharField(max_length=100)
     annotation = models.TextField(null=True, blank=True)
+    text = models.TextField(null=True, blank=True)
     videos = models.ManyToManyField(VideoHolder, related_name="+", blank=True)
-    # links (ForeignKey - Link)
+    images = models.ManyToManyField(ImageHolder, related_name="+", blank=True)
+    links = models.ManyToManyField(LinkHolder, related_name="+", blank=True)
     # tasks (ForeignKey - LessonTask)
 
     def __str__(self) -> str:
@@ -77,22 +79,14 @@ class Lesson(models.Model):
         verbose_name = "урок"
         verbose_name_plural = "3. Уроки"
 
-    @property
-    def course_id(self):
-        return self.lesson.course.id
-
-
-class Link(models.Model):
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="links")
-    link = models.URLField(max_length=500, unique=False, blank=True, null=True)
-    description = models.TextField(null=True, blank=True)
-
 
 class LessonTask(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="tasks")
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    photo = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    images = models.ManyToManyField(ImageHolder, related_name="+", blank=True)
+    videos = models.ManyToManyField(VideoHolder, related_name="+", blank=True)
+    links = models.ManyToManyField(LinkHolder, related_name="+", blank=True)
     auto_test = models.BooleanField(default=False)
     # possible_answers
 
@@ -104,15 +98,13 @@ class LessonTask(models.Model):
         return f"Задание: {self.title} (курс: {self.lesson.course})"
 
     @property
-    def course(self):
-        return self.lesson.course.name
+    def course(self) -> Course:
+        return self.lesson.course
 
 
 class LessonTaskAnswer(models.Model):
     task = models.ForeignKey(LessonTask, on_delete=models.CASCADE, related_name="possible_answers")
-    text = models.TextField(null=True, blank=True)
-    image = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
-    video = models.ForeignKey(VideoHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    text = models.TextField()
     is_correct = models.BooleanField(default=False)
 
     class Meta:
@@ -129,8 +121,8 @@ class UserAnswer(models.Model):
     predefined_answers = models.ManyToManyField(LessonTaskAnswer, blank=True, related_name="+")
     custom_answer = models.TextField(null=True, blank=True)
     video = models.ForeignKey(VideoHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
-    photo = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
-    link = models.URLField(max_length=500, blank=True, null=True)
+    image = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    link = models.ForeignKey(LinkHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
     success = models.BooleanField(default=False)
     finished_at = models.DateTimeField(null=True, blank=True)
 

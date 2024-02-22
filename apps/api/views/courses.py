@@ -6,9 +6,9 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 
 from apps.api.permissions import IsAuthorOrReadOnly
-from apps.api.serializers.courses import CourseSerializer, LessonSerializer
+from apps.api.serializers.courses import CourseSerializer, LessonSerializer, LessonTaskSerializer
 from apps.api.views.base import BaseModelViewSet
-from apps.courses.models import Course, Lesson
+from apps.courses.models import Course, Lesson, LessonTask
 from apps.purchases.models import Purchase
 
 
@@ -64,6 +64,21 @@ class LessonViewSet(BaseModelViewSet):
         filter_params = Q(
             course__purchases__user=user,
             course__purchases__status=Purchase.Status.COMPLETED,
+        ) | Q(course__author=user)
+        qs = super().get_queryset(queryset).filter(filter_params)
+        return qs
+
+
+class LessonTaskViewSet(BaseModelViewSet):
+    queryset = LessonTask.objects.all()
+    serializer_class = LessonTaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self, queryset=None):
+        user = self.request.user
+        filter_params = Q(
+            lesson__course__purchases__user=user,
+            lesson__course__purchases__status=Purchase.Status.COMPLETED,
         ) | Q(course__author=user)
         qs = super().get_queryset(queryset).filter(filter_params)
         return qs
