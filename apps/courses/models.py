@@ -108,8 +108,8 @@ class LessonTaskAnswer(models.Model):
     is_correct = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = "ответ по Д/З"
-        verbose_name_plural = "_ Ответы по Д/З"
+        verbose_name = "вариант ответов"
+        verbose_name_plural = "Варианты ответов"
 
     def __str__(self) -> str:
         return f"Ответ на задание: {self.task}"

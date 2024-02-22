@@ -41,3 +41,6 @@ class LinkHolder(models.Model):
     link = models.URLField(max_length=500)
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.name

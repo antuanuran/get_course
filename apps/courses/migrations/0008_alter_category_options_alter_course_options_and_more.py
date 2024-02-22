@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name="lessontaskanswer",
-            options={"verbose_name": "ответ по Д/З", "verbose_name_plural": "_ Ответы по Д/З"},
+            options={"verbose_name": "вариант ответов", "verbose_name_plural": "Варианты ответов"},
         ),
         migrations.AlterModelOptions(
             name="useranswer",

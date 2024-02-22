@@ -81,12 +81,6 @@ class CourseAdmin(admin.ModelAdmin):
         return redirect(reverse("admin:courses_course_changelist"))
 
 
-class VideoInline(admin.TabularInline):
-    model = Lesson.videos.through
-    extra = 0
-    # raw_id_fields = ["video"]
-
-
 class LessonTaskInline(admin.TabularInline):
     model = LessonTask
     extra = 0
@@ -96,8 +90,7 @@ class LessonTaskInline(admin.TabularInline):
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     list_display = ["name_lesson", "course", "course_id", "id"]
-    inlines = [VideoInline, LessonTaskInline]
-    exclude = ["videos"]
+    inlines = [LessonTaskInline]
 
     @admin.display(description="название урока", ordering="id")
     def name_lesson(self, obj):
@@ -116,9 +109,9 @@ class LessonTaskAdmin(admin.ModelAdmin):
     inlines = [LessonTaskAnswerInline]
 
 
-@admin.register(LessonTaskAnswer)
-class LessonTaskAnswerAdmin(admin.ModelAdmin):
-    list_display = ["task", "is_correct", "id"]
+# @admin.register(LessonTaskAnswer)
+# class LessonTaskAnswerAdmin(admin.ModelAdmin):
+#     list_display = ["task", "is_correct", "id"]
 
 
 @admin.register(UserAnswer)

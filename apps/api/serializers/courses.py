@@ -8,6 +8,20 @@ from apps.api.serializers.users import UserSerializer
 from apps.courses.models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Product, UserAnswer
 
 
+class CategorySerializer(BaseModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["name", "id"]
+
+
+class ProductSerializer(BaseModelSerializer):
+    category = DynamicRelationField(CategorySerializer, read_only=True)
+
+    class Meta:
+        model = Product
+        fields = ["name", "id", "category"]
+
+
 class LessonSerializer(BaseModelSerializer):
     videos = DynamicRelationField(VideoHolderSerializer, read_only=True, many=True)
     images = DynamicRelationField(ImageHolderSerializer, read_only=True, many=True)
@@ -28,20 +42,6 @@ class LessonSerializer(BaseModelSerializer):
             "tasks",
             "course",
         ]
-
-
-class CategorySerializer(BaseModelSerializer):
-    class Meta:
-        model = Category
-        fields = ["name", "id"]
-
-
-class ProductSerializer(BaseModelSerializer):
-    category = DynamicRelationField(CategorySerializer, read_only=True)
-
-    class Meta:
-        model = Product
-        fields = ["name", "id", "category"]
 
 
 class CourseSerializer(TaggitSerializer, BaseModelSerializer):

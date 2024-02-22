@@ -2,7 +2,8 @@ import csv
 
 from django.core.management import BaseCommand
 
-from apps.courses.models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Link, Product
+from apps.courses.models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Product
+from apps.holder.models import ImageHolder, VideoHolder
 
 
 def import_data(data_stream):
@@ -15,13 +16,13 @@ def import_data(data_stream):
             author_id=entity["author"], name=entity["course"], product_id=product.id, price=entity["price"]
         )
         lesson, _ = Lesson.objects.get_or_create(course_id=course.id, name=entity["lesson"])
-        link, _ = Link.objects.get_or_create(lesson_id=lesson.id, link="https://quote.rbc.ru/ticker/59111")
         lesson_task, _ = LessonTask.objects.get_or_create(
-            lesson_id=lesson.id, title="1 Задание по Маркетингу", auto_test=True
+            lesson_id=lesson.id, title=entity["LessonTask"], auto_test=True
         )
-        lessontaskanswer, _ = LessonTaskAnswer.objects.get_or_create(
-            task_id=lesson_task.id, text="Ответ на Задание", is_correct=True
-        )
+        lessontaskanswer, _ = LessonTaskAnswer.objects.get_or_create(task_id=lesson_task.id, text=entity["answer"])
+
+        image, _ = ImageHolder.objects.get_or_create(name="Photo_1", file="files/images/foto1.png")
+        image, _ = VideoHolder.objects.get_or_create(name="Video_1", file="files/videos/video_1.mp4")
 
 
 class Command(BaseCommand):

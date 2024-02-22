@@ -79,6 +79,6 @@ class LessonTaskViewSet(BaseModelViewSet):
         filter_params = Q(
             lesson__course__purchases__user=user,
             lesson__course__purchases__status=Purchase.Status.COMPLETED,
-        ) | Q(course__author=user)
+        ) | Q(lesson__course__author=user)
         qs = super().get_queryset(queryset).filter(filter_params)
         return qs
