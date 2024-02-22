@@ -2,7 +2,7 @@ import csv
 
 from django.core.management import BaseCommand
 
-from apps.courses.models import Category, Course, Lesson, Product
+from apps.courses.models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Link, Product
 
 
 def import_data(data_stream):
@@ -15,6 +15,13 @@ def import_data(data_stream):
             author_id=entity["author"], name=entity["course"], product_id=product.id, price=entity["price"]
         )
         lesson, _ = Lesson.objects.get_or_create(course_id=course.id, name=entity["lesson"])
+        link, _ = Link.objects.get_or_create(lesson_id=lesson.id, link="https://quote.rbc.ru/ticker/59111")
+        lesson_task, _ = LessonTask.objects.get_or_create(
+            lesson_id=lesson.id, title="1 Задание по Маркетингу", auto_test=True
+        )
+        lessontaskanswer, _ = LessonTaskAnswer.objects.get_or_create(
+            task_id=lesson_task.id, text="Ответ на Задание", is_correct=True
+        )
 
 
 class Command(BaseCommand):
@@ -26,4 +33,4 @@ class Command(BaseCommand):
             import_data(file)
 
 
-# python3 manage.py import_data data_all/import.csv
+# python manage.py import_data data_all/import.csv

@@ -75,7 +75,7 @@ class LessonTaskAnswerSerializer(BaseModelSerializer):
 
     class Meta:
         model = LessonTaskAnswer
-        fields = ["id", "task", "text", "image"]
+        fields = ["id", "task", "text", "image", "video"]
 
 
 class LessonTaskSerializer(BaseModelSerializer):
@@ -89,7 +89,7 @@ class LessonTaskSerializer(BaseModelSerializer):
             "lesson",
             "title",
             "description",
-            "video",
+            "photo",
             "auto_test",
             "possible_answers",
         ]
