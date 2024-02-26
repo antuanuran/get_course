@@ -1,5 +1,5 @@
 # "Skillsup" PROJECT resume
-
+# Server: http://79.174.93.205/admin/
 ## Progress
 
 ### basic work
