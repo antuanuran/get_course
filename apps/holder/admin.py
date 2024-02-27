@@ -15,4 +15,4 @@ class ImageHolderAdmin(admin.ModelAdmin):
 
 @admin.register(LinkHolder)
 class LinkHolderAdmin(admin.ModelAdmin):
-    list_display = ["name", "link", "id"]
+    list_display = ["name", "link"]
