@@ -10,8 +10,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 
 ### TASK
-GET http://localhost:8000/api/v1/lesson-tasks/?include[]=lesson.*&include[]=possible_answers.task
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+GET http://localhost:8000/api/v1/lesson-tasks/?include[]=lesson.*&include[]=possible_answers.task.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNTU1MTAxLCJpYXQiOjE3MDkwMTkxMDEsImp0aSI6IjU0MzU4OGMyZjRlYzRlMjRiZTYxODdhMGIzZGEwZTVkIiwidXNlcl9pZCI6M30.a8-CbsWphWoL_gVaG7e_pb-nD2ID_Czs-sVIxgjeHQQ
 
 
 ### list UserAnswer
@@ -25,7 +25,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 Content-Type: application/json
 
 {
-  "task": 3
+  "task": 4,
+  "predefined_answers": [4]
 }
 
 

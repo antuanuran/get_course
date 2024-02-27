@@ -142,3 +142,13 @@ class UserAnswerSerializer(BaseModelSerializer):
         if UserAnswer.objects.filter(user=user, task=task).exists():
             raise ValidationError("answer already exists")
         return task
+
+    def validate(self, attrs: dict) -> dict:
+        predefined_answers = attrs.get("predefined_answers", [])
+        task = attrs["task"]
+        if predefined_answers:
+            possible_answers = set(task.possible_answers.values_list("id", flat=True))
+            predefined_answers = {x.id for x in predefined_answers}
+            if not predefined_answers.issubset(possible_answers):
+                raise ValidationError({"predefined_answers": "detected strange answers"})
+        return attrs

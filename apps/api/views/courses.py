@@ -1,5 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import no_body, swagger_auto_schema
 from rest_framework.decorators import action
@@ -103,3 +104,12 @@ class UserAnswerViewSet(BaseModelViewSet):
         if not Purchase.objects.filter(course=course, user=user, status=Purchase.Status.COMPLETED).exists():
             raise PermissionDenied("course was not purchased")
         serializer.save(user=self.request.user)
+
+        user_answer = serializer.instance
+        task = user_answer.task
+        if task.auto_test:
+            correct_answers = set(task.possible_answers.filter(is_correct=True).values_list("id", flat=True))
+            user_answers = set(user_answer.predefined_answers.values_list("id", flat=True))
+            user_answer.success = correct_answers == user_answers
+            user_answer.finished_at = timezone.now()
+            user_answer.save(update_fields=["success", "finished_at"])
