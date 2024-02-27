@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from dynamic_rest.fields import DynamicMethodField, DynamicRelationField
 from taggit.serializers import TaggitSerializer, TagListSerializerField
 
@@ -115,11 +116,11 @@ class LessonTaskSerializer(BaseModelSerializer):
 
 class UserAnswerSerializer(BaseModelSerializer):
     user = DynamicRelationField(UserSerializer, read_only=True)
-    task = DynamicRelationField(LessonTaskSerializer, read_only=True)
-    predefined_answers = DynamicRelationField(LessonTaskAnswerSerializer, read_only=True, many=True)
-    video = DynamicRelationField(VideoHolderSerializer, read_only=True)
-    image = DynamicRelationField(ImageHolderSerializer, read_only=True)
-    link = DynamicRelationField(LinkHolderSerializer, read_only=True)
+    task = DynamicRelationField(LessonTaskSerializer)
+    predefined_answers = DynamicRelationField(LessonTaskAnswerSerializer, many=True)
+    video = DynamicRelationField(VideoHolderSerializer)
+    image = DynamicRelationField(ImageHolderSerializer)
+    link = DynamicRelationField(LinkHolderSerializer)
 
     class Meta:
         model = UserAnswer
@@ -135,3 +136,9 @@ class UserAnswerSerializer(BaseModelSerializer):
             "success",
             "finished_at",
         ]
+
+    def validate_task(self, task: LessonTask) -> LessonTask:
+        user = self.context["request"].user
+        if UserAnswer.objects.filter(user=user, task=task).exists():
+            raise ValidationError("answer already exists")
+        return task

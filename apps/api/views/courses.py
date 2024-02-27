@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import no_body, swagger_auto_schema
@@ -5,10 +6,10 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-from apps.api.permissions import IsAuthorOrReadOnly
-from apps.api.serializers.courses import CourseSerializer, LessonSerializer, LessonTaskSerializer
+from apps.api.permissions import IsAuthorOrReadOnly, is_author_builder
+from apps.api.serializers.courses import CourseSerializer, LessonSerializer, LessonTaskSerializer, UserAnswerSerializer
 from apps.api.views.base import BaseModelViewSet
-from apps.courses.models import Course, Lesson, LessonTask
+from apps.courses.models import Course, Lesson, LessonTask, UserAnswer
 from apps.purchases.models import Purchase
 
 
@@ -82,3 +83,23 @@ class LessonTaskViewSet(BaseModelViewSet):
         ) | Q(lesson__course__author=user)
         qs = super().get_queryset(queryset).filter(filter_params)
         return qs
+
+
+class UserAnswerViewSet(BaseModelViewSet):
+    queryset = UserAnswer.objects.all()
+    serializer_class = UserAnswerSerializer
+    permission_classes = [IsAuthenticated, is_author_builder("user")]
+    http_method_names = ["get", "post"]
+
+    def get_queryset(self, queryset=None):
+        user = self.request.user
+        filter_params = Q(user=user) | Q(task__lesson__course__author=user)
+        qs = super().get_queryset(queryset).filter(filter_params)
+        return qs
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        course = serializer.validated_data.get("task").lesson.course
+        if not Purchase.objects.filter(course=course, user=user, status=Purchase.Status.COMPLETED).exists():
+            raise PermissionDenied("course was not purchased")
+        serializer.save(user=self.request.user)

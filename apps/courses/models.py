@@ -126,6 +126,10 @@ class UserAnswer(models.Model):
     success = models.BooleanField(default=False)
     finished_at = models.DateTimeField(null=True, blank=True)
 
+    @property
+    def is_checked(self) -> bool:
+        return self.finished_at is not None
+
     class Meta:
         verbose_name = "результат ответа"
         verbose_name_plural = "_ Результаты ответов"
