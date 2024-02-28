@@ -59,7 +59,7 @@ class CourseAdmin(admin.ModelAdmin):
     def free(self, obj):
         return obj.free
 
-    @admin.display(description="наименование курса", ordering="name")
+    @admin.display(description="название курса", ordering="name")
     def name_course(self, obj):
         return obj.name
 
