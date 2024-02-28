@@ -112,7 +112,7 @@ class LessonTaskAnswer(models.Model):
         verbose_name_plural = "Варианты ответов"
 
     def __str__(self) -> str:
-        return f"Ответ на задание: {self.task}"
+        return f"Ответ на задание: {self.task} | id = {self.id}"
 
 
 class UserAnswer(models.Model):

@@ -3,28 +3,30 @@
 
 
 
-
-### LESSON
-GET http://79.174.93.205/api/v1/lessons/?include[]=images.*&include[]=links.*&include[]=videos.*&include[]=tasks.*&include[]=course.*
+### list UserAnswer
+GET http://79.174.93.205/api/v1/user-answers/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
 
 
-### TASK
-GET http://79.174.93.205/api/v1/lesson-tasks/?include[]=lesson.*&include[]=possible_answers.task
+### create UserAnswer - autotest
+POST http://79.174.93.205/api/v1/user-answers/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+Content-Type: application/json
 
+{
+  "task": 5,
+  "predefined_answers": [11]
+}
 
+### create UserAnswer - custom
+POST http://79.174.93.205/api/v1/user-answers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+Content-Type: application/json
 
-
-
-
-
-
-
-
-
-
-
+{
+  "task": 5,
+  "custom_answer": "Мой ответ - вот такой"
+}
 
 
 
@@ -35,7 +37,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 
 ### РЕАЛИЗОВАННЫЕ ЗАПРОСЫ *************************************************** #
-###____________________________________________________________________________#
+
+
 
 
 # TOKEN
@@ -52,16 +55,15 @@ Content-Type: application/json
 
 ###____________________________________________________________________________#
 
-# USER
 
-### Создание Юзера
-POST http://79.174.93.205/api/v1/users/
-Content-Type: application/json
+### LESSON
+GET http://79.174.93.205/api/v1/lessons/?include[]=images.*&include[]=links.*&include[]=videos.*&include[]=tasks.*&include[]=course.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
 
-{
-  "email": "admin2@admin.org",
-  "password": "develop12345"
-}
+
+### TASK
+GET http://79.174.93.205/api/v1/lesson-tasks/?include[]=lesson.*&include[]=possible_answers.task
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
 
 
 
@@ -159,9 +161,22 @@ Content-Type: application/json
 
 ### ДОПОЛНИТЕЛЬНО******************************************************************************
 
+# USER
+
+### Создание Юзера
+POST http://79.174.93.205/api/v1/users/
+Content-Type: application/json
+
+{
+  "email": "admin2@admin.org",
+  "password": "develop12345"
+}
+
+
 ### Проверка данных Юзера
 GET http://79.174.93.205/api/v1/users/me/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
 
 ### Проверка самого Токена
 https://jwt.io/

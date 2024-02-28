@@ -1,33 +1,44 @@
 ### НОВЫЕ ЗАПРОСЫ *************************************************** #
 
 
+### list UserAnswer
+GET http://localhost:8000/api/v1/user-answers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+
+
+### create UserAnswer - autotest
+POST http://localhost:8000/api/v1/user-answers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+Content-Type: application/json
+
+{
+  "task": 5,
+  "predefined_answers": [11]
+}
+
+### create UserAnswer - custom
+POST http://localhost:8000/api/v1/user-answers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+Content-Type: application/json
+
+{
+  "task": 5,
+  "custom_answer": "Мой ответ - вот такой"
+}
+
+
+###-----------------------------------------------------------------------
 
 
 
 ### LESSON
-GET http://localhost:8000/api/v1/lessons/?include[]=images.*&include[]=links.*&include[]=videos.*&include[]=tasks.*&include[]=course.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+GET http://localhost:8000/api/v1/lessons/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
 
 
 ### TASK
-GET http://localhost:8000/api/v1/lesson-tasks/?include[]=lesson.*&include[]=possible_answers.task.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNTU1MTAxLCJpYXQiOjE3MDkwMTkxMDEsImp0aSI6IjU0MzU4OGMyZjRlYzRlMjRiZTYxODdhMGIzZGEwZTVkIiwidXNlcl9pZCI6M30.a8-CbsWphWoL_gVaG7e_pb-nD2ID_Czs-sVIxgjeHQQ
-
-
-### list UserAnswer
-GET http://localhost:8000/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNTU1MTAxLCJpYXQiOjE3MDkwMTkxMDEsImp0aSI6IjU0MzU4OGMyZjRlYzRlMjRiZTYxODdhMGIzZGEwZTVkIiwidXNlcl9pZCI6M30.a8-CbsWphWoL_gVaG7e_pb-nD2ID_Czs-sVIxgjeHQQ
-
-
-### create UserAnswer
-POST http://localhost:8000/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNTU1MTAxLCJpYXQiOjE3MDkwMTkxMDEsImp0aSI6IjU0MzU4OGMyZjRlYzRlMjRiZTYxODdhMGIzZGEwZTVkIiwidXNlcl9pZCI6M30.a8-CbsWphWoL_gVaG7e_pb-nD2ID_Czs-sVIxgjeHQQ
-Content-Type: application/json
-
-{
-  "task": 4,
-  "predefined_answers": [4]
-}
+GET http://localhost:8000/api/v1/lesson-tasks/3/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
 
 
 
@@ -36,22 +47,7 @@ Content-Type: application/json
 
 ### РЕАЛИЗОВАННЫЕ ЗАПРОСЫ *************************************************** #
 
-
-# 1. USER
-
-### Создание Юзера
-POST http://localhost:8000/api/v1/users/
-Content-Type: application/json
-
-{
-  "email": "admin10@admin.org",
-  "password": "develop12345"
-}
-
-###____________________________________________________________________________#
-
-
-# 2. TOKEN
+# TOKEN
 
 ### Создать TOKEN для созданного Юзера
 POST http://localhost:8000/api/v1/auth/jwt/create/
@@ -63,6 +59,9 @@ Content-Type: application/json
 }
 
 ###____________________________________________________________________________#
+
+
+
 
 
 # 3. COURSES
@@ -158,9 +157,20 @@ Content-Type: application/json
 
 ### ДОПОЛНИТЕЛЬНО******************************************************************************
 
+
+### Создание Юзера
+POST http://localhost:8000/api/v1/users/
+Content-Type: application/json
+
+{
+  "email": "admin10@admin.org",
+  "password": "develop12345"
+}
+
+
 ### Проверка данных Юзера
 GET http://localhost:8000/api/v1/users/me/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
 
 ### Проверка самого Токена
 https://jwt.io/
