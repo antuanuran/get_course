@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 
-from .models import Category, Course, Lesson, Link, Product
+from .models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Product, UserAnswer
 
 
 class ProductInline(admin.TabularInline):
@@ -34,6 +34,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class LessonInline(admin.TabularInline):
     model = Lesson
     extra = 0
+    exclude = ["videos"]
 
 
 @admin.register(Course)
@@ -58,7 +59,7 @@ class CourseAdmin(admin.ModelAdmin):
     def free(self, obj):
         return obj.free
 
-    @admin.display(description="полное название курса", ordering="name")
+    @admin.display(description="наименование курса", ordering="name")
     def name_course(self, obj):
         return obj.name
 
@@ -80,28 +81,39 @@ class CourseAdmin(admin.ModelAdmin):
         return redirect(reverse("admin:courses_course_changelist"))
 
 
-class LinkInline(admin.TabularInline):
-    model = Link
+class LessonTaskInline(admin.TabularInline):
+    model = LessonTask
     extra = 0
-
-
-class VideoInline(admin.TabularInline):
-    model = Lesson.videos.through
-    extra = 0
-    raw_id_fields = ["video"]
+    exclude = ["description", "photo", "auto_test"]
 
 
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ["name_lesson", "course", "id"]
-    inlines = [LinkInline, VideoInline]
-    exclude = ["videos"]
+    list_display = ["name_lesson", "course", "course_id", "id"]
+    inlines = [LessonTaskInline]
 
     @admin.display(description="название урока", ordering="id")
     def name_lesson(self, obj):
-        return f"Курс: {obj.course.name} (id курса={obj.course.id}). Название занятия: {obj.name}"
+        return obj.name
 
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ["name", "id", "category"]
+class LessonTaskAnswerInline(admin.TabularInline):
+    model = LessonTaskAnswer
+    extra = 0
+
+
+@admin.register(LessonTask)
+class LessonTaskAdmin(admin.ModelAdmin):
+    list_display = ["title", "lesson", "course", "auto_test", "id"]
+    list_editable = ["auto_test"]
+    inlines = [LessonTaskAnswerInline]
+
+
+# @admin.register(LessonTaskAnswer)
+# class LessonTaskAnswerAdmin(admin.ModelAdmin):
+#     list_display = ["task", "is_correct", "id"]
+
+
+@admin.register(UserAnswer)
+class UserAnswerAdmin(admin.ModelAdmin):
+    list_display = ["task", "user", "success", "id"]

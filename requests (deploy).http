@@ -1,0 +1,178 @@
+### НОВЫЕ ЗАПРОСЫ *************************************************** #
+
+
+
+
+
+### LESSON
+GET http://79.174.93.205/api/v1/lessons/?include[]=images.*&include[]=links.*&include[]=videos.*&include[]=tasks.*&include[]=course.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+### TASK
+GET http://79.174.93.205/api/v1/lesson-tasks/?include[]=lesson.*&include[]=possible_answers.task
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### РЕАЛИЗОВАННЫЕ ЗАПРОСЫ *************************************************** #
+###____________________________________________________________________________#
+
+
+# TOKEN
+
+### Создать TOKEN для созданного Юзера
+POST http://79.174.93.205/api/v1/auth/jwt/create/
+Content-Type: application/json
+
+{
+  "email": "admin@admin.org",
+  "password": "admin"
+}
+
+
+###____________________________________________________________________________#
+
+# USER
+
+### Создание Юзера
+POST http://79.174.93.205/api/v1/users/
+Content-Type: application/json
+
+{
+  "email": "admin2@admin.org",
+  "password": "develop12345"
+}
+
+
+
+
+# 1. COURSES
+
+### Просмотр без авторизации выводится весь список действующих курсов, is_selible=True. При авторизации - добавляются те курсы, которые уже куплены текущим юзером)
+GET http://79.174.93.205/api/v1/courses/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+### ДИНАМИЧЕСКИЙ ПРОСМОТР с фильтрацией и исключением/добавлением полей:
+
+### 3.1. Исключаем поле "description"
+GET http://79.174.93.205/api/v1/courses/?exclude[]=description
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+### 3.2. Добавляем поле
+GET http://79.174.93.205/api/v1/courses/?exclude[]=description&include[]=lessons.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+### 3.3. Добавляем вложенную группу Videos
+GET http://79.174.93.205/api/v1/courses/?include[]=lessons.videos.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+### 3.4. Добавили вложенного автора
+GET http://79.174.93.205/api/v1/courses/?include[]=author.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+### 3.5. Получить уроки
+GET http://79.174.93.205/api/v1/lessons/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+###____________________________________________________________________________#
+
+# 2. PURCHESES
+
+
+### 4.1 Просмотр всех своих покупок
+GET http://79.174.93.205/api/v1/purchases/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+### 4.2 Просмотр своих покупок + описание курсов
+GET http://79.174.93.205/api/v1/purchases/?include[]=course.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+### 4.3 Добавление курса в покупку
+POST http://79.174.93.205/api/v1/purchases/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+Content-Type: application/json
+
+{
+  "course_id": 2
+}
+
+
+###____________________________________________________________________________#
+
+
+
+### 3. FAVOURITES (Избранное)- переключатель True/False. Работаем с конкретным объектом (Detail=True)
+POST http://79.174.93.205/api/v1/courses/1/toggle-favourite/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+
+###____________________________________________________________________________#
+
+
+### 4. ПЛАТЕЖНЫЙ ШЛЮЗ.
+
+
+### 6.1 Получение ссылки на оплату. Работаем с конкретным объектом
+GET http://79.174.93.205/api/v1/purchases/1/payment-link/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+Content-Type: application/json
+
+
+### 6.2. Ответ от Leadpay со статусом (success / fail)
+POST http://79.174.93.205/api/v1/leadpay-notification/
+Content-Type: application/json
+
+{
+  "status": "success",
+  "summa": "10000",
+  "order_id": "1"
+}
+
+
+
+### ДОПОЛНИТЕЛЬНО******************************************************************************
+
+### Проверка данных Юзера
+GET http://79.174.93.205/api/v1/users/me/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNDY3MzUyLCJpYXQiOjE3MDg5MzEzNTIsImp0aSI6IjlkMWNhZTM1NTRjNzRiZGU4M2UzMDY1MjA0ZjVmYjdmIiwidXNlcl9pZCI6MX0.cxK6C-l9cHGFhSWjOKasEzFhYWjfVVhjWQM3UCqr20g
+
+### Проверка самого Токена
+https://jwt.io/
+
+
+
+# Если работаем через Postman:
+# https://skills-up.postman.co/workspace/skills-up~532ccf51-bc2b-4914-ac2d-6ad0831f096c/overview
+
+
+# При работе через Swagger: http://79.174.93.205/docs/swagger/
+# Token для Swagger:        Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2j.......PDV34q7PrQ
+
+###____________________________________________________________________________#

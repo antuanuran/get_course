@@ -1,14 +1,14 @@
 from django.db import models
 from taggit.managers import TaggableManager
 
-from apps.holder.models import Video
+from apps.holder.models import ImageHolder, LinkHolder, VideoHolder
 from apps.users.models import User
 
 
 class Category(models.Model):
     class Meta:
         verbose_name = "направление/линейка курсов"
-        verbose_name_plural = "направления/линейки курсов"
+        verbose_name_plural = "1. Направления/линейки курсов"
 
     name = models.CharField(max_length=100, unique=True)
     # products
@@ -35,7 +35,7 @@ class Product(models.Model):
 class Course(models.Model):
     class Meta:
         verbose_name = "курс"
-        verbose_name_plural = "курсы"
+        verbose_name_plural = "2. Курсы"
         constraints = [
             models.UniqueConstraint(fields=["product", "name"], name="unique_course_name_per_product"),
         ]
@@ -47,7 +47,7 @@ class Course(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     price = models.PositiveIntegerField()
-    poster = models.ImageField(upload_to="courses/posters/", null=True, blank=True)
+    poster = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
     is_sellable = models.BooleanField(default=True)
 
     favourites = models.ManyToManyField(User, related_name="favourites", blank=True)
@@ -66,19 +66,73 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
     name = models.CharField(max_length=100)
     annotation = models.TextField(null=True, blank=True)
-    videos = models.ManyToManyField(Video, related_name="+", blank=True)
-
-    # links
+    text = models.TextField(null=True, blank=True)
+    videos = models.ManyToManyField(VideoHolder, related_name="+", blank=True)
+    images = models.ManyToManyField(ImageHolder, related_name="+", blank=True)
+    links = models.ManyToManyField(LinkHolder, related_name="+", blank=True)
+    # tasks (ForeignKey - LessonTask)
 
     def __str__(self) -> str:
-        return f"Занятие: {self.name}"
+        return f"Занятие: {self.name} (курс: {self.course})"
 
     class Meta:
         verbose_name = "урок"
-        verbose_name_plural = "уроки"
+        verbose_name_plural = "3. Уроки"
 
 
-class Link(models.Model):
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="links")
+class LessonTask(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="tasks")
+    title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    link = models.URLField(max_length=500, unique=False, blank=True, null=True)
+    images = models.ManyToManyField(ImageHolder, related_name="+", blank=True)
+    videos = models.ManyToManyField(VideoHolder, related_name="+", blank=True)
+    links = models.ManyToManyField(LinkHolder, related_name="+", blank=True)
+    auto_test = models.BooleanField(default=False)
+    # possible_answers
+
+    class Meta:
+        verbose_name = "задание по уроку"
+        verbose_name_plural = "_ Задания по уроку (Д/З)"
+
+    def __str__(self) -> str:
+        return f"Задание: {self.title} (курс: {self.lesson.course})"
+
+    @property
+    def course(self) -> Course:
+        return self.lesson.course
+
+
+class LessonTaskAnswer(models.Model):
+    task = models.ForeignKey(LessonTask, on_delete=models.CASCADE, related_name="possible_answers")
+    text = models.TextField()
+    is_correct = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "вариант ответов"
+        verbose_name_plural = "Варианты ответов"
+
+    def __str__(self) -> str:
+        return f"Ответ на задание: {self.task}"
+
+
+class UserAnswer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers")
+    task = models.ForeignKey(LessonTask, on_delete=models.CASCADE, related_name="user_answers")
+    predefined_answers = models.ManyToManyField(LessonTaskAnswer, blank=True, related_name="+")
+    custom_answer = models.TextField(null=True, blank=True)
+    video = models.ForeignKey(VideoHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    image = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    link = models.ForeignKey(LinkHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    success = models.BooleanField(default=False)
+    finished_at = models.DateTimeField(null=True, blank=True)
+
+    @property
+    def is_checked(self) -> bool:
+        return self.finished_at is not None
+
+    class Meta:
+        verbose_name = "результат ответа"
+        verbose_name_plural = "_ Результаты ответов"
+
+    def __str__(self) -> str:
+        return self.task.title
