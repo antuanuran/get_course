@@ -1,4 +1,6 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
+from django.utils import timezone
 from taggit.managers import TaggableManager
 
 from apps.holder.models import ImageHolder, LinkHolder, VideoHolder
@@ -60,6 +62,20 @@ class Course(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Review(models.Model):
+    class Meta:
+        verbose_name = "отзыв"
+        verbose_name_plural = "отзывы"
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="reviews")
+    text = models.TextField()
+    images = models.ManyToManyField(ImageHolder, related_name="+", blank=True)
+    rating = models.PositiveIntegerField(validators=[MaxValueValidator(10)])
+    created_at = models.DateTimeField(default=timezone.now)
+    is_published = models.BooleanField(default=False)
 
 
 class Lesson(models.Model):

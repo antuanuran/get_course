@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 
-from .models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Product, UserAnswer
+from .models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Product, Review, UserAnswer
 
 
 class ProductInline(admin.TabularInline):
@@ -37,6 +37,12 @@ class LessonInline(admin.TabularInline):
     exclude = ["videos"]
 
 
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 0
+    autocomplete_fields = ["author"]
+
+
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ["name_course", "sellable", "tag_list", "poster", "price", "author", "is_sellable", "free", "id"]
@@ -44,7 +50,7 @@ class CourseAdmin(admin.ModelAdmin):
     list_editable = ["is_sellable"]
     filter_horizontal = ["favourites"]
     search_fields = ["name"]
-    inlines = [LessonInline]
+    inlines = [LessonInline, ReviewInline]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -79,6 +85,14 @@ class CourseAdmin(admin.ModelAdmin):
         obj.is_sellable = not obj.is_sellable
         obj.save(update_fields=["is_sellable"])
         return redirect(reverse("admin:courses_course_changelist"))
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ["id", "author", "course", "rating", "is_published", "created_at"]
+    list_select_related = ["author", "course"]
+    autocomplete_fields = ["author", "course"]
+    list_filter = ["is_published", "created_at"]
 
 
 class LessonTaskInline(admin.TabularInline):

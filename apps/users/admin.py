@@ -25,6 +25,7 @@ class UserAdmin(admin.ModelAdmin):
     inlines = [PurchaseInline, FavouriteInline]
     filter_horizontal = ["groups", "user_permissions"]
     readonly_fields = ["purchases_course_count", "favourites_course_count"]
+    search_fields = ["username", "first_name", "last_name", "email"]
 
     # Запрещаем создавать Юзера через Админку
     def has_add_permission(self, request):

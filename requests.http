@@ -41,7 +41,20 @@ GET http://localhost:8000/api/v1/lesson-tasks/3/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
 
 
+### REVIEWS
 
+GET http://localhost:8000/api/v1/reviews/?filter{course.id}=2
+
+### CREATE REVIEW
+
+POST http://localhost:8000/api/v1/reviews/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNzI4ODkwLCJpYXQiOjE3MDkxOTI4OTAsImp0aSI6IjFjMzlhNjU1N2QwMjQxZjQ5YzFjMmE5OWM4NDIyYzM2IiwidXNlcl9pZCI6M30.si1YvFCJrSxLhorcb4iFL9VKBXAWWqi2DulDwcNVquw
+
+{
+  "course": 1,
+  "text": "demo text",
+  "rating": 7
+}
 
 
 

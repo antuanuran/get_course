@@ -1,11 +1,12 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from apps.api.views.courses import CourseViewSet, LessonTaskViewSet, LessonViewSet, UserAnswerViewSet
+from apps.api.views.courses import CourseViewSet, LessonTaskViewSet, LessonViewSet, ReviewViewSet, UserAnswerViewSet
 from apps.api.views.purchases import PurchaseViewSet, fake_leadpay_link, notification_link
 
 router = DefaultRouter()
 router.register("courses", CourseViewSet)
+router.register("reviews", ReviewViewSet)
 router.register("lessons", LessonViewSet)
 router.register("lesson-tasks", LessonTaskViewSet)
 router.register("purchases", PurchaseViewSet)
