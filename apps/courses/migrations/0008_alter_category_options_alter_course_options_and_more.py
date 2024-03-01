@@ -26,14 +26,14 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name="lessontask",
-            options={"verbose_name": "задание по уроку", "verbose_name_plural": "_ Задания по уроку (Д/З)"},
+            options={"verbose_name": "задание по уроку", "verbose_name_plural": "3.1 Задания по уроку (Task)"},
         ),
         migrations.AlterModelOptions(
             name="lessontaskanswer",
-            options={"verbose_name": "вариант ответов", "verbose_name_plural": "Варианты ответов"},
+            options={"verbose_name": "вариант ответов", "verbose_name_plural": "Варианты ответов (predefined_answers)"},
         ),
         migrations.AlterModelOptions(
             name="useranswer",
-            options={"verbose_name": "результат ответа", "verbose_name_plural": "_ Результаты ответов"},
+            options={"verbose_name": "результат ответа", "verbose_name_plural": "3.2 Результаты ответов (UserAnswer)"},
         ),
     ]

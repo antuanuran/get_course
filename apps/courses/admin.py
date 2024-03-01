@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 
-from .models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Product, Review, UserAnswer
+from .models import Category, Comment, Course, Lesson, LessonTask, LessonTaskAnswer, Product, Review, UserAnswer
 
 
 class ProductInline(admin.TabularInline):
@@ -89,7 +89,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ["id", "author", "course", "rating", "is_published", "created_at"]
+    list_display = ["created_at", "author", "course", "rating", "is_published", "id"]
     list_select_related = ["author", "course"]
     autocomplete_fields = ["author", "course"]
     list_filter = ["is_published", "created_at"]
@@ -101,10 +101,15 @@ class LessonTaskInline(admin.TabularInline):
     exclude = ["description", "photo", "auto_test"]
 
 
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 0
+
+
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     list_display = ["name_lesson", "course", "course_id", "id"]
-    inlines = [LessonTaskInline]
+    inlines = [LessonTaskInline, CommentInline]
 
     @admin.display(description="название урока", ordering="id")
     def name_lesson(self, obj):
@@ -131,3 +136,8 @@ class LessonTaskAdmin(admin.ModelAdmin):
 @admin.register(UserAnswer)
 class UserAnswerAdmin(admin.ModelAdmin):
     list_display = ["task", "user", "success", "id"]
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ["created_at", "lesson", "author", "text"]

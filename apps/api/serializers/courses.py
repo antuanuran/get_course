@@ -8,7 +8,17 @@ from apps.api.serializers.base import BaseModelSerializer
 from apps.api.serializers.holder import ImageHolderSerializer, LinkHolderSerializer, VideoHolderSerializer
 from apps.api.serializers.purchases import PurchaseSerializer
 from apps.api.serializers.users import UserSerializer
-from apps.courses.models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Product, Review, UserAnswer
+from apps.courses.models import (
+    Category,
+    Comment,
+    Course,
+    Lesson,
+    LessonTask,
+    LessonTaskAnswer,
+    Product,
+    Review,
+    UserAnswer,
+)
 from apps.utilities.models import BlacklistedWord
 
 
@@ -32,6 +42,7 @@ class LessonSerializer(BaseModelSerializer):
     links = DynamicRelationField(LinkHolderSerializer, read_only=True, many=True)
     tasks = DynamicRelationField("LessonTaskSerializer", read_only=True, many=True)
     course = DynamicRelationField("CourseSerializer", read_only=True)
+    comments = DynamicRelationField("CommentSerializer", many=True)
 
     class Meta:
         model = Lesson
@@ -45,6 +56,7 @@ class LessonSerializer(BaseModelSerializer):
             "links",
             "tasks",
             "course",
+            "comments",
         ]
 
 
@@ -101,6 +113,24 @@ class ReviewSerializer(BaseModelSerializer):
         if not blacklisted_words:
             return value
         # TODO: escape symbols
+        blacklisted_words = "|".join(blacklisted_words)
+        pattern = re.compile(blacklisted_words, re.IGNORECASE)
+        return pattern.sub("***", value)
+
+
+class CommentSerializer(BaseModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ["id", "author", "lesson", "text", "images", "created_at"]
+
+    author = DynamicRelationField(UserSerializer, read_only=True)
+    lesson = DynamicRelationField(LessonSerializer)
+    images = DynamicRelationField(ImageHolderSerializer, many=True)
+
+    def validate_text(self, value: str) -> str:
+        blacklisted_words = BlacklistedWord.objects.values_list("word", flat=True)
+        if not blacklisted_words:
+            return value
         blacklisted_words = "|".join(blacklisted_words)
         pattern = re.compile(blacklisted_words, re.IGNORECASE)
         return pattern.sub("***", value)

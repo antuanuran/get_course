@@ -67,7 +67,7 @@ class Course(models.Model):
 class Review(models.Model):
     class Meta:
         verbose_name = "отзыв"
-        verbose_name_plural = "отзывы"
+        verbose_name_plural = "4. Отзывы к курсу"
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="reviews")
@@ -87,6 +87,7 @@ class Lesson(models.Model):
     images = models.ManyToManyField(ImageHolder, related_name="+", blank=True)
     links = models.ManyToManyField(LinkHolder, related_name="+", blank=True)
     # tasks (ForeignKey - LessonTask)
+    # comments
 
     def __str__(self) -> str:
         return f"Занятие: {self.name} (курс: {self.course})"
@@ -94,6 +95,18 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = "урок"
         verbose_name_plural = "3. Уроки"
+
+
+class Comment(models.Model):
+    class Meta:
+        verbose_name = "комментарий"
+        verbose_name_plural = "5. Комментарии к урокам"
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="comments")
+    text = models.TextField()
+    images = models.ManyToManyField(ImageHolder, related_name="+", blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
 
 class LessonTask(models.Model):
@@ -108,10 +121,10 @@ class LessonTask(models.Model):
 
     class Meta:
         verbose_name = "задание по уроку"
-        verbose_name_plural = "_ Задания по уроку (Д/З)"
+        verbose_name_plural = "3.1 Задания по уроку (Task)"
 
     def __str__(self) -> str:
-        return f"Задание: {self.title} (курс: {self.lesson.course})"
+        return f"{self.title} | task: id={self.id}"
 
     @property
     def course(self) -> Course:
@@ -125,10 +138,10 @@ class LessonTaskAnswer(models.Model):
 
     class Meta:
         verbose_name = "вариант ответов"
-        verbose_name_plural = "Варианты ответов"
+        verbose_name_plural = "Варианты ответов (predefined_answers)"
 
     def __str__(self) -> str:
-        return f"Ответ на задание: {self.task} | id = {self.id}"
+        return f"predefined_answer: id = {self.id}"
 
 
 class UserAnswer(models.Model):
@@ -148,7 +161,7 @@ class UserAnswer(models.Model):
 
     class Meta:
         verbose_name = "результат ответа"
-        verbose_name_plural = "_ Результаты ответов"
+        verbose_name_plural = "3.2 Результаты ответов (UserAnswer)"
 
     def __str__(self) -> str:
-        return self.task.title
+        return f" task: {self.task.title}"

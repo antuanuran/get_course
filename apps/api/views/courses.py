@@ -9,6 +9,7 @@ from rest_framework.response import Response
 
 from apps.api.permissions import IsAuthorOrReadOnly, is_author_builder
 from apps.api.serializers.courses import (
+    CommentSerializer,
     CourseSerializer,
     LessonSerializer,
     LessonTaskSerializer,
@@ -16,7 +17,7 @@ from apps.api.serializers.courses import (
     UserAnswerSerializer,
 )
 from apps.api.views.base import BaseModelViewSet
-from apps.courses.models import Course, Lesson, LessonTask, Review, UserAnswer
+from apps.courses.models import Comment, Course, Lesson, LessonTask, Review, UserAnswer
 from apps.purchases.models import Purchase
 
 
@@ -74,6 +75,20 @@ class ReviewViewSet(BaseModelViewSet):
         if not Purchase.objects.filter(course=course, user=user, status=Purchase.Status.COMPLETED).exists():
             raise PermissionDenied("course was not purchased")
         serializer.save(author=self.request.user)
+
+
+class CommentViewSet(BaseModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+    http_method_names = ["get", "post", "delete", "options", "head"]
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        course = serializer.validated_data["lesson"].course
+        if not Purchase.objects.filter(course=course, user=user, status=Purchase.Status.COMPLETED).exists():
+            raise PermissionDenied("course was not purchased")
+        serializer.save(author=user)
 
 
 class LessonViewSet(BaseModelViewSet):
