@@ -8,9 +8,16 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 
 from apps.api.permissions import IsAuthorOrReadOnly, is_author_builder
-from apps.api.serializers.courses import CourseSerializer, LessonSerializer, LessonTaskSerializer, UserAnswerSerializer
+from apps.api.serializers.courses import (
+    CommentSerializer,
+    CourseSerializer,
+    LessonSerializer,
+    LessonTaskSerializer,
+    ReviewSerializer,
+    UserAnswerSerializer,
+)
 from apps.api.views.base import BaseModelViewSet
-from apps.courses.models import Course, Lesson, LessonTask, UserAnswer
+from apps.courses.models import Comment, Course, Lesson, LessonTask, Review, UserAnswer
 from apps.purchases.models import Purchase
 
 
@@ -54,6 +61,34 @@ class CourseViewSet(BaseModelViewSet):
             course.favourites.add(user)
         serializer = self.get_serializer(instance=course)
         return Response(serializer.data)
+
+
+class ReviewViewSet(BaseModelViewSet):
+    queryset = Review.objects.filter(is_published=True)
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+    http_method_names = ["get", "post", "delete", "options", "head"]
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        course = serializer.validated_data.get("course")
+        if not Purchase.objects.filter(course=course, user=user, status=Purchase.Status.COMPLETED).exists():
+            raise PermissionDenied("course was not purchased")
+        serializer.save(author=self.request.user)
+
+
+class CommentViewSet(BaseModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+    http_method_names = ["get", "post", "delete", "options", "head"]
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        course = serializer.validated_data["lesson"].course
+        if not Purchase.objects.filter(course=course, user=user, status=Purchase.Status.COMPLETED).exists():
+            raise PermissionDenied("course was not purchased")
+        serializer.save(author=user)
 
 
 class LessonViewSet(BaseModelViewSet):

@@ -31,6 +31,7 @@ THIRD_PARTY_APPS = ["taggit", "rest_framework", "djoser", "django_filters", "dyn
 
 LOCAL_APPS = [
     "apps.users",
+    "apps.utilities",
     "apps.courses",
     "apps.purchases",
     "apps.api",

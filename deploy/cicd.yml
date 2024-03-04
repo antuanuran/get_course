@@ -70,6 +70,6 @@ jobs:
           username: root
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /root/docker_hub
+            cd /srv/deploy_skillsup
             docker pull ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:latest
             docker-compose down && docker-compose up -d && docker ps
