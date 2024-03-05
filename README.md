@@ -53,7 +53,8 @@
   - [x] купил и сразу открыто
   - [ ] уроки открываются по расписанию
   - [ ] уроки открываются после прохождения тестов
-- [ ] Генерация сертификатов для завершенного курса
+- [ ] Генерация сертификатов для завершенного курса + email (celery)
+- [ ] IDEA: scrapy для анализа средней цены на hh, если пройти этот курс
 
 ### Deploy
 - [x] Автоматический Checkout, Build, Deploy через **cicd**
@@ -64,3 +65,26 @@
 - [x] Server: http://79.174.93.205/admin/
 - [x] Swagger: http://79.174.93.205/docs/swagger/
 - [x] postman: https://skills-up.postman.co/workspace/skills-up~532ccf51-bc2b-4914-ac2d-6ad0831f096c/folder/9556154-0563bf17-166c-4694-9b5c-70911ca4a506
+
+# Good to know
+
+## algo
+
+1. sort
+   * bubble sort    O(n^2)         O(1)      1_000 -> 1_000_000
+   * quick sort     O(n*log(n))    O(n)      1_000 -> 10_000
+   * merge sort
+   * bucket sort    O(n)           O(n)      1_000 -> 1_000
+2. find
+   * bin-search
+3. bfs/dfs/Dijkstra (почитать)
+
+## data structures
+
+1. array
+2. dynamic array
+3. list
+4. set
+5. dict
+6. tree
+7. graph
