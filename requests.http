@@ -16,12 +16,12 @@ POST http://localhost:8000/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
-  "email": "admin@admin.org",
-  "password": "admin"
+  "email": "admin10@admin.org",
+  "password": "develop12345"
 }
 
 
-# 1. COURSES
+### 1. COURSES
 
 ### Просмотр без авторизации выводится весь список действующих курсов, is_selible=True. При авторизации - добавляются те курсы, которые уже куплены текущим юзером)
 GET http://localhost:8000/api/v1/courses/
@@ -206,20 +206,39 @@ Content-Type: application/json
 
 ### COMMENTS
 
-GET http://localhost:8000/api/v1/comments/
+GET http://localhost:8000/api/v1/comments/?include[]=images.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzM1NDk2LCJpYXQiOjE3MDk3OTk0OTYsImp0aSI6ImU4OTIzNzU2M2RiOTQ5YjJhZWIzMjNmMTZhM2RmZTc0IiwidXNlcl9pZCI6Mn0.cPcgwAu4BBNu_KuhniKwYPrMMCDngnzyqmCiL8ltVPw
 
 
 ### CREATE COMMENT
 
 POST http://localhost:8000/api/v1/comments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwODE1NDQ4LCJpYXQiOjE3MDkyNzk0NDgsImp0aSI6ImQ4M2ExNDQ4ZWMyMjRhMjliMjAxM2ZiMWY3MzdhODkyIiwidXNlcl9pZCI6MX0.NKWIl10ShE4Ybe_Kmzj4YOW9Nc2XTlpqd3_YLWoOGvo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzM1NDk2LCJpYXQiOjE3MDk3OTk0OTYsImp0aSI6ImU4OTIzNzU2M2RiOTQ5YjJhZWIzMjNmMTZhM2RmZTc0IiwidXNlcl9pZCI6Mn0.cPcgwAu4BBNu_KuhniKwYPrMMCDngnzyqmCiL8ltVPw
 Content-Type: application/json
 
 {
   "lesson": 1,
-  "text": "хреновина хрен"
+  "text": "хреновина хрен",
+  "images": ["84457bec-36ae-4f52-bc74-4a35196b8030"]
 }
 
+### Upload image
+
+POST http://localhost:8000/api/v1/media/images/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzM1NDk2LCJpYXQiOjE3MDk3OTk0OTYsImp0aSI6ImU4OTIzNzU2M2RiOTQ5YjJhZWIzMjNmMTZhM2RmZTc0IiwidXNlcl9pZCI6Mn0.cPcgwAu4BBNu_KuhniKwYPrMMCDngnzyqmCiL8ltVPw
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+#--WebAppBoundary
+#Content-Disposition: form-data; name="name"
+#Content-Type: text/plain
+#
+#Demo
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="demo2.png"
+Content-Type: image/png
+
+< /Users/alexander/Downloads/Screenshot at Mar 06 18-35-04.png
+--WebAppBoundary--
 
 
 
