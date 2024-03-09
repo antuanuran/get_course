@@ -16,8 +16,8 @@ POST http://localhost:8000/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
-  "email": "admin10@admin.org",
-  "password": "develop12345"
+  "email": "admin@admin.org",
+  "password": "admin"
 }
 
 
@@ -25,7 +25,7 @@ Content-Type: application/json
 
 ### Просмотр без авторизации выводится весь список действующих курсов, is_selible=True. При авторизации - добавляются те курсы, которые уже куплены текущим юзером)
 GET http://localhost:8000/api/v1/courses/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
 
 
 ### ДИНАМИЧЕСКИЙ ПРОСМОТР с фильтрацией и исключением/добавлением полей:
@@ -181,18 +181,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### REVIEWS
 
-GET http://localhost:8000/api/v1/reviews/?filter{course.id}=2
+GET http://localhost:8000/api/v1/reviews/?include[]=images.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
+
 
 ### CREATE REVIEW
 
 POST http://localhost:8000/api/v1/reviews/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
 Content-Type: application/json
 
 {
   "course": 1,
-  "text": "demo text",
-  "rating": 7
+  "text": "Отзыв на курс - хороший курс",
+  "rating": 7,
+  "images": ["8643bddc-3b6a-4403-962e-110011615326"]
 }
 
 
@@ -207,37 +210,32 @@ Content-Type: application/json
 ### COMMENTS
 
 GET http://localhost:8000/api/v1/comments/?include[]=images.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzM1NDk2LCJpYXQiOjE3MDk3OTk0OTYsImp0aSI6ImU4OTIzNzU2M2RiOTQ5YjJhZWIzMjNmMTZhM2RmZTc0IiwidXNlcl9pZCI6Mn0.cPcgwAu4BBNu_KuhniKwYPrMMCDngnzyqmCiL8ltVPw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
 
 
 ### CREATE COMMENT
 
 POST http://localhost:8000/api/v1/comments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzM1NDk2LCJpYXQiOjE3MDk3OTk0OTYsImp0aSI6ImU4OTIzNzU2M2RiOTQ5YjJhZWIzMjNmMTZhM2RmZTc0IiwidXNlcl9pZCI6Mn0.cPcgwAu4BBNu_KuhniKwYPrMMCDngnzyqmCiL8ltVPw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
 Content-Type: application/json
 
 {
   "lesson": 1,
   "text": "хреновина хрен",
-  "images": ["84457bec-36ae-4f52-bc74-4a35196b8030"]
+  "images": ["8643bddc-3b6a-4403-962e-110011615326"]
 }
 
 ### Upload image
 
 POST http://localhost:8000/api/v1/media/images/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzM1NDk2LCJpYXQiOjE3MDk3OTk0OTYsImp0aSI6ImU4OTIzNzU2M2RiOTQ5YjJhZWIzMjNmMTZhM2RmZTc0IiwidXNlcl9pZCI6Mn0.cPcgwAu4BBNu_KuhniKwYPrMMCDngnzyqmCiL8ltVPw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
-#--WebAppBoundary
-#Content-Disposition: form-data; name="name"
-#Content-Type: text/plain
-#
-#Demo
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="demo2.png"
+Content-Disposition: form-data; name="file"; filename="Foto_image.png"
 Content-Type: image/png
 
-< /Users/alexander/Downloads/Screenshot at Mar 06 18-35-04.png
+< /home/antuan/Desktop/Skillsup/skills_project/data_all/foto1.png
 --WebAppBoundary--
 
 
