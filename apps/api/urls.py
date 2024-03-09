@@ -9,7 +9,7 @@ from apps.api.views.courses import (
     ReviewViewSet,
     UserAnswerViewSet,
 )
-from apps.api.views.holder import upload_image_view
+from apps.api.views.holder import upload_image_view, upload_link_view, upload_video_view
 from apps.api.views.purchases import PurchaseViewSet, fake_leadpay_link, notification_link
 
 router = DefaultRouter()
@@ -30,4 +30,6 @@ urlpatterns = [
     path("fake-leadpay-link/", fake_leadpay_link),
     path("", include(router.urls)),
     path("media/images/", upload_image_view),
+    path("media/videos/", upload_video_view),
+    path("media/links/", upload_link_view),
 ]

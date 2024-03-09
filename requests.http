@@ -25,33 +25,33 @@ Content-Type: application/json
 
 ### Просмотр без авторизации выводится весь список действующих курсов, is_selible=True. При авторизации - добавляются те курсы, которые уже куплены текущим юзером)
 GET http://localhost:8000/api/v1/courses/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### ДИНАМИЧЕСКИЙ ПРОСМОТР с фильтрацией и исключением/добавлением полей:
 
 ### 1.1. Исключаем поле "description"
 GET http://localhost:8000/api/v1/courses/?exclude[]=description
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 ### 1.2. Добавляем поле
 GET http://localhost:8000/api/v1/courses/?exclude[]=description&include[]=lessons.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### 1.3. Добавляем вложенную группу Videos
 GET http://localhost:8000/api/v1/courses/?include[]=lessons.videos.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### 1.4. Добавили вложенного автора
 GET http://localhost:8000/api/v1/courses/?include[]=author.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### 1.5. Получить уроки
 GET http://localhost:8000/api/v1/lessons/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 
@@ -65,21 +65,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### 2.1 Просмотр всех своих покупок
 GET http://localhost:8000/api/v1/purchases/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### 2.2 Просмотр своих покупок + описание курсов
 GET http://localhost:8000/api/v1/purchases/?include[]=course.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### 2.3 Добавление курса в покупку
 POST http://localhost:8000/api/v1/purchases/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 Content-Type: application/json
 
 {
-  "course_id": 2
+  "course_id": 1
 }
 
 
@@ -92,7 +92,7 @@ Content-Type: application/json
 ### 3. FAVOURITES (Избранное)- переключатель True/False. Работаем с конкретным объектом (Detail=True)
 
 POST http://localhost:8000/api/v1/courses/1/toggle-favourite/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 
@@ -104,7 +104,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### 4.1 Получение ссылки на оплату. Работаем с конкретным объектом
 GET http://localhost:8000/api/v1/purchases/1/payment-link/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzY2ODY4LCJpYXQiOjE3MDg4MzA4NjgsImp0aSI6ImYxYTU3YzczODc2NzQ1MjQ5ODMwZWIzZDU1YWY0ZDdmIiwidXNlcl9pZCI6MX0.H1xGScreUgeD9nYlNza-eH4T6k6OsuuHbEkBZ5juBpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 Content-Type: application/json
 
 
@@ -128,12 +128,12 @@ Content-Type: application/json
 
 ### 5.1 Автопроверка (автотест) GET - list UserAnswer
 GET http://localhost:8000/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### 5.2 Автопроверка (автотест) POST - UserAnswer
 POST http://localhost:8000/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 Content-Type: application/json
 
 {
@@ -144,12 +144,14 @@ Content-Type: application/json
 
 ### 5.3 Ручная проверка POST - UserAnswer - custom
 POST http://localhost:8000/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 Content-Type: application/json
 
 {
   "task": 3,
-  "custom_answer": "Мой ответ - вот такой"
+  "custom_answer": "Мой ответ - вот такой",
+  "video": "c5bd3835-5292-42bb-8f47-428dc9de853e",
+  "link": "ec537e98-b9eb-41ef-a1a5-ad3324cd6d86"
 }
 
 
@@ -164,12 +166,12 @@ Content-Type: application/json
 
 ### LESSON
 GET http://localhost:8000/api/v1/lessons/?include[]=comments.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### TASK
 GET http://localhost:8000/api/v1/lesson-tasks/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 
@@ -182,13 +184,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 ### REVIEWS
 
 GET http://localhost:8000/api/v1/reviews/?include[]=images.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### CREATE REVIEW
 
 POST http://localhost:8000/api/v1/reviews/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 Content-Type: application/json
 
 {
@@ -210,33 +212,61 @@ Content-Type: application/json
 ### COMMENTS
 
 GET http://localhost:8000/api/v1/comments/?include[]=images.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 
 ### CREATE COMMENT
 
 POST http://localhost:8000/api/v1/comments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 Content-Type: application/json
 
 {
   "lesson": 1,
-  "text": "хреновина хрен",
-  "images": ["8643bddc-3b6a-4403-962e-110011615326"]
+  "text": "хреновина хрен хренский",
+  "images": ["c0b0abd0-7bac-412a-b6bc-54cd0d355e55"]
 }
 
-### Upload image
+###-----------------------------------------------------------------------------
+
+### 9. Upload image
 
 POST http://localhost:8000/api/v1/media/images/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk3MDA3LCJpYXQiOjE3MDk5NjEwMDcsImp0aSI6ImEwYjFkMjdjYzdiYjQxMzBhMzVmNjljZDk3YmQxNjI1IiwidXNlcl9pZCI6MX0.iX6GX4q6KuWs_nWFCptlUEgYZHRpi6GjIJtgQcETZMI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="Foto_image.png"
+Content-Disposition: form-data; name="file"; filename="image_file.png"
 Content-Type: image/png
 
-< /home/antuan/Desktop/Skillsup/skills_project/data_all/foto1.png
+< /home/antuanuran/Рабочий стол/skillsup/Project_skillsup/data_all/foto.png
 --WebAppBoundary--
+
+
+### 10. Upload video
+
+POST http://localhost:8000/api/v1/media/videos/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="video.mp4"
+Content-Type: mp4
+
+< /home/antuanuran/Рабочий стол/skillsup/Project_skillsup/data_all/video_1.mp4
+--WebAppBoundary--
+
+
+### 11. Upload link
+
+POST http://localhost:8000/api/v1/media/links/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
+Content-Type: application/json
+
+{
+  "name": "ссылка на документ",
+  "link": "https://drive.google.com/file/d/1TDf4ICbIQYxrcMLqqcTYcPqOnonigB8c/view?usp=drive_link"
+}
 
 
 
@@ -255,7 +285,7 @@ Content-Type: application/json
 
 ### Проверка данных Юзера
 GET http://localhost:8000/api/v1/users/me/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwNjQxNDg2LCJpYXQiOjE3MDkxMDU0ODYsImp0aSI6ImZlZjRkZGJmZmYwMTRmMTc4YTEwNWQwYjhmODFhZDNlIiwidXNlcl9pZCI6MX0.2gA_C5FJtqunaI0ytM_iQJH0TU7Iwf7-vsB62usDfBI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
 
 ### Проверка самого Токена
 https://jwt.io/

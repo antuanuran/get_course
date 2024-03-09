@@ -9,6 +9,8 @@ class VideoHolderSerializer(BaseModelSerializer):
         model = VideoHolder
         fields = ["uuid", "name", "description", "file"]
 
+    name = serializers.CharField(max_length=100, required=False)
+
 
 class ImageHolderSerializer(BaseModelSerializer):
     class Meta:
