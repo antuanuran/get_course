@@ -2,7 +2,7 @@
 
 ### GET. Просмотр всех отзывов к курсам.
 GET http://79.174.93.205/api/v1/reviews/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC.................
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcyMTMwLCJpYXQiOjE3MTAxMzYxMzAsImp0aSI6IjVkNmFjMDliZmI0YjQzNjE5YTQyODBhNjgyNzZlOWE5IiwidXNlcl9pZCI6MX0.kSpE1Krf9_wZwGv8flxMBq8ROq3myxchGVgK7xV2Mr4
 
 
 
@@ -10,14 +10,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC.................
 ### POST. Создание нового отзыва к моему курсу (который оплачен, т.е. имеет статус - "Completed")
 ### Чтобы прикрепить картинку - нужно ее загрузить в Холдер и скопировать uuid
 POST http://79.174.93.205/api/v1/reviews/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC.................
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcyMTMwLCJpYXQiOjE3MTAxMzYxMzAsImp0aSI6IjVkNmFjMDliZmI0YjQzNjE5YTQyODBhNjgyNzZlOWE5IiwidXNlcl9pZCI6MX0.kSpE1Krf9_wZwGv8flxMBq8ROq3myxchGVgK7xV2Mr4
 Content-Type: application/json
 
 {
   "course": 1,
   "text": "Отзыв на курс - хороший курс",
   "rating": 7,
-  "images": ["8643bddc-3b6a-4403-962e-110011615326"]
+  "images": ["8804cb57-27d5-4ed2-91a5-9e22aa0e823d"]
 }
 
 
@@ -28,17 +28,17 @@ Content-Type: application/json
 
 ### GET. Просмотр всех комментариев к Уроком (lessons).
 GET http://79.174.93.205/api/v1/comments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC.................
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcyMTMwLCJpYXQiOjE3MTAxMzYxMzAsImp0aSI6IjVkNmFjMDliZmI0YjQzNjE5YTQyODBhNjgyNzZlOWE5IiwidXNlcl9pZCI6MX0.kSpE1Krf9_wZwGv8flxMBq8ROq3myxchGVgK7xV2Mr4
 
 
 ### POST. Создать комментарий. Комментировать может зарегистрированный пользователь. Но уроки может видеть только тот юзер, который купил курс. Соответственно комментировать может только уроки своего купленного курса.
 ### Чтобы прикрепить картинку - нужно ее загрузить в Холдер и скопировать uuid
 POST http://79.174.93.205/api/v1/comments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC.................
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcyMTMwLCJpYXQiOjE3MTAxMzYxMzAsImp0aSI6IjVkNmFjMDliZmI0YjQzNjE5YTQyODBhNjgyNzZlOWE5IiwidXNlcl9pZCI6MX0.kSpE1Krf9_wZwGv8flxMBq8ROq3myxchGVgK7xV2Mr4
 Content-Type: application/json
 
 {
   "lesson": 1,
   "text": "хреновина хрен хренский",
-  "images": ["c0b0abd0-7bac-412a-b6bc-54cd0d355e55"]
+  "images": ["8804cb57-27d5-4ed2-91a5-9e22aa0e823d"]
 }

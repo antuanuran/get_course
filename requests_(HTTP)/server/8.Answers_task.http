@@ -4,7 +4,7 @@
 
 ### GET. Просмотр всех своих ответов (тесты и развернутые ответы).
 GET http://79.174.93.205/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6.................
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcyMTMwLCJpYXQiOjE3MTAxMzYxMzAsImp0aSI6IjVkNmFjMDliZmI0YjQzNjE5YTQyODBhNjgyNzZlOWE5IiwidXNlcl9pZCI6MX0.kSpE1Krf9_wZwGv8flxMBq8ROq3myxchGVgK7xV2Mr4
 
 
 
@@ -12,7 +12,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6.................
 
 ### Отправить варианты ответов на Задание (тесты). После отправки ответа - придет автоматичесикй ответ и поменяется статус в зависимости от корректности / некорректности ответа.
 POST http://79.174.93.205/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6.................
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcyMTMwLCJpYXQiOjE3MTAxMzYxMzAsImp0aSI6IjVkNmFjMDliZmI0YjQzNjE5YTQyODBhNjgyNzZlOWE5IiwidXNlcl9pZCI6MX0.kSpE1Krf9_wZwGv8flxMBq8ROq3myxchGVgK7xV2Mr4
 Content-Type: application/json
 
 {
@@ -29,13 +29,13 @@ Content-Type: application/json
 ### "task" - обязательное поле, все остальные не обязательные.
 ### Если нужно прикрепить видео/фото/ссылку -> нужно скопировать uuid в предыдущем файле загрузки данных в Holder.
 POST http://79.174.93.205/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6.................
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcyMTMwLCJpYXQiOjE3MTAxMzYxMzAsImp0aSI6IjVkNmFjMDliZmI0YjQzNjE5YTQyODBhNjgyNzZlOWE5IiwidXNlcl9pZCI6MX0.kSpE1Krf9_wZwGv8flxMBq8ROq3myxchGVgK7xV2Mr4
 Content-Type: application/json
 
 {
   "task": 3,
   "custom_answer": "Мой ответ - вот такой",
-  "video": "c5bd3835-5292-42bb-8f47-428dc9de853e",
-  "link": "ec537e98-b9eb-41ef-a1a5-ad3324cd6d86",
-  "image": "8643bddc-3b6a-4403-962e-110011615326"
+  "video": "fb9d8251-69a3-4320-87d4-cce9eaa58b4e",
+  "link": "0a066ff6-e65f-4af6-89d8-e1a7d812c4c3",
+  "image": "8804cb57-27d5-4ed2-91a5-9e22aa0e823d"
 }
