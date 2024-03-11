@@ -1,0 +1,41 @@
+### Создание TOKEN для нового Юзера
+POST http://79.174.93.205/api/v1/auth/jwt/create/
+Content-Type: application/json
+
+{
+  "email": "admin@admin.org",
+  "password": "admin"
+}
+
+
+
+### Создание нового Юзера
+POST http://79.174.93.205/api/v1/users/
+Content-Type: application/json
+
+{
+  "email": "admin2@admin.org",
+  "password": "develop12345"
+}
+
+
+
+
+
+### ДОПОЛНИТЕЛЬНО******************************************************************************
+
+### Проверка данных Юзера
+GET http://79.174.93.205/api/v1/users/me/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2j.......
+
+### Проверка самого Токена
+https://jwt.io/
+
+
+
+### Postman:
+https://skills-up.postman.co/workspace/skills-up~532ccf51-bc2b-4914-ac2d-6ad0831f096c/overview
+
+
+### При работе через Swagger: http://127.0.0.1:8000/docs/swagger/
+### Token для Swagger:        Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2j.......

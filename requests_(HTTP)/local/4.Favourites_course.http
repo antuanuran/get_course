@@ -1,0 +1,4 @@
+### FAVOURITES (Добавить конкретный курс в "Избранное"). Переключатель True/False. Работаем с конкретным объектом (Detail=True)
+
+POST http://localhost:8000/api/v1/courses/1/toggle-favourite/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE

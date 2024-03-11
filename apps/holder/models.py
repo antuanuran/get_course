@@ -1,7 +1,10 @@
+import uuid
+
 from django.db import models
 
 
 class MediaHolder(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
 
@@ -38,6 +41,7 @@ class LinkHolder(models.Model):
         verbose_name = "ссылка"
         verbose_name_plural = "ссылки"
 
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     link = models.URLField(max_length=500)
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)

@@ -3,7 +3,6 @@ import csv
 from django.core.management import BaseCommand
 
 from apps.courses.models import Category, Course, Lesson, LessonTask, LessonTaskAnswer, Product
-from apps.holder.models import ImageHolder, VideoHolder
 
 
 def import_data(data_stream):
@@ -21,8 +20,8 @@ def import_data(data_stream):
         )
         lessontaskanswer, _ = LessonTaskAnswer.objects.get_or_create(task_id=lesson_task.id, text=entity["answer"])
 
-        image, _ = ImageHolder.objects.get_or_create(name="Photo_1", file="files/images/foto1.png")
-        image, _ = VideoHolder.objects.get_or_create(name="Video_1", file="files/videos/video_1.mp4")
+        # image, _ = ImageHolder.objects.get_or_create(name="Photo_1", file="files/images/foto1.png")
+        # image, _ = VideoHolder.objects.get_or_create(name="Video_1", file="files/videos/video_1.mp4")
 
 
 class Command(BaseCommand):
