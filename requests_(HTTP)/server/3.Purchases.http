@@ -1,0 +1,24 @@
+### PURCHESES
+
+
+### GET. Просмотр всех своих покупок
+GET http://79.174.93.205/api/v1/purchases/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp.......
+
+
+### GET. Просмотр своих покупок + описание курсов
+GET http://79.174.93.205/api/v1/purchases/?include[]=course.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp.......
+
+
+
+
+
+### POST. Добавление курса в покупку. Покупка создается со статусом "CREATED". Перевод в статус "COMPLETED" происход только после оплаты курса.
+POST http://79.174.93.205/api/v1/purchases/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp.......
+Content-Type: application/json
+
+{
+  "course_id": 1
+}

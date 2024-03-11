@@ -1,0 +1,20 @@
+### ПЛАТЕЖНЫЙ ШЛЮЗ
+
+
+### GET. ПОЛУЧЕНИЕ ОТ ШЛЮЗА ССЫЛКИ НА ОПЛАТУ. Работаем с конкретной покупкой.
+GET http://localhost:8000/api/v1/purchases/21/payment-link/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Content-Type: application/json
+
+
+
+
+### POST. (Якобы) Ответ от Leadpay со статусом (success / fail). id_Заказа и price должен совпасть с реальным.
+POST http://localhost:8000/api/v1/leadpay-notification/
+Content-Type: application/json
+
+{
+  "status": "success",
+  "summa": "10000",
+  "order_id": "21"
+}

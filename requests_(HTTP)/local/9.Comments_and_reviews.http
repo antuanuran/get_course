@@ -1,0 +1,44 @@
+### 1. ОТЗЫВЫ. REVIEWS
+
+### GET. Просмотр всех отзывов к курсам.
+GET http://localhost:8000/api/v1/reviews/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+
+
+
+
+### POST. Создание нового отзыва к моему курсу (который оплачен, т.е. имеет статус - "Completed")
+### Чтобы прикрепить картинку - нужно ее загрузить в Холдер и скопировать uuid
+POST http://localhost:8000/api/v1/reviews/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Content-Type: application/json
+
+{
+  "course": 1,
+  "text": "Отзыв на курс - хороший курс",
+  "rating": 7,
+  "images": ["39d1b9f8-0864-4914-8405-a0b639d00f66"]
+}
+
+
+
+
+
+### 8. КОММЕНТАРИИ. COMMENTS
+
+### GET. Просмотр всех комментариев к Уроком (lessons).
+GET http://localhost:8000/api/v1/comments/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+
+
+### POST. Создать комментарий. Комментировать может зарегистрированный пользователь. Но уроки может видеть только тот юзер, который купил курс. Соответственно комментировать может только уроки своего купленного курса.
+### Чтобы прикрепить картинку - нужно ее загрузить в Холдер и скопировать uuid
+POST http://localhost:8000/api/v1/comments/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Content-Type: application/json
+
+{
+  "lesson": 1,
+  "text": "хреновина хрен хренский",
+  "images": ["39d1b9f8-0864-4914-8405-a0b639d00f66"]
+}

@@ -1,0 +1,38 @@
+### 1. COURSES
+
+### 1.1 ПРОСМОТР БЕЗ АВТОРИЗАЦИИ. Вывод всего списка действующих курсов, is_selible=True. При авторизации - добавляются те курсы, которые уже куплены текущим юзером, даже если они уже is_selible=False
+GET http://79.174.93.205/api/v1/courses/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+
+
+
+### 1.2 ДИНАМИЧЕСКИЙ ПРОСМОТР с фильтрацией и исключением/добавлением полей:
+
+### Исключаем поле "description"
+GET http://79.174.93.205/api/v1/courses/?exclude[]=description
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+
+### Добавляем поле "lessons"
+GET http://79.174.93.205/api/v1/courses/?exclude[]=description&include[]=lessons.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+
+
+### Добавляем вложенную группу "Videos"
+GET http://79.174.93.205/api/v1/courses/?include[]=lessons.videos.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+
+
+### Добавляем вложенного автора
+GET http://79.174.93.205/api/v1/courses/?include[]=author.*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+
+
+
+
+
+
+### 2. LESSONS
+
+### Просмотр всех уроков
+GET http://79.174.93.205/api/v1/lessons/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....

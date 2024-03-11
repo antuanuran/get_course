@@ -1,0 +1,40 @@
+### HOLDER. После загрузки любого объекта - сохраните uuid для дальнейшего использования (вставка) в других запросах, требующих прикрепление фото/ссылки/видео - материалы
+
+### 1. Upload image.
+
+POST http://79.174.93.205/api/v1/media/images/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="image_file.png"
+Content-Type: image/png
+
+< /home/antuanuran/Рабочий стол/skillsup/Project_skillsup/data_all/foto.png
+--WebAppBoundary--
+
+
+### 2. Upload video
+
+POST http://79.174.93.205/api/v1/media/videos/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="video.mp4"
+Content-Type: mp4
+
+< /home/antuanuran/Рабочий стол/skillsup/Project_skillsup/data_all/video_1.mp4
+--WebAppBoundary--
+
+
+### 3. Upload link
+
+POST http://79.174.93.205/api/v1/media/links/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjE4MjY1LCJpYXQiOjE3MTAwODIyNjUsImp0aSI6Ijc2MmZjMzM3YmQwODQxNzU5M2ZmYjlkZDAwMjZmN2ZlIiwidXNlcl9pZCI6MX0.gfPbYceg7TbgPTWNbEWlLF2UYAHNz74UVebu7jWTWrg
+Content-Type: application/json
+
+{
+  "name": "ссылка на документ",
+  "link": "https://drive.google.com/file/d/1TDf4ICbIQYxrcMLqqcTYcPqOnonigB8c/view?usp=drive_link"
+}

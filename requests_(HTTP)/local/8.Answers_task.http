@@ -1,0 +1,41 @@
+### ПРОВЕРКА ЗАДАНИЙ
+
+
+
+### GET. Просмотр всех своих ответов (тесты и развернутые ответы).
+GET http://localhost:8000/api/v1/user-answers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+
+
+
+### 1. Тесты. POST. (Отправить свой ответ на Задание с вариантами, т.е. тесты)
+
+### Отправить варианты ответов на Задание (тесты). После отправки ответа - придет автоматичесикй ответ и поменяется статус в зависимости от корректности / некорректности ответа.
+POST http://localhost:8000/api/v1/user-answers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6.................
+Content-Type: application/json
+
+{
+  "task": 1,
+  "predefined_answers": [1, 2]
+}
+
+
+
+
+
+### 2. Развернутый ответ. POST. (Отправить свой ответ на Задание без вариантов ответа). После того, как отправится ответ - задание улетит на проверку к Админу. И только после проверки, Админ поменяет статус на "провернно".
+
+### "task" - обязательное поле, все остальные не обязательные.
+### Если нужно прикрепить видео/фото/ссылку -> нужно скопировать uuid в предыдущем файле загрузки данных в Holder.
+POST http://localhost:8000/api/v1/user-answers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Content-Type: application/json
+
+{
+  "task": 3,
+  "custom_answer": "Мой ответ - вот такой",
+  "video": "c9f60e43-65d4-46f3-af1f-33e112ab938d",
+  "link": "1d7cf372-fd94-433a-90cf-54307dd761ec",
+  "image": "39d1b9f8-0864-4914-8405-a0b639d00f66"
+}
