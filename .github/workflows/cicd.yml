@@ -72,4 +72,4 @@ jobs:
           script: |
             cd /srv/deploy_skillsup
             docker pull ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:latest
-            docker-compose down -v && docker-compose up -d && docker ps
+            docker-compose down && docker-compose up -d && docker ps
