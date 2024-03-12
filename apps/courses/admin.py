@@ -3,6 +3,7 @@ from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
+from ordered_model.admin import OrderedInlineModelAdminMixin, OrderedModelAdmin, OrderedTabularInline
 
 from .models import Category, Comment, Course, Lesson, LessonTask, LessonTaskAnswer, Product, Review, UserAnswer
 
@@ -31,10 +32,11 @@ class CategoryAdmin(admin.ModelAdmin):
         return obj.name
 
 
-class LessonInline(admin.TabularInline):
+class LessonInline(OrderedTabularInline):
     model = Lesson
     extra = 0
     exclude = ["videos"]
+    readonly_fields = ["move_up_down_links"]
 
 
 class ReviewInline(admin.TabularInline):
@@ -44,7 +46,7 @@ class ReviewInline(admin.TabularInline):
 
 
 @admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
+class CourseAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
     list_display = ["name_course", "sellable", "tag_list", "poster", "price", "author", "is_sellable", "free", "id"]
     list_filter = ["is_sellable"]
     list_editable = ["is_sellable"]
@@ -107,8 +109,9 @@ class CommentInline(admin.TabularInline):
 
 
 @admin.register(Lesson)
-class LessonAdmin(admin.ModelAdmin):
-    list_display = ["name_lesson", "course", "course_id", "id"]
+class LessonAdmin(OrderedModelAdmin):
+    list_display = ["name_lesson", "course", "move_up_down_links", "course_id", "id"]
+    readonly_fields = ["move_up_down_links"]
     inlines = [LessonTaskInline, CommentInline]
 
     @admin.display(description="название урока", ordering="id")

@@ -27,7 +27,15 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["taggit", "rest_framework", "djoser", "django_filters", "dynamic_rest", "drf_yasg"]
+THIRD_PARTY_APPS = [
+    "taggit",
+    "rest_framework",
+    "djoser",
+    "django_filters",
+    "dynamic_rest",
+    "drf_yasg",
+    "ordered_model",
+]
 
 LOCAL_APPS = [
     "apps.users",

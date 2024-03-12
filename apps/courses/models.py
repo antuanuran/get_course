@@ -1,6 +1,7 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils import timezone
+from ordered_model.models import OrderedModel
 from taggit.managers import TaggableManager
 
 from apps.holder.models import ImageHolder, LinkHolder, VideoHolder
@@ -42,6 +43,11 @@ class Course(models.Model):
             models.UniqueConstraint(fields=["product", "name"], name="unique_course_name_per_product"),
         ]
 
+    class OpenType(models.TextChoices):
+        instant = "instant", "Открывается сразу все при покупке"
+        schedule = "schedule", "Открывается по расписанию в уроках"
+        progress = "progress", "Открывается по успешному прохождению предыдущего урока"
+
     tags = TaggableManager(blank=True)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="courses")
@@ -51,6 +57,7 @@ class Course(models.Model):
     price = models.PositiveIntegerField()
     poster = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
     is_sellable = models.BooleanField(default=True)
+    open_type = models.CharField(max_length=16, choices=OpenType.choices, default=OpenType.instant)
 
     favourites = models.ManyToManyField(User, related_name="favourites", blank=True)
     # purchases (Course.purchases) - ForeighnKey - Purchase
@@ -78,23 +85,27 @@ class Review(models.Model):
     is_published = models.BooleanField(default=False)
 
 
-class Lesson(models.Model):
+class Lesson(OrderedModel):
+    class Meta:
+        verbose_name = "урок"
+        verbose_name_plural = "3. Уроки"
+        ordering = ("course", "order")
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
     name = models.CharField(max_length=100)
     annotation = models.TextField(null=True, blank=True)
     text = models.TextField(null=True, blank=True)
+    open_time = models.DateTimeField(null=True, blank=True)
     videos = models.ManyToManyField(VideoHolder, related_name="+", blank=True)
     images = models.ManyToManyField(ImageHolder, related_name="+", blank=True)
     links = models.ManyToManyField(LinkHolder, related_name="+", blank=True)
     # tasks (ForeignKey - LessonTask)
     # comments
 
+    order_with_respect_to = "course"
+
     def __str__(self) -> str:
         return f"Занятие: {self.name} (курс: {self.course})"
-
-    class Meta:
-        verbose_name = "урок"
-        verbose_name_plural = "3. Уроки"
 
 
 class Comment(models.Model):

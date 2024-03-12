@@ -1,6 +1,8 @@
 import re
 
 from django.core.exceptions import ValidationError
+from django.db.models import Count
+from django.utils import timezone
 from dynamic_rest.fields import DynamicMethodField, DynamicRelationField
 from taggit.serializers import TaggitSerializer, TagListSerializerField
 
@@ -43,6 +45,23 @@ class LessonSerializer(BaseModelSerializer):
     tasks = DynamicRelationField("LessonTaskSerializer", read_only=True, many=True)
     course = DynamicRelationField("CourseSerializer", read_only=True)
     comments = DynamicRelationField("CommentSerializer", many=True)
+    is_available = DynamicMethodField(requires=["course"])
+
+    def get_is_available(self, obj: Lesson):
+        if obj.course.open_type == obj.course.OpenType.instant:
+            return True
+        if obj.course.open_type == obj.course.OpenType.schedule:
+            return obj.open_time <= timezone.now()
+        if obj.course.open_type == obj.course.OpenType.progress:
+            for lesson in obj.course.lessons.annotate(task_count=Count("tasks")).all():
+                if lesson.order >= obj.order:
+                    return True
+                if lesson.task_count == 0:
+                    continue
+                if not lesson.tasks.filter(user_answers__success=True).exists():
+                    break
+            return False
+        return False
 
     class Meta:
         model = Lesson
@@ -57,6 +76,7 @@ class LessonSerializer(BaseModelSerializer):
             "tasks",
             "course",
             "comments",
+            "is_available",
         ]
 
 
@@ -85,7 +105,9 @@ class CourseSerializer(TaggitSerializer, BaseModelSerializer):
             "is_purchased",
             "is_favourite",
             "lessons",
+            "open_type",
         ]
+        read_only_fields = ["open_type"]
 
     def get_is_purchased(self, obj: Course):
         current_user = self.context["request"].user.id
