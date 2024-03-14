@@ -60,12 +60,12 @@ class LessonSerializer(BaseModelSerializer):
         if obj.course.open_type == obj.course.OpenType.schedule:
             return obj.open_time <= timezone.now()
         if obj.course.open_type == obj.course.OpenType.progress:
-            for lesson in obj.course.lessons.annotate(task_count=Count("tasks")).all():
+            for lesson in obj.course.lessons.annotate(task_count=Count("tasks")).order_by("order").all():
                 if lesson.order >= obj.order:
                     return True
                 if lesson.task_count == 0:
                     continue
-                if not lesson.tasks.filter(user_answers__success=True).exists():
+                if not lesson.tasks.filter(user_answers__user=user, user_answers__success=True).exists():
                     break
             return False
         return False
@@ -75,6 +75,7 @@ class LessonSerializer(BaseModelSerializer):
         fields = [
             "name",
             "id",
+            "order",
             "annotation",
             "text",
             "videos",

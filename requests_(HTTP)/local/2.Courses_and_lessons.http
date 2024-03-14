@@ -34,7 +34,7 @@ Authorization: Bearer {{token}}
 ### 2. LESSONS
 
 ### Просмотр всех уроков
-GET http://localhost:8000/api/v1/lessons/?filter{course.id}=2
+GET http://localhost:8000/api/v1/lessons/?filter{course.id}=1&exclude[]=*&include[]=name&include[]=is_available&include[]=order
 Authorization: Bearer {{token}}
 
 
