@@ -91,6 +91,7 @@ class Lesson(OrderedModel):
         verbose_name_plural = "3. Уроки"
         ordering = ("course", "order")
 
+    # order = ...
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
     name = models.CharField(max_length=100)
     annotation = models.TextField(null=True, blank=True)

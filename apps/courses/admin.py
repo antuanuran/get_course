@@ -110,7 +110,7 @@ class CommentInline(admin.TabularInline):
 
 @admin.register(Lesson)
 class LessonAdmin(OrderedModelAdmin):
-    list_display = ["name_lesson", "course", "move_up_down_links", "course_id", "id"]
+    list_display = ["name_lesson", "course", "order", "move_up_down_links", "course_id", "id"]
     readonly_fields = ["move_up_down_links"]
     inlines = [LessonTaskInline, CommentInline]
 
