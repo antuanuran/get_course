@@ -2,7 +2,7 @@
 
 ### 1.1 ПРОСМОТР БЕЗ АВТОРИЗАЦИИ. Вывод всего списка действующих курсов, is_selible=True. При авторизации - добавляются те курсы, которые уже куплены текущим юзером, даже если они уже is_selible=False
 GET http://localhost:8000/api/v1/courses/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 
 
 
@@ -10,21 +10,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### Исключаем поле "description"
 GET http://localhost:8000/api/v1/courses/?exclude[]=description
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+Authorization: Bearer {{token}}
 
 ### Добавляем поле "lessons"
 GET http://localhost:8000/api/v1/courses/?exclude[]=description&include[]=lessons.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+Authorization: Bearer {{token}}
 
 
 ### Добавляем вложенную группу "Videos"
 GET http://localhost:8000/api/v1/courses/?include[]=lessons.videos.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+Authorization: Bearer {{token}}
 
 
 ### Добавляем вложенного автора
 GET http://localhost:8000/api/v1/courses/?include[]=author.*
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+Authorization: Bearer {{token}}
 
 
 
@@ -34,5 +34,32 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
 ### 2. LESSONS
 
 ### Просмотр всех уроков
-GET http://localhost:8000/api/v1/lessons/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsI.....
+GET http://localhost:8000/api/v1/lessons/?filter{course.id}=2
+Authorization: Bearer {{token}}
+
+
+
+### 3. Comments
+
+### Просмотр всех уроков
+GET http://localhost:8000/api/v1/comments/?include[]=lesson.*
+Authorization: Bearer {{token}}
+
+
+### Добавить комментарий
+POST http://localhost:8000/api/v1/comments/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "lesson": 2,
+  "text": "as non curator"
+}
+
+
+
+### 4. Tasks
+
+### Просмотр всех заданий
+GET http://localhost:8000/api/v1/lesson-tasks/
+Authorization: Bearer {{token}}
