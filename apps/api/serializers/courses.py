@@ -1,3 +1,4 @@
+import functools
 import re
 
 from django.core.exceptions import ValidationError
@@ -21,6 +22,7 @@ from apps.courses.models import (
     Review,
     UserAnswer,
 )
+from apps.purchases.models import Purchase
 from apps.utilities.models import BlacklistedWord
 
 
@@ -47,7 +49,12 @@ class LessonSerializer(BaseModelSerializer):
     comments = DynamicRelationField("CommentSerializer", many=True)
     is_available = DynamicMethodField(requires=["course"])
 
-    def get_is_available(self, obj: Lesson):
+    def get_is_available(self, obj: Lesson):  # noqa: C901
+        user = self.context["request"].user
+        if obj.course.author == user:
+            return True
+        if obj.course.curators.filter(id=user.id).exists():
+            return True
         if obj.course.open_type == obj.course.OpenType.instant:
             return True
         if obj.course.open_type == obj.course.OpenType.schedule:
@@ -86,7 +93,8 @@ class CourseSerializer(TaggitSerializer, BaseModelSerializer):
     product = DynamicRelationField(ProductSerializer, read_only=True)
     poster = DynamicRelationField(ImageHolderSerializer, read_only=True)
     tags = TagListSerializerField()
-    is_purchased = DynamicMethodField()
+    has_access = DynamicMethodField()
+    purchase = DynamicMethodField()
     is_favourite = DynamicMethodField()
 
     class Meta:
@@ -102,21 +110,32 @@ class CourseSerializer(TaggitSerializer, BaseModelSerializer):
             "description",
             "product",
             "is_sellable",
-            "is_purchased",
+            "has_access",
+            "purchase",
             "is_favourite",
             "lessons",
             "open_type",
         ]
         read_only_fields = ["open_type"]
 
-    def get_is_purchased(self, obj: Course):
+    def get_has_access(self, obj: Course) -> bool:
+        user = self.context["request"].user
+        if obj.author == user:
+            return True
+        if obj.curators.filter(id=user.id).exists():
+            return True
+        return (self.get_purchase(obj) or {}).get("status") == Purchase.Status.COMPLETED
+
+    @functools.cache
+    def get_purchase(self, obj: Course) -> dict | None:
+        print(f"я здесь для курса: {obj.name}")
         current_user = self.context["request"].user.id
         obj = obj.purchases.filter(user_id=current_user).first()
         if obj is None:
             return None
         return PurchaseSerializer(instance=obj).data
 
-    def get_is_favourite(self, obj: Course):
+    def get_is_favourite(self, obj: Course) -> bool:
         current_user = self.context["request"].user.id
         return obj.favourites.filter(id=current_user).exists()
 

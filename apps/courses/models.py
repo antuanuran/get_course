@@ -59,6 +59,7 @@ class Course(models.Model):
     is_sellable = models.BooleanField(default=True)
     open_type = models.CharField(max_length=16, choices=OpenType.choices, default=OpenType.instant)
 
+    curators = models.ManyToManyField(User, related_name="managed_courses", blank=True)
     favourites = models.ManyToManyField(User, related_name="favourites", blank=True)
     # purchases (Course.purchases) - ForeighnKey - Purchase
     # lessons (Course.lessons) -  ForeighnKey - Lesson

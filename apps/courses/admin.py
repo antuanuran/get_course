@@ -50,7 +50,7 @@ class CourseAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
     list_display = ["name_course", "sellable", "tag_list", "poster", "price", "author", "is_sellable", "free", "id"]
     list_filter = ["is_sellable"]
     list_editable = ["is_sellable"]
-    filter_horizontal = ["favourites"]
+    filter_horizontal = ["favourites", "curators"]
     search_fields = ["name"]
     inlines = [LessonInline, ReviewInline]
 

@@ -44,7 +44,7 @@ class CourseViewSet(BaseModelViewSet):
         filter_params = Q(is_sellable=True)
         user = self.request.user
         if user.is_authenticated:
-            filter_params |= Q(purchases__user=user) | Q(favourites=user) | Q(author=user)
+            filter_params |= Q(purchases__user=user) | Q(favourites=user) | Q(author=user) | Q(curators=user)
         qs = super().get_queryset(queryset).filter(filter_params)
         # TODO: make annotations
         # qs = qs.annotate(is_purchased=Exists("purchased_courses"))
@@ -86,7 +86,11 @@ class CommentViewSet(BaseModelViewSet):
     def perform_create(self, serializer):
         user = self.request.user
         course = serializer.validated_data["lesson"].course
-        if not Purchase.objects.filter(course=course, user=user, status=Purchase.Status.COMPLETED).exists():
+        if not (
+            course.author == user
+            or Purchase.objects.filter(course=course, user=user, status=Purchase.Status.COMPLETED).exists()
+            or user.managed_courses.filter(id=course.id).exists()
+        ):
             raise PermissionDenied("course was not purchased")
         serializer.save(author=user)
 
@@ -98,10 +102,14 @@ class LessonViewSet(BaseModelViewSet):
 
     def get_queryset(self, queryset=None):
         user = self.request.user
-        filter_params = Q(
-            course__purchases__user=user,
-            course__purchases__status=Purchase.Status.COMPLETED,
-        ) | Q(course__author=user)
+        filter_params = (
+            Q(
+                course__purchases__user=user,
+                course__purchases__status=Purchase.Status.COMPLETED,
+            )
+            | Q(course__author=user)
+            | Q(course__curators=user)
+        )
         qs = super().get_queryset(queryset).filter(filter_params)
         return qs
 
@@ -113,10 +121,14 @@ class LessonTaskViewSet(BaseModelViewSet):
 
     def get_queryset(self, queryset=None):
         user = self.request.user
-        filter_params = Q(
-            lesson__course__purchases__user=user,
-            lesson__course__purchases__status=Purchase.Status.COMPLETED,
-        ) | Q(lesson__course__author=user)
+        filter_params = (
+            Q(
+                lesson__course__purchases__user=user,
+                lesson__course__purchases__status=Purchase.Status.COMPLETED,
+            )
+            | Q(lesson__course__author=user)
+            | Q(lesson__course__curators=user)
+        )
         qs = super().get_queryset(queryset).filter(filter_params)
         return qs
 
@@ -129,7 +141,7 @@ class UserAnswerViewSet(BaseModelViewSet):
 
     def get_queryset(self, queryset=None):
         user = self.request.user
-        filter_params = Q(user=user) | Q(task__lesson__course__author=user)
+        filter_params = Q(user=user) | Q(task__lesson__course__author=user) | Q(task__lesson__course__curators=user)
         qs = super().get_queryset(queryset).filter(filter_params)
         return qs
 
