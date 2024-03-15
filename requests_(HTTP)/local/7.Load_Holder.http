@@ -3,7 +3,7 @@
 ### 1. Upload image.
 
 POST http://localhost:8000/api/v1/media/images/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -17,7 +17,7 @@ Content-Type: image/png
 ### 2. Upload video
 
 POST http://localhost:8000/api/v1/media/videos/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -31,7 +31,7 @@ Content-Type: mp4
 ### 3. Upload link
 
 POST http://localhost:8000/api/v1/media/links/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {

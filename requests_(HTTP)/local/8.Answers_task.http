@@ -4,7 +4,7 @@
 
 ### GET. Просмотр всех своих ответов (тесты и развернутые ответы).
 GET http://localhost:8000/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 
 
 
@@ -12,7 +12,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### Отправить варианты ответов на Задание (тесты). После отправки ответа - придет автоматичесикй ответ и поменяется статус в зависимости от корректности / некорректности ответа.
 POST http://localhost:8000/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6.................
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 ### "task" - обязательное поле, все остальные не обязательные.
 ### Если нужно прикрепить видео/фото/ссылку -> нужно скопировать uuid в предыдущем файле загрузки данных в Holder.
 POST http://localhost:8000/api/v1/user-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {

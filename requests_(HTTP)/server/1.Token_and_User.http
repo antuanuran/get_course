@@ -4,8 +4,10 @@ Content-Type: application/json
 
 {
   "email": "admin@admin.org",
-  "password": "admin"
+  "password": "*****"
 }
+
+> {% client.global.set("token", response.body.access); %}
 
 
 

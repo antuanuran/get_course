@@ -34,9 +34,12 @@ Authorization: Bearer {{token}}
 ### 2. LESSONS
 
 ### Просмотр всех уроков
-GET http://localhost:8000/api/v1/lessons/?filter{course.id}=1&exclude[]=*&include[]=name&include[]=is_available&include[]=order
+GET http://localhost:8000/api/v1/lessons/
 Authorization: Bearer {{token}}
 
+### Просмотр с условиями
+GET http://localhost:8000/api/v1/lessons/?filter{course.id}=1&exclude[]=*&include[]=name&include[]=is_available&include[]=order
+Authorization: Bearer {{token}}
 
 
 ### 3. Comments
@@ -52,7 +55,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "lesson": 2,
+  "lesson": 4,
   "text": "as non curator"
 }
 

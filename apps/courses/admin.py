@@ -131,11 +131,6 @@ class LessonTaskAdmin(admin.ModelAdmin):
     inlines = [LessonTaskAnswerInline]
 
 
-# @admin.register(LessonTaskAnswer)
-# class LessonTaskAnswerAdmin(admin.ModelAdmin):
-#     list_display = ["task", "is_correct", "id"]
-
-
 @admin.register(UserAnswer)
 class UserAnswerAdmin(admin.ModelAdmin):
     list_display = ["task", "user", "success", "id"]

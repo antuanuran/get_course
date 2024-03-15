@@ -1,17 +1,17 @@
-### Создание TOKEN для нового Юзера
+### TOKEN для нового Юзера (Создание)
 POST http://localhost:8000/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
-  "email": "admin2@admin.org",
-  "password": "develop12345"
+  "email": "admin@admin.org",
+  "password": "*****"
 }
 
 > {% client.global.set("token", response.body.access); %}
 
 
 
-### Создание нового Юзера
+### USER - Создание нового Юзера
 POST http://localhost:8000/api/v1/users/
 Content-Type: application/json
 
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ### Проверка данных Юзера
 GET http://localhost:8000/api/v1/users/me/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2j.......
+Authorization: Bearer {{token}}
 
 ### Проверка самого Токена
 https://jwt.io/
@@ -40,4 +40,4 @@ https://skills-up.postman.co/workspace/skills-up~532ccf51-bc2b-4914-ac2d-6ad0831
 
 
 ### При работе через Swagger: http://127.0.0.1:8000/docs/swagger/
-### Token для Swagger:        Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2j.......
+### Token для Swagger:        Bearer eyJhbG.......

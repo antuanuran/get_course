@@ -2,7 +2,7 @@
 
 ### GET. Просмотр всех отзывов к курсам.
 GET http://localhost:8000/api/v1/reviews/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 
 
 
@@ -10,7 +10,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 ### POST. Создание нового отзыва к моему курсу (который оплачен, т.е. имеет статус - "Completed")
 ### Чтобы прикрепить картинку - нужно ее загрузить в Холдер и скопировать uuid
 POST http://localhost:8000/api/v1/reviews/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -28,13 +28,13 @@ Content-Type: application/json
 
 ### GET. Просмотр всех комментариев к Уроком (lessons).
 GET http://localhost:8000/api/v1/comments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 
 
 ### POST. Создать комментарий. Комментировать может зарегистрированный пользователь. Но уроки может видеть только тот юзер, который купил курс. Соответственно комментировать может только уроки своего купленного курса.
 ### Чтобы прикрепить картинку - нужно ее загрузить в Холдер и скопировать uuid
 POST http://localhost:8000/api/v1/comments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjcwNzYyLCJpYXQiOjE3MTAxMzQ3NjIsImp0aSI6IjZmODZmOTczNDM1YjRiZThiNTllODgxMTk1YzFiYjY0IiwidXNlcl9pZCI6MX0.-WWtNdEfxZd8Yez_qBulanPYdqbLHSFaKhHPTF-sKJE
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
