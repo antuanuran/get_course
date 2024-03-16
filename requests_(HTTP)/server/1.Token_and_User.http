@@ -3,8 +3,8 @@ POST http://79.174.93.205/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
-  "email": "admin@admin.org",
-  "password": "admin"
+  "email": "python@admin.org",
+  "password": "develop12345"
 }
 
 > {% client.global.set("token", response.body.access); %}
@@ -16,7 +16,7 @@ POST http://79.174.93.205/api/v1/users/
 Content-Type: application/json
 
 {
-  "email": "admin2@admin.org",
+  "email": "python@admin.org",
   "password": "develop12345"
 }
 
