@@ -178,3 +178,10 @@ class UserAnswer(models.Model):
 
     def __str__(self) -> str:
         return f" task: {self.task.title}"
+
+
+class Certificate(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="certificates")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="certificates")
+    pdf = models.FileField(upload_to="files/certificates/", max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
