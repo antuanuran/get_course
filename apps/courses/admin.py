@@ -5,7 +5,18 @@ from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from ordered_model.admin import OrderedInlineModelAdminMixin, OrderedModelAdmin, OrderedTabularInline
 
-from .models import Category, Comment, Course, Lesson, LessonTask, LessonTaskAnswer, Product, Review, UserAnswer
+from .models import (
+    Category,
+    Certificate,
+    Comment,
+    Course,
+    Lesson,
+    LessonTask,
+    LessonTaskAnswer,
+    Product,
+    Review,
+    UserAnswer,
+)
 
 
 class ProductInline(admin.TabularInline):
@@ -139,3 +150,8 @@ class UserAnswerAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ["created_at", "lesson", "author", "text"]
+
+
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ["pdf", "course", "user", "created_at"]

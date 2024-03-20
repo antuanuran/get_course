@@ -1,5 +1,6 @@
 import functools
 import re
+from time import sleep
 
 from django.core.exceptions import ValidationError
 from django.db.models import Count
@@ -22,6 +23,7 @@ from apps.courses.models import (
     Review,
     UserAnswer,
 )
+from apps.courses.tasks import generate_certificate
 from apps.purchases.models import Purchase
 from apps.utilities.models import BlacklistedWord
 
@@ -48,6 +50,15 @@ class LessonSerializer(BaseModelSerializer):
     course = DynamicRelationField("CourseSerializer", read_only=True)
     comments = DynamicRelationField("CommentSerializer", many=True)
     is_available = DynamicMethodField(requires=["course"])
+
+    print("Проверим Celery:")
+    result = generate_certificate.delay(1, 1)
+    print(result.id)
+
+    while not result.ready():
+        sleep(0.2)
+        print("Processing......")
+    print(result.get())
 
     def get_is_available(self, obj: Lesson):  # noqa: C901
         user = self.context["request"].user

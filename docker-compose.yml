@@ -16,3 +16,8 @@ services:
       - pg_data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+
+  redis:
+    image: redis:7.0.0-alpine3.15
+    ports:
+      - "6379:6379"
