@@ -22,7 +22,6 @@ from apps.courses.models import (
     Review,
     UserAnswer,
 )
-from apps.courses.tasks import basic
 from apps.purchases.models import Purchase
 from apps.utilities.models import BlacklistedWord
 
@@ -49,15 +48,6 @@ class LessonSerializer(BaseModelSerializer):
     course = DynamicRelationField("CourseSerializer", read_only=True)
     comments = DynamicRelationField("CommentSerializer", many=True)
     is_available = DynamicMethodField(requires=["course"])
-
-    # Проверка asyncIO
-    import asyncio
-    import datetime
-
-    print("Проверка asyncio:")
-    start = datetime.datetime.now()
-    asyncio.run(basic(2, 1, 3))
-    print(datetime.datetime.now() - start)
 
     def get_is_available(self, obj: Lesson):  # noqa: C901
         user = self.context["request"].user
