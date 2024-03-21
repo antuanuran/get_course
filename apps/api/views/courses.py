@@ -18,6 +18,7 @@ from apps.api.serializers.courses import (
 )
 from apps.api.views.base import BaseModelViewSet
 from apps.courses.models import Comment, Course, Lesson, LessonTask, Review, UserAnswer
+from apps.courses.tasks import generate_certificate
 from apps.purchases.models import Purchase
 
 
@@ -160,3 +161,13 @@ class UserAnswerViewSet(BaseModelViewSet):
             user_answer.success = correct_answers == user_answers
             user_answer.finished_at = timezone.now()
             user_answer.save(update_fields=["success", "finished_at"])
+
+            # TODO: check in other places
+            actual_correct_answers = UserAnswer.objects.filter(
+                user=user,
+                task__lesson__course=course,
+                success=True,
+            ).count()
+            required_correct_answers = LessonTask.objects.filter(lesson__course=course).count()
+            if required_correct_answers == actual_correct_answers:
+                generate_certificate.delay(course_id=course.id, user_id=user.id)

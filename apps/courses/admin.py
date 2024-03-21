@@ -154,4 +154,5 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Certificate)
 class CertificateAdmin(admin.ModelAdmin):
-    list_display = ["pdf", "course", "user", "created_at"]
+    list_display = ["course", "user", "pdf", "created_at"]
+    list_display_links = ["course", "user"]

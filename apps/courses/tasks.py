@@ -1,5 +1,7 @@
 from celery.app import shared_task
+from django.core.files.base import File
 
+from apps.courses import service
 from apps.courses.models import Certificate, Course
 from apps.users.models import User
 
@@ -9,8 +11,9 @@ def generate_certificate(course_id: int, user_id: int):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=user_id)
 
-    cert = Certificate.objects.create(course=course, user=user, pdf="file.pdf")
-    return f"Сертификат загружен! {cert.pdf}"
+    pdf_data = service.generate_certificate(course, user)
+
+    Certificate.objects.create(course=course, user=user, pdf=File(pdf_data, name=f"{user.email}.pdf"))
 
 
 @shared_task(autoretry_for=(Exception,), max_retries=2)
