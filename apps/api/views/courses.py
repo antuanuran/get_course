@@ -155,6 +155,7 @@ class UserAnswerViewSet(BaseModelViewSet):
 
         user_answer = serializer.instance
         task = user_answer.task
+
         if task.auto_test:
             correct_answers = set(task.possible_answers.filter(is_correct=True).values_list("id", flat=True))
             user_answers = set(user_answer.predefined_answers.values_list("id", flat=True))
@@ -162,12 +163,14 @@ class UserAnswerViewSet(BaseModelViewSet):
             user_answer.finished_at = timezone.now()
             user_answer.save(update_fields=["success", "finished_at"])
 
-            # TODO: check in other places
-            actual_correct_answers = UserAnswer.objects.filter(
-                user=user,
-                task__lesson__course=course,
-                success=True,
-            ).count()
-            required_correct_answers = LessonTask.objects.filter(lesson__course=course).count()
-            if required_correct_answers == actual_correct_answers:
-                generate_certificate.delay(course_id=course.id, user_id=user.id)
+        # TODO: check in other places
+        actual_correct_answers = UserAnswer.objects.filter(
+            user=user,
+            task__lesson__course=course,
+            success=True,
+        ).count()
+
+        required_correct_answers = LessonTask.objects.filter(lesson__course=course).count()
+
+        if required_correct_answers == actual_correct_answers:
+            generate_certificate.delay(course_id=course.id, user_id=user.id)

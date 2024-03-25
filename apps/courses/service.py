@@ -1,3 +1,4 @@
+import datetime
 import io
 import os
 
@@ -18,7 +19,7 @@ def generate_certificate(course: Course, user: User) -> bytes | bytearray | io.B
         template = Template(fd.read())
     context = RequestContext(
         HttpRequest(),
-        {"user_name": user.get_full_name() or user.email, "course_name": course.name},
+        {"user_name": user.get_full_name() or user.email, "course_name": course.name, "date": datetime.date.today()},
     )
     html_out = template.render(context)
     html = weasyprint.HTML(string=html_out)

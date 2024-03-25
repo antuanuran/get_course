@@ -111,7 +111,7 @@ class ReviewAdmin(admin.ModelAdmin):
 class LessonTaskInline(admin.TabularInline):
     model = LessonTask
     extra = 0
-    exclude = ["description", "photo", "auto_test"]
+    exclude = ["images", "videos", "links"]
 
 
 class CommentInline(admin.TabularInline):
@@ -121,9 +121,18 @@ class CommentInline(admin.TabularInline):
 
 @admin.register(Lesson)
 class LessonAdmin(OrderedModelAdmin):
-    list_display = ["name_lesson", "course", "order", "move_up_down_links", "course_id", "id"]
+    list_display = ["name_lesson", "course", "order", "move_up_down_links", "course_id", "task_list", "id"]
     readonly_fields = ["move_up_down_links"]
     inlines = [LessonTaskInline, CommentInline]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.annotate(task_list=Count("tasks"))
+        return qs
+
+    @admin.display(description="задания", ordering="task_list")
+    def task_list(self, obj):
+        return obj.task_list
 
     @admin.display(description="название урока", ordering="id")
     def name_lesson(self, obj):

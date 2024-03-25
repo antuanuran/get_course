@@ -168,6 +168,26 @@ class UserAnswer(models.Model):
     success = models.BooleanField(default=False)
     finished_at = models.DateTimeField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        my_user = self.user
+        my_course = self.task.lesson.course
+        super().save(*args, **kwargs)
+
+        actual_correct_answers = UserAnswer.objects.filter(
+            user=my_user,
+            task__lesson__course=my_course,
+            success=True,
+        ).count()
+
+        required_correct_answers = LessonTask.objects.filter(lesson__course=my_course).count()
+
+        if required_correct_answers == actual_correct_answers:
+            from apps.courses.tasks import generate_certificate
+
+            cert = Certificate.objects.filter(course_id=my_course.id, user_id=my_user.id).first()
+            if not cert:
+                generate_certificate.delay(course_id=my_course.id, user_id=my_user.id)
+
     @property
     def is_checked(self) -> bool:
         return self.finished_at is not None

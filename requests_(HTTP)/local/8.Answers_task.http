@@ -16,8 +16,8 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "task": 1,
-  "predefined_answers": [1, 2]
+  "task": 6,
+  "predefined_answers": [7]
 }
 
 
@@ -33,7 +33,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "task": 3,
+  "task": 10,
   "custom_answer": "Мой ответ - вот такой",
   "video": "c9f60e43-65d4-46f3-af1f-33e112ab938d",
   "link": "1d7cf372-fd94-433a-90cf-54307dd761ec",
