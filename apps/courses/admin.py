@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
@@ -17,6 +17,7 @@ from .models import (
     Review,
     UserAnswer,
 )
+from .tasks import send_certificate
 
 
 class ProductInline(admin.TabularInline):
@@ -163,5 +164,21 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Certificate)
 class CertificateAdmin(admin.ModelAdmin):
-    list_display = ["course", "user", "pdf", "created_at"]
+    list_display = ["course", "user", "pdf", "send_certificate", "created_at"]
     list_display_links = ["course", "user"]
+
+    @admin.display(description="сертификат")
+    def send_certificate(self, obj: Certificate):
+        link = reverse("admin:send_certificate_email", args=[obj.id])
+        return mark_safe(f"<a href='{link}'>Отправить</a>")
+
+    def _send_certificate_email(self, request, object_id, *args, **kwargs):
+        send_certificate(object_id)
+        messages.info(request, "Отправлено")
+        return redirect("admin:courses_certificate_changelist")
+
+    def get_urls(self):
+        urls = [
+            path("<object_id>/send_email/", self._send_certificate_email, name="send_certificate_email"),
+        ] + super().get_urls()
+        return urls

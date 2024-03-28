@@ -1,3 +1,6 @@
+from urllib.parse import urljoin
+
+from django.conf import settings
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils import timezone
@@ -182,11 +185,11 @@ class UserAnswer(models.Model):
         required_correct_answers = LessonTask.objects.filter(lesson__course=my_course).count()
 
         if required_correct_answers == actual_correct_answers:
-            from apps.courses.tasks import generate_certificate
+            from apps.courses.tasks import generate_and_send_email
 
             cert = Certificate.objects.filter(course_id=my_course.id, user_id=my_user.id).first()
             if not cert:
-                generate_certificate.delay(course_id=my_course.id, user_id=my_user.id)
+                generate_and_send_email.delay(course_id=my_course.id, user_id=my_user.id)
 
     @property
     def is_checked(self) -> bool:
@@ -205,6 +208,10 @@ class Certificate(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="certificates")
     pdf = models.FileField(upload_to="files/certificates/", max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def full_url(self) -> str:
+        return urljoin(settings.BASE_PLATFORM_URL, self.pdf.url)
 
     # class Meta:
     #     verbose_name = "сертификат"
