@@ -1,5 +1,7 @@
 FROM python
 
+RUN apt install libpango-1.0-0 libpangoft2-1.0-0
+
 WORKDIR /app
 
 RUN pip install gunicorn

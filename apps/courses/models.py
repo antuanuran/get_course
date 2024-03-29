@@ -212,7 +212,3 @@ class Certificate(models.Model):
     @property
     def full_url(self) -> str:
         return urljoin(settings.BASE_PLATFORM_URL, self.pdf.url)
-
-    # class Meta:
-    #     verbose_name = "сертификат"
-    #     verbose_name_plural = "6. Сертификат"

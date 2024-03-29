@@ -170,7 +170,7 @@ class CertificateAdmin(admin.ModelAdmin):
     @admin.display(description="сертификат")
     def send_certificate(self, obj: Certificate):
         link = reverse("admin:send_certificate_email", args=[obj.id])
-        return mark_safe(f"<a href='{link}'>Отправить</a>")
+        return mark_safe(f"<a href='{link}'>Отправить на email</a>")
 
     def _send_certificate_email(self, request, object_id, *args, **kwargs):
         send_certificate(object_id)

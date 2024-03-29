@@ -30,6 +30,25 @@ services:
       - ./static:/app/static
       - ./media:/app/media
 
+  worker:
+    image: antuanuran/skillsup:latest
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - private
+    depends_on:
+      - db
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
+    command: "celery -A skillsup worker"
+
+  redis:
+    image: redis:alpine
+    networks:
+      - private
+
   nginx:
     image: nginx:alpine
     restart: always

@@ -47,4 +47,5 @@ def generate_and_send_email(course_id: int, user_id: int):
     if not cert:
         generate_certificate(course_id, user_id)
         cert = Certificate.objects.filter(course_id=course_id, user_id=user_id).first()
-    send_certificate(cert.id)
+    print("здесь происходит отправка на email.. -> send_certificate(cert.id)")
+    # send_certificate(cert.id)
