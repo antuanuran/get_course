@@ -1,3 +1,6 @@
+from urllib.parse import urljoin
+
+from django.conf import settings
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils import timezone
@@ -168,6 +171,26 @@ class UserAnswer(models.Model):
     success = models.BooleanField(default=False)
     finished_at = models.DateTimeField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        my_user = self.user
+        my_course = self.task.lesson.course
+        super().save(*args, **kwargs)
+
+        actual_correct_answers = UserAnswer.objects.filter(
+            user=my_user,
+            task__lesson__course=my_course,
+            success=True,
+        ).count()
+
+        required_correct_answers = LessonTask.objects.filter(lesson__course=my_course).count()
+
+        if required_correct_answers == actual_correct_answers:
+            from apps.courses.tasks import generate_and_send_email
+
+            cert = Certificate.objects.filter(course_id=my_course.id, user_id=my_user.id).first()
+            if not cert:
+                generate_and_send_email.delay(course_id=my_course.id, user_id=my_user.id)
+
     @property
     def is_checked(self) -> bool:
         return self.finished_at is not None
@@ -178,3 +201,14 @@ class UserAnswer(models.Model):
 
     def __str__(self) -> str:
         return f" task: {self.task.title}"
+
+
+class Certificate(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="certificates")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="certificates")
+    pdf = models.FileField(upload_to="files/certificates/", max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def full_url(self) -> str:
+        return urljoin(settings.BASE_PLATFORM_URL, self.pdf.url)

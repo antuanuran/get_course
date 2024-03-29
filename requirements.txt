@@ -11,3 +11,5 @@ git+https://github.com/AltSchool/dynamic-rest@v2.1.7
 drf-yasg==1.21.7
 requests==2.31
 django-ordered-model==3.7.4
+celery[redis]==5.3.6
+weasyprint==61.2

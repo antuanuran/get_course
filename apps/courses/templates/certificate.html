@@ -1,0 +1,51 @@
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Certificate</title>
+  <meta name="description" content="Certificate"/>
+  <style>
+    @page {
+      margin-top: 60pt;
+      margin-right: 60pt;
+      margin-left: 60pt;
+    }
+  </style>
+</head>
+<!--******************** Стиль таблицы************************-->
+    <style>
+            table, th, td {
+                                border: 1px solid #4f8635;
+                                border-collapse: collapse;
+                            }
+            th, td          {
+                                padding: 5px;
+                            }
+            th              {
+                                text-align: left;
+                            }
+    </style>
+</head>
+
+<!--********************  Таблица ***********************-->
+
+<body>
+<h1>Сертификат</h1>
+
+<table style="width:100%">
+  <tr>
+    <th>Почта Студента</th>
+    <th>Курс</th>
+    <th>Дата получения Сертификата</th>
+  </tr>
+    <tr>
+    <td style="color: Teal">{{ user_name }}</td>
+    <td style="color: Teal">{{ course_name }}</td>
+    <td style="color: Teal">{{ date }}</td>
+    </tr>
+</table>
+
+<main>
+  <p>Обучение по данному курсу Завершено успешно!   </p>
+</main>
+</body>
+</html>

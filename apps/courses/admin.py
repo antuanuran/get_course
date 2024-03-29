@@ -1,11 +1,23 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from ordered_model.admin import OrderedInlineModelAdminMixin, OrderedModelAdmin, OrderedTabularInline
 
-from .models import Category, Comment, Course, Lesson, LessonTask, LessonTaskAnswer, Product, Review, UserAnswer
+from .models import (
+    Category,
+    Certificate,
+    Comment,
+    Course,
+    Lesson,
+    LessonTask,
+    LessonTaskAnswer,
+    Product,
+    Review,
+    UserAnswer,
+)
+from .tasks import send_certificate
 
 
 class ProductInline(admin.TabularInline):
@@ -100,7 +112,7 @@ class ReviewAdmin(admin.ModelAdmin):
 class LessonTaskInline(admin.TabularInline):
     model = LessonTask
     extra = 0
-    exclude = ["description", "photo", "auto_test"]
+    exclude = ["images", "videos", "links"]
 
 
 class CommentInline(admin.TabularInline):
@@ -110,9 +122,18 @@ class CommentInline(admin.TabularInline):
 
 @admin.register(Lesson)
 class LessonAdmin(OrderedModelAdmin):
-    list_display = ["name_lesson", "course", "order", "move_up_down_links", "course_id", "id"]
+    list_display = ["name_lesson", "course", "order", "move_up_down_links", "course_id", "task_list", "id"]
     readonly_fields = ["move_up_down_links"]
     inlines = [LessonTaskInline, CommentInline]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.annotate(task_list=Count("tasks"))
+        return qs
+
+    @admin.display(description="задания", ordering="task_list")
+    def task_list(self, obj):
+        return obj.task_list
 
     @admin.display(description="название урока", ordering="id")
     def name_lesson(self, obj):
@@ -139,3 +160,25 @@ class UserAnswerAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ["created_at", "lesson", "author", "text"]
+
+
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ["course", "user", "pdf", "send_certificate", "created_at"]
+    list_display_links = ["course", "user"]
+
+    @admin.display(description="сертификат")
+    def send_certificate(self, obj: Certificate):
+        link = reverse("admin:send_certificate_email", args=[obj.id])
+        return mark_safe(f"<a href='{link}'>Отправить на email</a>")
+
+    def _send_certificate_email(self, request, object_id, *args, **kwargs):
+        send_certificate(object_id)
+        messages.info(request, "Отправлено")
+        return redirect("admin:courses_certificate_changelist")
+
+    def get_urls(self):
+        urls = [
+            path("<object_id>/send_email/", self._send_certificate_email, name="send_certificate_email"),
+        ] + super().get_urls()
+        return urls

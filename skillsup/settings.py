@@ -154,37 +154,29 @@ SWAGGER_SETTINGS = {
 }
 
 DYNAMIC_REST = {
-    # DEBUG: enable/disable internal debugging
     "DEBUG": False,
-    # ENABLE_BROWSABLE_API: enable/disable the browsable API.
-    # It can be useful to disable it in production.
     "ENABLE_BROWSABLE_API": True,
-    # ENABLE_LINKS: enable/disable relationship links
     "ENABLE_LINKS": False,
-    # ENABLE_SERIALIZER_CACHE: enable/disable caching of related serializers
     "ENABLE_SERIALIZER_CACHE": True,
-    # ENABLE_SERIALIZER_OPTIMIZATIONS: enable/disable representation speedups
     "ENABLE_SERIALIZER_OPTIMIZATIONS": True,
-    # DEFER_MANY_RELATIONS: automatically defer many-relations, unless
-    # `deferred=False` is explicitly set on the field.
     "DEFER_MANY_RELATIONS": False,
-    # MAX_PAGE_SIZE: global setting for max page size.
-    # Can be overriden at the viewset level.
     "MAX_PAGE_SIZE": None,
-    # PAGE_QUERY_PARAM: global setting for the pagination query parameter.
-    # Can be overriden at the viewset level.
     "PAGE_QUERY_PARAM": "page",
-    # PAGE_SIZE: global setting for page size.
-    # Can be overriden at the viewset level.
     "PAGE_SIZE": None,
-    # PAGE_SIZE_QUERY_PARAM: global setting for the page size query parameter.
-    # Can be overriden at the viewset level.
     "PAGE_SIZE_QUERY_PARAM": "per_page",
-    # ADDITIONAL_PRIMARY_RESOURCE_PREFIX: String to prefix additional
-    # instances of the primary resource when sideloading.
     "ADDITIONAL_PRIMARY_RESOURCE_PREFIX": "+",
-    # Enables host-relative links.  Only compatible with resources registered
-    # through the dynamic router.  If a resource doesn't have a canonical
-    # path registered, links will default back to being resource-relative urls
     "ENABLE_HOST_RELATIVE_LINKS": True,
 }
+
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 1 * 30
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://localhost:6379/1")
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://localhost:6379/2")
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 0))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+CERTIFICATE_EMAIL_FROM = "Anton <anton.uranov@yandex.ru>"
+
+BASE_PLATFORM_URL = os.getenv("BASE_PLATFORM_URL")

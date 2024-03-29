@@ -154,6 +154,7 @@ class UserAnswerViewSet(BaseModelViewSet):
 
         user_answer = serializer.instance
         task = user_answer.task
+
         if task.auto_test:
             correct_answers = set(task.possible_answers.filter(is_correct=True).values_list("id", flat=True))
             user_answers = set(user_answer.predefined_answers.values_list("id", flat=True))
