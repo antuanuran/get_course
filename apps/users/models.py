@@ -54,3 +54,9 @@ class User(AbstractUser):
         related_name="users",
         blank=True,
     )
+
+    def generate_token(self) -> str:
+        from rest_framework_simplejwt.tokens import AccessToken
+
+        token = AccessToken.for_user(self)
+        return str(token)
