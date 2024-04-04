@@ -79,8 +79,8 @@
   - [x] Checkout black / isort / flake8
   - [x] Building - образа на Dockerhub
   - [x] Развертывание Проекта на удаленном Ubuntu-сервере
-- [x] Server: http://79.174.93.205/admin/
-- [x] Swagger: http://79.174.93.205/docs/swagger/
+- [x] Server:  http://api.skillsup.fun/admin/
+- [x] Swagger: http://api.skillsup.fun/docs/swagger/
 - [x] postman: https://skills-up.postman.co/workspace/skills-up~532ccf51-bc2b-4914-ac2d-6ad0831f096c/folder/9556154-0563bf17-166c-4694-9b5c-70911ca4a506
 
 #### Login Admin User:

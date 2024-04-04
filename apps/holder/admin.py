@@ -15,4 +15,5 @@ class ImageHolderAdmin(admin.ModelAdmin):
 
 @admin.register(LinkHolder)
 class LinkHolderAdmin(admin.ModelAdmin):
-    list_display = ["uuid", "name", "link"]
+    # list_display = ["uuid", "name", "link"]
+    list_display = ["uuid"]
