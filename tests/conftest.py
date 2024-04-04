@@ -1,6 +1,6 @@
 import pytest
 
-from apps.courses.models import Category, Product
+from apps.courses.models import Category, Course, Product
 from apps.users.models import User
 
 
@@ -17,3 +17,8 @@ def demo_category():
 @pytest.fixture
 def demo_product(demo_category):
     return Product.objects.create(name="demo-product", category=demo_category)
+
+
+@pytest.fixture
+def course_create(demo_author, demo_product):
+    Course.objects.create(author=demo_author, product=demo_product, name="course_1", price=100)
