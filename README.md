@@ -89,4 +89,4 @@
 
 #### Login Admin SuperUser:
 - "email": "*****",
-- "password": "*****"
+- "password": "******"
