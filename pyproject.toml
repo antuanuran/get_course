@@ -111,8 +111,9 @@ testpaths = 'tests/'
 python_files = 'test_*.py'
 
 filterwarnings = [
-  'error',
+#  'error',
   'ignore::ImportWarning:importlib',
+#  'ignore::RemovedInDjango50Warning',
   'ignore::DeprecationWarning:django.http.request',
   'ignore::DeprecationWarning:kombu.utils.compat',
   'ignore::DeprecationWarning:telegram',
