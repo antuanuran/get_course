@@ -86,7 +86,7 @@ jobs:
       - name: Connect
         uses: appleboy/ssh-action@master
         with:
-          host: api.skillsup.fun
+          host: 79.174.93.205
           username: root
           key: ${{ secrets.SSH_KEY }}
           script: |
