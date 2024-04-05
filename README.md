@@ -1,5 +1,6 @@
 ## "Skillsup" PROJECT
 #### BD:     https://miro.com/app/board/uXjVMn6bPlI=/
+#### Admin:  http://skillsup.fun/admin/
 
 ### Technical requirement
 
@@ -67,11 +68,6 @@
 - [x] Автоматическая генерация Сертификатов (PDF) при завершении курса (celery)
 - [x] Отправка Сертификата по email (celery) + настроить redis в deploy
 - [x] Добавить pytests в CI/CD
-- [ ] Добавить Rabbit в Celery в CI/CD
-- [ ] Настроить CORS
-- [ ] Оптимизация запросов / Рефакторинг
-
-- [ ] Dop. Project: scrapy для анализа средней цены на hh по конкретному курсу
 
 ### Deploy
 - [x] Автоматический Checkout, Build, Deploy через **cicd**
@@ -79,14 +75,20 @@
   - [x] Checkout black / isort / flake8
   - [x] Building - образа на Dockerhub
   - [x] Развертывание Проекта на удаленном Ubuntu-сервере
-- [x] Server:  http://api.skillsup.fun/admin/
-- [x] Swagger: http://api.skillsup.fun/docs/swagger/
-- [x] postman: https://skills-up.postman.co/workspace/skills-up~532ccf51-bc2b-4914-ac2d-6ad0831f096c/folder/9556154-0563bf17-166c-4694-9b5c-70911ca4a506
+- [x] Server:  http://skillsup.fun/admin/
+- [x] Swagger: http://skillsup.fun/docs/swagger/
+- [x] postman: https://skills-up.postman.co/
 
-#### Login Admin User:
+#### Дополнительно:
+- [ ] Добавить Rabbit в Celery в CI/CD
+- [ ] Настроить CORS
+- [ ] Оптимизация запросов / Рефакторинг
+- [ ] Dop. Project: scrapy для анализа средней цены на hh по конкретному курсу
+
+#### Login Kurator User (ограниченые права):
 - "email": "python@admin.org",
 - "password": "develop12345"
 
-#### Login Admin SuperUser:
+#### Login Admin SuperUser (все права):
 - "email": "*****",
 - "password": "******"

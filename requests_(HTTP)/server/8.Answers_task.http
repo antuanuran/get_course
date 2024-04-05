@@ -3,7 +3,7 @@
 
 
 ### GET. Просмотр всех своих ответов (тесты и развернутые ответы).
-GET http://79.174.93.205/api/v1/user-answers/
+GET http://www.skillsup.fun/api/v1/user-answers/
 Authorization: Bearer {{token}}
 
 
@@ -11,7 +11,7 @@ Authorization: Bearer {{token}}
 ### 1. Тесты. POST. (Отправить свой ответ на Задание с вариантами, т.е. тесты)
 
 ### Отправить варианты ответов на Задание (тесты). После отправки ответа - придет автоматичесикй ответ и поменяется статус в зависимости от корректности / некорректности ответа.
-POST http://79.174.93.205/api/v1/user-answers/
+POST http://www.skillsup.fun/api/v1/user-answers/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ### "task" - обязательное поле, все остальные не обязательные.
 ### Если нужно прикрепить видео/фото/ссылку -> нужно скопировать uuid в предыдущем файле загрузки данных в Holder.
-POST http://79.174.93.205/api/v1/user-answers/
+POST http://www.skillsup.fun/api/v1/user-answers/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 

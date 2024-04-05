@@ -2,7 +2,7 @@
 
 ### 1. Upload image.
 
-POST http://79.174.93.205/api/v1/media/images/
+POST http://www.skillsup.fun/api/v1/media/images/
 Authorization: Bearer {{token}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
@@ -16,7 +16,7 @@ Content-Type: image/png
 
 ### 2. Upload video
 
-POST http://79.174.93.205/api/v1/media/videos/
+POST http://www.skillsup.fun/api/v1/media/videos/
 Authorization: Bearer {{token}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
@@ -30,7 +30,7 @@ Content-Type: mp4
 
 ### 3. Upload link
 
-POST http://79.174.93.205/api/v1/media/links/
+POST http://www.skillsup.fun/api/v1/media/links/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
