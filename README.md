@@ -90,5 +90,5 @@
 - "password": "develop12345"
 
 #### Login Admin SuperUser (все права):
-- "email": "*****",
+- "email": "*******",
 - "password": "******"
