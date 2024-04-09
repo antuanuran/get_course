@@ -1,6 +1,6 @@
 ## "Skillsup" PROJECT
 #### BD:     https://miro.com/app/board/uXjVMn6bPlI=/
-#### Admin:  http://skillsup.fun/admin/
+#### Admin:  http://www.skillsup.fun/admin/
 
 ### Technical requirement
 
