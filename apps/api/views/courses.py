@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.utils import timezone
@@ -61,6 +62,23 @@ class CourseViewSet(BaseModelViewSet):
             course.favourites.add(user)
         serializer = self.get_serializer(instance=course)
         return Response(serializer.data)
+
+    def list(self, request, *args, **kwargs):
+        if request.user.is_anonymous:
+            data = cache.get("courses")
+            if data is None:
+                queryset = self.filter_queryset(self.get_queryset())
+
+                page = self.paginate_queryset(queryset)
+                if page is not None:
+                    serializer = self.get_serializer(page, many=True)
+                    return self.get_paginated_response(serializer.data)
+
+                serializer = self.get_serializer(queryset, many=True)
+                data = serializer.data
+                cache.set("courses", data, timeout=600)
+            return Response(data)
+        return super().list(request, *args, **kwargs)
 
 
 class ReviewViewSet(BaseModelViewSet):
