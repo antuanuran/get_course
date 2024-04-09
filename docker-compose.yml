@@ -19,4 +19,13 @@ services:
     ports:
       - "6379:6379"
 
+  rabbit:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "5677:5672"
+      - "15677:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: pass
+
 # celery -A skillsup worker

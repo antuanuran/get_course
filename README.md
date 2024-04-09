@@ -80,10 +80,11 @@
 - [x] postman: https://skills-up.postman.co/
 
 #### Дополнительно:
-- [ ] Добавить Rabbit в Celery в CI/CD
+- [x] Добавить Rabbit в Celery в CI/CD
 - [ ] Настроить CORS
 - [ ] Оптимизация запросов / Рефакторинг
 - [ ] Dop. Project: scrapy для анализа средней цены на hh по конкретному курсу
+- [ ] добавить кеширование
 
 #### Login Kurator User (ограниченые права):
 - "email": "python@admin.org",
