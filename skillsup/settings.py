@@ -99,7 +99,7 @@ AUTH_USER_MODEL = "users.User"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6479/7",
+        "LOCATION": os.getenv("CASH_REDIS_LOCATION", "redis://127.0.0.1:6379/7"),
     }
 }
 
