@@ -23,7 +23,7 @@ class PurchaseViewSet(BaseModelViewSet):
         return qs
 
     def list(self, request, *args, **kwargs):
-        data = cache.get('cash')
+        data = cache.get("cash")
 
         if data is None:
             queryset = self.filter_queryset(self.get_queryset())
@@ -34,7 +34,7 @@ class PurchaseViewSet(BaseModelViewSet):
             serializer = self.get_serializer(queryset, many=True)
 
             data = serializer.data
-            cache.set('cash', data, timeout=20)
+            cache.set("cash", data, timeout=20)
             print("Берем обычным способом..")
             return Response(data)
 
