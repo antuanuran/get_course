@@ -2,7 +2,7 @@
 
 ### 1.1 ПРОСМОТР БЕЗ АВТОРИЗАЦИИ. Вывод всего списка действующих курсов, is_selible=True. При авторизации - добавляются те курсы, которые уже куплены текущим юзером, даже если они уже is_selible=False
 GET http://localhost:8000/api/v1/courses/
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 
 
