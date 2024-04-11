@@ -2,6 +2,8 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 from drf_yasg.utils import no_body, swagger_auto_schema
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
@@ -61,6 +63,11 @@ class CourseViewSet(BaseModelViewSet):
             course.favourites.add(user)
         serializer = self.get_serializer(instance=course)
         return Response(serializer.data)
+
+    @method_decorator(cache_page(30))
+    @method_decorator(vary_on_headers("Authorization"))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class ReviewViewSet(BaseModelViewSet):

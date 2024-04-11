@@ -54,7 +54,6 @@ jobs:
         env:
           POSTGRES_USER: pytest
           POSTGRES_PASSWORD: pytest
-          SECRET_KEY: super-secret
 
   build:
     if: github.event_name == 'push'

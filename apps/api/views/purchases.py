@@ -1,4 +1,7 @@
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 from rest_framework import status
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.exceptions import APIException
@@ -20,6 +23,12 @@ class PurchaseViewSet(BaseModelViewSet):
     def get_queryset(self, queryset=None):
         qs = super().get_queryset(queryset).filter(user=self.request.user)
         return qs
+
+    @method_decorator(cache_page(30))
+    @method_decorator(vary_on_headers("Authorization"))
+    def list(self, request, *args, **kwargs):
+        print("Берем из кэша покупки")
+        return super().list(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

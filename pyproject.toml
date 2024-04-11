@@ -121,12 +121,10 @@ filterwarnings = [
 ]
 
 env = [
-#  'DEBUG=False',
-#  'TEST=True',
-#  'SECRET_KEY=test-secret-key',
-#  'POSTGRES_HOST=localhost',
-#  'CELERY_BROKER_URL=memory://localhost/',
-#  'CELERY_RESULT_BACKEND=file:///tmp',
+  'DEBUG=False',
+  'SECRET_KEY=test-secret-key',
+  'CELERY_BROKER_URL=memory://localhost/',
+  'CELERY_RESULT_BACKEND=file:///tmp',
 ]
 
 [tool.coverage.run]
