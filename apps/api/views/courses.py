@@ -1,8 +1,9 @@
-from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 from drf_yasg.utils import no_body, swagger_auto_schema
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
@@ -63,21 +64,9 @@ class CourseViewSet(BaseModelViewSet):
         serializer = self.get_serializer(instance=course)
         return Response(serializer.data)
 
+    @method_decorator(cache_page(30))
+    @method_decorator(vary_on_headers("Authorization"))
     def list(self, request, *args, **kwargs):
-        if request.user.is_anonymous:
-            data = cache.get("courses")
-            if data is None:
-                queryset = self.filter_queryset(self.get_queryset())
-
-                page = self.paginate_queryset(queryset)
-                if page is not None:
-                    serializer = self.get_serializer(page, many=True)
-                    return self.get_paginated_response(serializer.data)
-
-                serializer = self.get_serializer(queryset, many=True)
-                data = serializer.data
-                cache.set("courses", data, timeout=600)
-            return Response(data)
         return super().list(request, *args, **kwargs)
 
 

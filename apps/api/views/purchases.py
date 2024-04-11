@@ -1,5 +1,7 @@
-from django.core.cache import cache
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 from rest_framework import status
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.exceptions import APIException
@@ -22,23 +24,10 @@ class PurchaseViewSet(BaseModelViewSet):
         qs = super().get_queryset(queryset).filter(user=self.request.user)
         return qs
 
+    @method_decorator(cache_page(30))
+    @method_decorator(vary_on_headers("Authorization"))
     def list(self, request, *args, **kwargs):
-        data = cache.get("cash")
-
-        if data is None:
-            queryset = self.filter_queryset(self.get_queryset())
-            page = self.paginate_queryset(queryset)
-            if page is not None:
-                serializer = self.get_serializer(page, many=True)
-                return self.get_paginated_response(serializer.data)
-            serializer = self.get_serializer(queryset, many=True)
-
-            data = serializer.data
-            cache.set("cash", data, timeout=20)
-            print("Берем обычным способом..")
-            return Response(data)
-
-        print("Берем из кэша")
+        print("Берем из кэша покупки")
         return super().list(request, *args, **kwargs)
 
     def perform_create(self, serializer):
