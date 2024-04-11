@@ -75,8 +75,8 @@
   - [x] Checkout black / isort / flake8
   - [x] Building - образа на Dockerhub
   - [x] Развертывание Проекта на удаленном Ubuntu-сервере
-- [x] Server:  http://skillsup.fun/admin/
-- [x] Swagger: http://skillsup.fun/docs/swagger/
+- [x] Server:  http://www.skillsup.fun/admin/
+- [x] Swagger: http://www.skillsup.fun/docs/swagger/
 - [x] postman: https://skills-up.postman.co/
 
 #### Дополнительно:
