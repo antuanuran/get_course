@@ -96,12 +96,14 @@ DATABASES = {
 
 AUTH_USER_MODEL = "users.User"
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": os.getenv("CACHE_REDIS_LOCATION", "redis://127.0.0.1:6379/7"),
+CACHE_REDIS_LOCATION = os.getenv("CACHE_REDIS_LOCATION")
+if CACHE_REDIS_LOCATION:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": CACHE_REDIS_LOCATION,
+        }
     }
-}
 
 
 # Password validation
