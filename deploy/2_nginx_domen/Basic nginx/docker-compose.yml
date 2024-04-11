@@ -51,6 +51,8 @@ services:
 
   rabbit:
     image: rabbitmq:3-management-alpine
+    networks:
+      - private
     ports:
       - "5677:5672"
       - "15677:15672"
