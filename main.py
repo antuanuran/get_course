@@ -1,17 +1,20 @@
 import asyncio
 import logging
+import os
 import sys
 
 from aiogram import Bot, Dispatcher, F, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.filters import CommandStart
+from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
+from dotenv import load_dotenv
 
-# Bot token can be obtained via https://t.me/BotFather
-TOKEN = "Token"
+load_dotenv()
 
-# All handlers should be attached to the Router (or Dispatcher)
+
+TOKEN = os.getenv("TOKEN_AIOGRAM")
+
 dp = Dispatcher()
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
@@ -23,6 +26,11 @@ async def command_start_handler(message: Message) -> None:
     await message.answer(
         f"Привет, {html.bold(message.from_user.full_name)}! Введи свою почту, чтобы я нашел тебя в <b>skillsup</b>"
     )
+
+
+@dp.message(F.text, Command("antuanuran"))
+async def any_message(message: Message):
+    await message.answer(f"Я уже понял, что ты {html.bold(message.from_user.full_name)}! Вводи уже почту!")
 
 
 @dp.message(F.text)
@@ -43,21 +51,21 @@ async def echo_handler(message: Message) -> None:
 
 
 async def test():
-    print("here")
-    await asyncio.sleep(10)
-    print("go")
+    print("Start")
+    await asyncio.sleep(15)
+    print("GO")
     email = "hi@hi"
     chat_id = database.get(email)
     if chat_id is not None:
-        await bot.send_message(chat_id, "открылся новый урок")
+        await bot.send_message(chat_id, f"открылся новый урок, ваш чат id = {chat_id}")
 
 
 async def main() -> None:
     await asyncio.gather(test(), dp.start_polling(bot))
-    # And the run events dispatching
-    # await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
+# t.me/antuanuran_bot
