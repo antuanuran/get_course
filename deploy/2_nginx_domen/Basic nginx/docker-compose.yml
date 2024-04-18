@@ -44,6 +44,20 @@ services:
       - ./media:/app/media
     command: "celery -A skillsup worker"
 
+  bot:
+    image: antuanuran/skillsup:latest
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - private
+    depends_on:
+      - db
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
+    command: "python manage.py start_bot"
+
   redis:
     image: redis:alpine
     networks:
