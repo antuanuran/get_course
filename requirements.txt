@@ -1,4 +1,4 @@
-django~=4.1.13
+django==4.1.13
 psycopg2-binary==2.9.9
 python-dotenv==1.0.0
 django-taggit==5.0.1
@@ -14,3 +14,4 @@ django-ordered-model==3.7.4
 celery[redis]==5.3.6
 weasyprint==61.2
 django-cors-headers==4.3.1
+aiogram==3.4.1

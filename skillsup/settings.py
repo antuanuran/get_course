@@ -45,6 +45,7 @@ LOCAL_APPS = [
     "apps.purchases",
     "apps.api",
     "apps.holder",
+    "apps.bot",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -193,3 +194,5 @@ CERTIFICATE_EMAIL_FROM = "Anton <anton.uranov@yandex.ru>"
 BASE_PLATFORM_URL = os.getenv("BASE_PLATFORM_URL")
 
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")

@@ -1,5 +1,6 @@
 from urllib.parse import urljoin
 
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.core.validators import MaxValueValidator
 from django.db import models
@@ -111,6 +112,17 @@ class Lesson(OrderedModel):
 
     def __str__(self) -> str:
         return f"Занятие: {self.name} (курс: {self.course})"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.open_time is not None:
+            from apps.bot.service import notify_about_new_lesson
+            from apps.purchases.models import Purchase
+
+            users = list(
+                self.course.purchases.filter(status=Purchase.Status.COMPLETED).values_list("user_id", flat=True)
+            )
+            async_to_sync(notify_about_new_lesson)(users, self.name)
 
 
 class Comment(models.Model):
