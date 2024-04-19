@@ -10,6 +10,5 @@ run: superuser
 	python manage.py runserver
 
 
-min:
-	python manage.py import_data data_all/import.csv
-	python manage.py runserver
+bot:
+	python manage.py start_bot

@@ -26,5 +26,5 @@ repos:
         additional_dependencies: [flake8-pyproject]
 
 # - Копируем данный файл в корень Проекта.
-# - Устанавливаем pip install -r requirements.txt (pre-commit)
-# - И затем устанавливаем локально в нашу папку файл в .git (pre-commit install)
+# - Устанавливаем pip install -r requirements-dev.txt (pre-commit)
+# - И затем устанавливаем локально в нашу папку файл в .venv (pre-commit install)

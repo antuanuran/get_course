@@ -3,7 +3,9 @@ from contextlib import suppress
 from aiogram import Bot, Dispatcher, F, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.filters import Command, CommandStart
+from aiogram.filters import CommandStart
+
+# from aiogram.filters import Command
 from aiogram.types import Message
 from django.conf import settings
 
@@ -21,9 +23,9 @@ async def command_start_handler(message: Message) -> None:
     )
 
 
-@dp.message(F.text, Command("antuanuran"))
-async def any_message(message: Message):
-    await message.answer(f"Я уже понял, что ты {html.bold(message.from_user.full_name)}! Вводи уже почту!")
+# @dp.message(F.text, Command("antuanuran"))
+# async def any_message(message: Message):
+#     await message.answer(f"Я уже понял, что ты {html.bold(message.from_user.full_name)}! Вводи уже почту!")
 
 
 @dp.message(F.text)
@@ -49,11 +51,6 @@ async def get_email(message: Message) -> None:
         else:
             answer = "либо ошибся в email, либо еще не зарегистрирован в нашей системе"
     await message.answer(answer)
-
-
-@dp.message()
-async def echo_handler(message: Message) -> None:
-    await message.answer("фигня какая-то, попробуй еще раз отправить email")
 
 
 async def notify_about_new_lesson(user_ids: list[int], lesson_title: str):
