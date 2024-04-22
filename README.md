@@ -1,6 +1,7 @@
 ## "Skillsup" PROJECT
 #### BD:     https://miro.com/app/board/uXjVMn6bPlI=/
 #### Admin:  http://www.skillsup.fun/admin/
+#### Bot:    https://t.me/antuanuran_bot/
 
 ### Technical requirement
 
@@ -68,6 +69,7 @@
 - [x] Автоматическая генерация Сертификатов (PDF) при завершении курса (celery)
 - [x] Отправка Сертификата по email (celery) + настроить redis в deploy
 - [x] Добавить pytests в CI/CD
+- [x] Aiogram-bot
 
 ### Deploy
 - [x] Автоматический Checkout, Build, Deploy через **cicd**
@@ -76,6 +78,7 @@
   - [x] Building - образа на Dockerhub
   - [x] Развертывание Проекта на удаленном Ubuntu-сервере
 - [x] Server:  http://www.skillsup.fun/admin/
+- [x] Bot:     https://t.me/antuanuran_bot/
 - [x] Swagger: http://www.skillsup.fun/docs/swagger/
 - [x] postman: https://skills-up.postman.co/
 
