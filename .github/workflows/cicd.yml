@@ -85,10 +85,10 @@ jobs:
       - name: Connect
         uses: appleboy/ssh-action@master
         with:
-          host: 79.174.93.205
+          host: 79.174.84.90
           username: root
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /srv/deploy_skillsup
+            cd /srv/deploy/deploy_skillsup/Skillsup_project
             docker pull ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:latest
             docker-compose down && docker-compose up -d && docker ps

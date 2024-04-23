@@ -93,4 +93,4 @@
 
 #### Login Admin SuperUser (все права):
 - "email": "*******",
-- "password": "******"
+- "password": "*********"
