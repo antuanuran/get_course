@@ -1,7 +1,7 @@
 ### 1. COURSES
 
 ### 1.1 ПРОСМОТР БЕЗ АВТОРИЗАЦИИ. Вывод всего списка действующих курсов, is_selible=True. При авторизации - добавляются те курсы, которые уже куплены текущим юзером, даже если они уже is_selible=False
-GET http://www.skillsup.fun/api/v1/courses/
+GET http://api.skillsup.fun/api/v1/courses/
 #Authorization: Bearer {{token}}
 
 
@@ -9,21 +9,21 @@ GET http://www.skillsup.fun/api/v1/courses/
 ### 1.2 ДИНАМИЧЕСКИЙ ПРОСМОТР с фильтрацией и исключением/добавлением полей:
 
 ### Исключаем поле "description"
-GET http://www.skillsup.fun/api/v1/courses/?exclude[]=description
+GET http://api.skillsup.fun/api/v1/courses/?exclude[]=description
 Authorization: Bearer {{token}}
 
 ### Добавляем поле "lessons"
-GET http://www.skillsup.fun/api/v1/courses/?exclude[]=description&include[]=lessons.*
+GET http://api.skillsup.fun/api/v1/courses/?exclude[]=description&include[]=lessons.*
 Authorization: Bearer {{token}}
 
 
 ### Добавляем вложенную группу "Videos"
-GET http://www.skillsup.fun/api/v1/courses/?include[]=lessons.videos.*
+GET http://api.skillsup.fun/api/v1/courses/?include[]=lessons.videos.*
 Authorization: Bearer {{token}}
 
 
 ### Добавляем вложенного автора
-GET http://www.skillsup.fun/api/v1/courses/?include[]=author.*
+GET http://api.skillsup.fun/api/v1/courses/?include[]=author.*
 Authorization: Bearer {{token}}
 
 
@@ -34,23 +34,23 @@ Authorization: Bearer {{token}}
 ### 2. LESSONS
 
 ### Просмотр всех уроков
-GET http://www.skillsup.fun/api/v1/lessons/
+GET http://api.skillsup.fun/api/v1/lessons/
 Authorization: Bearer {{token}}
 
 ### Просмотр с условиями
-GET http://www.skillsup.fun/api/v1/lessons/?filter{course.id}=1&exclude[]=*&include[]=name&include[]=is_available&include[]=order
+GET http://api.skillsup.fun/api/v1/lessons/?filter{course.id}=1&exclude[]=*&include[]=name&include[]=is_available&include[]=order
 Authorization: Bearer {{token}}
 
 
 ### 3. Comments
 
 ### Просмотр всех уроков
-GET http://www.skillsup.fun/api/v1/comments/?include[]=lesson.*
+GET http://api.skillsup.fun/api/v1/comments/?include[]=lesson.*
 Authorization: Bearer {{token}}
 
 
 ### Добавить комментарий
-POST http://www.skillsup.fun/api/v1/comments/
+POST http://api.skillsup.fun/api/v1/comments/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -64,5 +64,5 @@ Content-Type: application/json
 ### 4. Tasks
 
 ### Просмотр всех заданий
-GET http://www.skillsup.fun/api/v1/lesson-tasks/
+GET http://api.skillsup.fun/api/v1/lesson-tasks/
 Authorization: Bearer {{token}}

@@ -1,4 +1,4 @@
 ### FAVOURITES (Добавить конкретный курс в "Избранное"). Переключатель True/False. Работаем с конкретным объектом (Detail=True)
 
-POST http://www.skillsup.fun/api/v1/courses/1/toggle-favourite/
+POST http://api.skillsup.fun/api/v1/courses/1/toggle-favourite/
 Authorization: Bearer {{token}}

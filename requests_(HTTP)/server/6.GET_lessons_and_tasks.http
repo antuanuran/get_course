@@ -2,12 +2,12 @@
 
 
 ### GET. Показывает уроки только у купленных курсов со статусом "completed"
-GET http://www.skillsup.fun/api/v1/lessons/?include[]=comments.*
+GET http://api.skillsup.fun/api/v1/lessons/?include[]=comments.*
 Authorization: Bearer {{token}}
 
 
 
 
 ### GET. Показывает Задания к Урокам только у купленных курсов со статусом "completed"
-GET http://www.skillsup.fun/api/v1/lesson-tasks/
+GET http://api.skillsup.fun/api/v1/lesson-tasks/
 Authorization: Bearer {{token}}

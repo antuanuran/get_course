@@ -2,12 +2,12 @@
 
 
 ### GET. Просмотр всех своих покупок
-GET http://www.skillsup.fun/api/v1/purchases/
+GET http://api.skillsup.fun/api/v1/purchases/
 Authorization: Bearer {{token}}
 
 
 ### GET. Просмотр своих покупок + описание курсов
-GET http://www.skillsup.fun/api/v1/purchases/?include[]=course.*
+GET http://api.skillsup.fun/api/v1/purchases/?include[]=course.*
 Authorization: Bearer {{token}}
 
 
@@ -15,7 +15,7 @@ Authorization: Bearer {{token}}
 
 
 ### POST. Добавление курса в покупку. Покупка создается со статусом "CREATED". Перевод в статус "COMPLETED" происход только после оплаты курса.
-POST http://www.skillsup.fun/api/v1/purchases/
+POST http://api.skillsup.fun/api/v1/purchases/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 

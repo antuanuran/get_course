@@ -1,7 +1,8 @@
 ## "Skillsup" PROJECT
 #### BD:     https://miro.com/app/board/uXjVMn6bPlI=/
-#### Admin:  http://www.skillsup.fun/admin/
-#### Bot:    https://t.me/antuanuran_bot/
+#### Admin:  http://api.skillsup.fun/admin/
+#### Bot:    https://t.me/skillsup_server_bot/
+
 
 ### Technical requirement
 
@@ -77,10 +78,9 @@
   - [x] Checkout black / isort / flake8
   - [x] Building - образа на Dockerhub
   - [x] Развертывание Проекта на удаленном Ubuntu-сервере
-- [x] Server:  http://www.skillsup.fun/admin/
-- [x] Bot:     https://t.me/antuanuran_bot/
-- [x] Swagger: http://www.skillsup.fun/docs/swagger/
-- [x] postman: https://skills-up.postman.co/
+- [x] Server:  http://api.skillsup.fun/admin/
+- [x] Bot:     https://t.me/skillsup_server_bot/
+- [x] Swagger: http://api.skillsup.fun/docs/swagger/
 
 #### Дополнительно:
 - [x] Добавить Rabbit в Celery в CI/CD
