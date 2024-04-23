@@ -1,11 +1,10 @@
 from contextlib import suppress
 
+import requests
 from aiogram import Bot, Dispatcher, F, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
-
-# from aiogram.filters import Command
 from aiogram.types import Message
 from django.conf import settings
 
@@ -53,10 +52,13 @@ async def get_email(message: Message) -> None:
     await message.answer(answer)
 
 
-async def notify_about_new_lesson(user_ids: list[int], lesson_title: str):
-    async for tg_user_id in TgUser.objects.filter(user_id__in=user_ids).values_list("id", flat=True):
+def notify_about_new_lesson(user_ids: list[int], lesson_title: str):
+    for tg_user_id in TgUser.objects.filter(user_id__in=user_ids).values_list("id", flat=True):
         with suppress(Exception):
-            await bot.send_message(tg_user_id, f"открылся новый урок '{lesson_title}'")
+            requests.post(
+                f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage",
+                json={"chat_id": tg_user_id, "text": lesson_title},
+            )
 
 
 async def main() -> None:
