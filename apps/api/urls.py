@@ -11,6 +11,7 @@ from apps.api.views.courses import (
 )
 from apps.api.views.holder import upload_image_view, upload_link_view, upload_video_view
 from apps.api.views.purchases import PurchaseViewSet, fake_leadpay_link, notification_link
+from apps.api.views.tg_webhook import tg_callback
 
 router = DefaultRouter()
 router.register("courses", CourseViewSet)
@@ -32,4 +33,5 @@ urlpatterns = [
     path("media/images/", upload_image_view),
     path("media/videos/", upload_video_view),
     path("media/links/", upload_link_view),
+    path("tg-callback/<str:token>/", tg_callback),
 ]
