@@ -1,3 +1,4 @@
+import functools
 from contextlib import suppress
 
 import requests
@@ -13,12 +14,16 @@ from apps.purchases.models import Purchase
 from apps.users.models import User
 
 dp = Dispatcher()
-bot = Bot(token=settings.TELEGRAM_BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+
+
+@functools.cache
+def bot() -> Bot:
+    return Bot(token=settings.TELEGRAM_BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 
 async def all_purchases(chat_id, user):
     async for purchase in Purchase.objects.filter(user=user).all():
-        await bot.send_message(chat_id, f"куплен курс: {purchase}")
+        await bot().send_message(chat_id, f"куплен курс: {purchase}")
 
 
 @dp.message(Command("pay"))
@@ -81,4 +86,4 @@ def pay_purchases(user_email, course: str):
 
 
 async def main() -> None:
-    await dp.start_polling(bot)
+    await dp.start_polling(bot())

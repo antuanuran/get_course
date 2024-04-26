@@ -85,7 +85,7 @@ jobs:
       - name: Connect
         uses: appleboy/ssh-action@master
         with:
-          host: 95.163.229.244
+          host: 95.163.228.157
           username: root
           key: ${{ secrets.SSH_KEY }}
           script: |

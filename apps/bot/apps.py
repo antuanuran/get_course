@@ -6,7 +6,15 @@ class BotConfig(AppConfig):
     name = "apps.bot"
 
     def ready(self):
-        from apps.bot.service import bot
+        from django.conf import settings
 
-        bot.delete_webhook()
-        bot.set_webhook(url="https://skillsup.fun/api/v1/tg-updates")
+        if settings.TELEGRAM_WEBHOOK_CALLBACK:
+            import asyncio
+
+            from apps.bot import service
+
+            async def start_webhook():
+                await service.bot().delete_webhook()
+                await service.bot().set_webhook(url=settings.TELEGRAM_WEBHOOK_CALLBACK)
+
+            asyncio.run(start_webhook())
