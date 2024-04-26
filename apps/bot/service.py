@@ -16,41 +16,18 @@ dp = Dispatcher()
 bot = Bot(token=settings.TELEGRAM_BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 
-async def all_purchases(user_id, email):
-    async for purchese in Purchase.objects.filter(user__email=email).all():
-        await bot.send_message(user_id, f"высылаю список покупок для юзера - {email}: {purchese}")
+async def all_purchases(chat_id, user):
+    async for purchase in Purchase.objects.filter(user=user).all():
+        await bot.send_message(chat_id, f"куплен курс: {purchase}")
 
 
 @dp.message(Command("pay"))
 async def any_message(message: Message):
-    await message.answer(f"Так, {html.bold(message.from_user.full_name)}, введи еще раз почту:")
-
-
-@dp.message(F.text)
-async def purchases_func(message: Message) -> None:
-    email = message.text
-    tg_user = await TgUser.objects.filter(user__email=email, id=message.from_user.id).afirst()
-    if tg_user:
-        answer = "почту я твою уже знаю, щас пришлю все твои Уроки"
-
+    tg_user = await TgUser.objects.filter(id=message.from_user.id).afirst()
+    if not tg_user:
+        await message.answer("еще я вас знаю, выполните /start")
     else:
-        user = await User.objects.filter(email=email).afirst()
-        if user:
-            try:
-                await TgUser.objects.acreate(
-                    user=user,
-                    id=message.from_user.id,
-                    username=message.from_user.username,
-                )
-                answer = "почту принял. Скоро пришлю уроки"
-            except:  # noqa: E722
-                answer = "что-то пошло не так, попробуйте позднее"
-        else:
-            answer = "либо ошибся в email, либо еще не зарегистрирован в нашей системе"
-    await message.answer(answer)
-
-    user_id = message.from_user.id
-    await all_purchases(user_id, email)
+        await all_purchases(message.from_user.id, tg_user.user)
 
 
 @dp.message(CommandStart())
