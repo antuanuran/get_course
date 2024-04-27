@@ -12,3 +12,6 @@ run: superuser
 
 bot:
 	python manage.py start_bot
+
+# celery:
+#   celery -A skillsup worker

@@ -1,6 +1,5 @@
 from urllib.parse import urljoin
 
-from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.core.validators import MaxValueValidator
 from django.db import models
@@ -122,7 +121,7 @@ class Lesson(OrderedModel):
             users = list(
                 self.course.purchases.filter(status=Purchase.Status.COMPLETED).values_list("user_id", flat=True)
             )
-            async_to_sync(notify_about_new_lesson)(users, self.name)
+            notify_about_new_lesson(users, self.name)
 
 
 class Comment(models.Model):

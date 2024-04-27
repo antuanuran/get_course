@@ -1,0 +1,3 @@
+api.skillsup.fun
+
+reverse_proxy :8001

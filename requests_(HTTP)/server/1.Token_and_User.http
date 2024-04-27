@@ -1,5 +1,5 @@
 ### Создание TOKEN для нового Юзера
-POST http://www.skillsup.fun/api/v1/auth/jwt/create/
+POST http://api.skillsup.fun/api/v1/auth/jwt/create/
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 
 
 ### Создание нового Юзера
-POST http://www.skillsup.fun/api/v1/users/
+POST http://api.skillsup.fun/api/v1/users/
 Content-Type: application/json
 
 {

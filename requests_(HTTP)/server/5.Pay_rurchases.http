@@ -2,7 +2,7 @@
 
 
 ### GET. ПОЛУЧЕНИЕ ОТ ШЛЮЗА ССЫЛКИ НА ОПЛАТУ. Работаем с конкретной покупкой.
-GET http://www.skillsup.fun/api/v1/purchases/1/payment-link/
+GET http://api.skillsup.fun/api/v1/purchases/1/payment-link/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -10,7 +10,7 @@ Content-Type: application/json
 
 
 ### POST. (Якобы) Ответ от Leadpay со статусом (success / fail). id_Заказа и price должен совпасть с реальным.
-POST http://www.skillsup.fun/api/v1/leadpay-notification/
+POST http://api.skillsup.fun/api/v1/leadpay-notification/
 Content-Type: application/json
 
 {

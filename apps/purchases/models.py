@@ -25,7 +25,12 @@ class Purchase(models.Model):
     def save(self, *args, **kwargs):
         if self.price is None:
             self.price = self.course.price
-        return super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+        from apps.bot.service import pay_purchases
+
+        if self.status == self.Status.COMPLETED:
+            pay_purchases(self.user.email, self.course.name)
 
     def __str__(self) -> str:
         return f"Purchase №{self.id}"

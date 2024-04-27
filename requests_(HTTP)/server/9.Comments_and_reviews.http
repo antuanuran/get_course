@@ -1,7 +1,7 @@
 ### 1. ОТЗЫВЫ. REVIEWS
 
 ### GET. Просмотр всех отзывов к курсам.
-GET http://www.skillsup.fun/api/v1/reviews/
+GET http://api.skillsup.fun/api/v1/reviews/
 Authorization: Bearer {{token}}
 
 
@@ -9,7 +9,7 @@ Authorization: Bearer {{token}}
 
 ### POST. Создание нового отзыва к моему курсу (который оплачен, т.е. имеет статус - "Completed")
 ### Чтобы прикрепить картинку - нужно ее загрузить в Холдер и скопировать uuid
-POST http://www.skillsup.fun/api/v1/reviews/
+POST http://api.skillsup.fun/api/v1/reviews/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -27,13 +27,13 @@ Content-Type: application/json
 ### 8. КОММЕНТАРИИ. COMMENTS
 
 ### GET. Просмотр всех комментариев к Уроком (lessons).
-GET http://www.skillsup.fun/api/v1/comments/
+GET http://api.skillsup.fun/api/v1/comments/
 Authorization: Bearer {{token}}
 
 
 ### POST. Создать комментарий. Комментировать может зарегистрированный пользователь. Но уроки может видеть только тот юзер, который купил курс. Соответственно комментировать может только уроки своего купленного курса.
 ### Чтобы прикрепить картинку - нужно ее загрузить в Холдер и скопировать uuid
-POST http://www.skillsup.fun/api/v1/comments/
+POST http://api.skillsup.fun/api/v1/comments/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
