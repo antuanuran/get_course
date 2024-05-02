@@ -121,7 +121,7 @@ class Lesson(OrderedModel):
             users = list(
                 self.course.purchases.filter(status=Purchase.Status.COMPLETED).values_list("user_id", flat=True)
             )
-            notify_about_new_lesson(users, self.name)
+            notify_about_new_lesson(users, self.name, self.course.name)
 
 
 class Comment(models.Model):

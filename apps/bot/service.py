@@ -7,6 +7,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
+from asgiref.sync import sync_to_async
 from django.conf import settings
 
 from apps.bot.models import TgUser
@@ -21,9 +22,20 @@ def bot() -> Bot:
     return Bot(token=settings.TELEGRAM_BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 
-async def all_purchases(chat_id, user):
-    async for purchase in Purchase.objects.filter(user=user).all():
-        await bot().send_message(chat_id, f"куплен курс: {purchase}")
+def db(tg_user):
+    return tg_user.user.id
+
+
+def purchase_to_course(purchase):
+    return purchase.course.name
+
+
+async def all_purchases(chat_id, tg_user):
+    user_id = await sync_to_async(db)(tg_user)
+    async for purchase in Purchase.objects.filter(user_id=user_id).all():
+        await bot().send_message(
+            chat_id, f"На текущий момент у вас куплен курс: {await sync_to_async(purchase_to_course)(purchase)}"
+        )
 
 
 @dp.message(Command("pay"))
@@ -32,7 +44,7 @@ async def any_message(message: Message):
     if not tg_user:
         await message.answer("еще я вас знаю, выполните /start")
     else:
-        await all_purchases(message.from_user.id, tg_user.user)
+        await all_purchases(message.from_user.id, tg_user)
 
 
 @dp.message(CommandStart())
@@ -79,10 +91,11 @@ def notify_about_new_lesson(user_ids: list[int], lesson_title: str, course):
 def pay_purchases(user_email, course: str):
     tg_user_id = TgUser.objects.get(user__email=user_email).id
     with suppress(Exception):
-        requests.post(
+        resp = requests.post(
             f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage",
-            json={"chat_id": tg_user_id, "text": f' Вы приобрели новый курс: "{course}"'},
+            json={"chat_id": tg_user_id, "text": f'Вы только что приобрели новый курс: "{course}"'},
         )
+    print(resp.text)
 
 
 async def main() -> None:
