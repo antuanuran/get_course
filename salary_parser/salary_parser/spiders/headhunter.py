@@ -4,11 +4,7 @@ import scrapy
 class HeadhunterSpider(scrapy.Spider):
     name = "headhunter"
     start_urls = [
-        (
-            "https://hh.ru/search/vacancy"
-            "?ored_clusters=true&search_period=7&search_field=name&search_field=company_name"
-            "&search_field=description&text=Python&enable_snippets=false&customDomain=1"
-        ),
+        ("https://hh.ru/search/vacancy?ored_clusters=true&text=python&search_period=7"),
     ]
 
     KNOWN_CURRENCIES = {
@@ -63,3 +59,26 @@ class HeadhunterSpider(scrapy.Spider):
         # next_page = response.css('li.next a::attr("href")').get()
         # if next_page is not None:
         #     yield response.follow(next_page, self.parse)
+
+        # print(f"\n Вывод наименования вакансии:")
+        # i = 0
+        # for selector in response.xpath('//*[@id="a11y-main-content"]/div/div/div/div/div/div/h3/span/span/a/span'):
+        #     element = selector.xpath("text()").getall()
+        #     i += 1
+        #     print(f"{i}. {element}")
+        #
+        # i = 0
+        # print(f"\n Вывод городов:")
+        # for selector in response.xpath('//*[@id="a11y-main-content"]/div/div/div/div/div/div/div/div'):
+        #     element = selector.xpath("text()").getall()
+        #     if element:
+        #         i += 1
+        #         print(f"{i}. {element}")
+        #
+        # i = 0
+        # print(f"\n Вывод комапний:")
+        # for selector in response.xpath('//*[@id="a11y-main-content"]/div/div/div/div/div/div/div/div/div/div/a/span'):
+        #     element = selector.xpath("text()").getall()
+        #     if element:
+        #         i += 1
+        #         print(f"{i}. {element}")
