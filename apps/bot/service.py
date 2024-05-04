@@ -91,11 +91,10 @@ def notify_about_new_lesson(user_ids: list[int], lesson_title: str, course):
 def pay_purchases(user_email, course: str):
     tg_user_id = TgUser.objects.get(user__email=user_email).id
     with suppress(Exception):
-        resp = requests.post(
+        requests.post(
             f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage",
             json={"chat_id": tg_user_id, "text": f'Вы только что приобрели новый курс: "{course}"'},
         )
-    print(resp.text)
 
 
 async def main() -> None:
