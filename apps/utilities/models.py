@@ -10,9 +10,3 @@ class BlacklistedWord(models.Model):
         return self.word
 
     word = models.CharField(max_length=200)
-
-    def save(self, *args, **kwargs):
-        from apps.beautiful_soup.tasks import vacancy_parser
-
-        vacancy_parser.delay()
-        super().save(*args, **kwargs)

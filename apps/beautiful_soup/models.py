@@ -1,5 +1,7 @@
 from django.db import models
 
+from apps.courses.models import Course
+
 
 class VacancyData(models.Model):
     name = models.CharField(max_length=100)
@@ -16,3 +18,11 @@ class VacancyData(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class StartParsing(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+
+    class Meta:
+        verbose_name = "запуск поиска вакансий"
+        verbose_name_plural = "запуск поиска вакансий"
