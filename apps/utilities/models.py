@@ -12,7 +12,7 @@ class BlacklistedWord(models.Model):
     word = models.CharField(max_length=200)
 
     def save(self, *args, **kwargs):
-        from apps.beautiful_soup.scrapping_beautiful import main
+        from apps.beautiful_soup.tasks import vacancy_parser
 
-        main()
+        vacancy_parser.delay()
         super().save(*args, **kwargs)

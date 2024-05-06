@@ -204,3 +204,5 @@ USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "https://api.skillsup.fun").split(",")
+
+URL_VACANCY = os.getenv("URL_VACANCY")
