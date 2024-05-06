@@ -21,11 +21,29 @@ def main():
         print(name)
 
         # Salary
+        # price_min = None
+        # price_max = None
+
         raw_salary = card.find("span", {"data-qa": "vacancy-serp__vacancy-compensation"})
         if raw_salary:
             raw_salary = raw_salary.text.strip()
-            salary = raw_salary.encode("ascii", "ignore").decode("ascii")
-            print(salary)
+            salary = raw_salary.encode("ascii", "ignore").decode("ascii").strip()
+            res = salary.split()
+            print(len(res))
+            if len(res) == 2:
+                try:
+                    a, b = map(int, res)
+                    print(a)
+                    print(b)
+                except ValueError:
+                    print(res)
+
+            elif len(res) == 1:
+                a = map(int, res)
+                print(a)
+
+            else:
+                print(salary)
 
         else:
             print("-")
