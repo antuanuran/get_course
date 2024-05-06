@@ -1,3 +1,5 @@
+# from time import sleep
+
 import requests
 from bs4 import BeautifulSoup
 from fake_headers import Headers
@@ -13,58 +15,69 @@ cards_all = soup.find_all(class_="vacancy-serp-item__layout")
 
 
 def main():
-    # data = []
+    from apps.beautiful_soup.models import VacancyData
+
+    data_dict = {}
+
     for card in cards_all:
-        print("\n")
         # Название вакансии
         name = card.find("span", {"data-qa": "serp-item__title"}).text
-        print(name)
 
         # Город
         city = card.find("div", {"data-qa": "vacancy-serp__vacancy-address"}).text
-        print(city)
 
         # Salary
         raw_salary = card.find("span", {"data-qa": "vacancy-serp__vacancy-compensation"})
         if raw_salary:
-            salary_list = []
             currency = None
+            salary_min = None
+            salary_max = None
+            salary_avg = None
 
             raw_salary = raw_salary.text.strip()
-            print(f"Зарплатная вилка: ({raw_salary})")
-
             raw_salary = raw_salary.encode("ascii", "ignore").decode("ascii").strip()
             salary = raw_salary.split()
 
             if len(salary) == 1:
-                salary_list.append(float(*salary))
-                salary_list.append(float(*salary))
+                salary_min = float(*salary)
+                salary_max = float(*salary)
+                salary_avg = float(*salary)
                 currency = "руб."
-                print(salary_list, currency)
 
             elif len(salary) == 3:
-                salary_list.append(float(salary[0]))
-                salary_list.append(float(salary[1]))
+                salary_min = float(salary[0])
+                salary_max = float(salary[1])
+                salary_avg = (salary_min + salary_max) / 2
                 currency = salary[2]
-                print(salary_list, currency)
 
             else:
-                salary_list.append(float(salary[0]))
+                salary_min = float(salary[0])
 
                 try:
-                    salary_list.append(float(salary[1]))
+                    salary_max = float(salary[1])
+                    salary_avg = (salary_min + salary_max) / 2
                     currency = "руб."
-                    print(salary_list, currency)
 
                 except ValueError:
-                    salary_list.append(salary[0])
+                    salary_max = salary[0]
+                    salary_avg = salary[0]
                     currency = salary[1]
-                    print(salary_list)
-                    print(salary_list, currency)
 
         else:
-            print("-")
+            salary_min = None
+            salary_max = None
+            salary_avg = None
+            currency = "руб."
 
         # Ссылка на вакансию
         link = card.find("a")["href"]
-        print(link)
+
+        data_dict["name"] = name
+        data_dict["city"] = city
+        data_dict["link"] = link
+        data_dict["salary_min"] = salary_min
+        data_dict["salary_max"] = salary_max
+        data_dict["salary_avg"] = salary_avg
+        data_dict["currency"] = currency
+
+    VacancyData.objects.create(**data_dict)

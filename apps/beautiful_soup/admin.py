@@ -1,3 +1,8 @@
-# from django.contrib import admin
+from django.contrib import admin
 
-# Register your models here.
+from .models import VacancyData
+
+
+@admin.register(VacancyData)
+class VacancyDataAdmin(admin.ModelAdmin):
+    list_display = ["name", "city", "link", "salary_min", "salary_max", "salary_avg"]
