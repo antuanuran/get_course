@@ -4,7 +4,11 @@ import scrapy
 class HeadhunterSpider(scrapy.Spider):
     name = "headhunter"
     start_urls = [
-        ("https://hh.ru/search/vacancy?ored_clusters=true&text=python&search_period=7"),
+        (
+            "https://hh.ru/search/vacancy"
+            "?ored_clusters=true&search_period=7&search_field=name&search_field=company_name"
+            "&search_field=description&text=Python&enable_snippets=false&customDomain=1"
+        ),
     ]
 
     KNOWN_CURRENCIES = {
@@ -34,10 +38,14 @@ class HeadhunterSpider(scrapy.Spider):
                     continue
                 value = element.encode("ascii", "ignore").decode("ascii")
                 # TODO: extract digits
+                print("*******")
+                print(value)
                 try:
                     value = float(value)
+                    print(value)
                 except ValueError:
                     pass
+                print("*******")
                 if isinstance(value, float):
                     if price_min is None:
                         price_min = value
