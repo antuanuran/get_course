@@ -1,3 +1,5 @@
+import re
+
 import scrapy
 
 
@@ -12,22 +14,31 @@ class HeadhunterSpider(scrapy.Spider):
     ]
 
     KNOWN_CURRENCIES = {
+        "₽": 1,
         "$": 90,
+        "Br": 30,
+        "₸": 0.2,
         # TODO
     }
 
-    def parse(self, response, **kwargs):  # noqa: C901
-        # page = response.url.split("/")[-2]
+    find_digits = re.compile(r"\d+")
 
-        raw_salaries = [
-            selector.xpath("text()").getall()
-            for selector in response.xpath('//div[@class="vacancy-serp-item__layout"]/div/div/div/span')
-        ]
+    def _safe_parse_int(self, value: str) -> int:
+        return int(float(value.replace(",", ".")))
+
+    def parse(self, response, **kwargs):  # noqa: C901
+        # page = response.url.split("/")
 
         data = []
-        for raw_salary in raw_salaries:
-            price_min = None
-            price_max = None
+
+        for selector in response.xpath('//div[@class="vacancy-serp-item__layout"]'):
+            name = selector.css("span.serp-item__title").xpath("text()").get()
+            city = selector.css("div.vacancy-serp-item__info").xpath("div[2]/text()").get()
+            raw_salary = selector.css("div.vacancy-serp-item-body__main-info").xpath("div[1]/span[1]/text()").getall()
+            link = selector.css("a::attr(href)").get()
+
+            price_min = 0
+            price_max = 0
             currency = "₽"
             for element in raw_salary:
                 element = element.strip()
@@ -37,56 +48,40 @@ class HeadhunterSpider(scrapy.Spider):
                     currency = element
                     continue
                 value = element.encode("ascii", "ignore").decode("ascii")
-                # TODO: extract digits
-                print("*******")
-                print(value)
-                try:
-                    value = float(value)
-                    print(value)
-                except ValueError:
-                    pass
-                print("*******")
-                if isinstance(value, float):
-                    if price_min is None:
-                        price_min = value
-                    else:
-                        price_max = value
+                values = self.find_digits.findall(value)
+                if not values:
+                    continue
+                if price_min:
+                    price_max = self._safe_parse_int(values[0])
+                else:
+                    price_min = self._safe_parse_int(values[0])
+                    if len(values) > 1:
+                        price_max = self._safe_parse_int(values[1])
 
-            if price_min is None:
-                continue
-            avg_price = price_min
-            if price_max is not None:
-                avg_price = (price_max + price_min) / 2
-            if currency != "₽":
-                avg_price *= self.KNOWN_CURRENCIES[currency]
-            data.append(avg_price)
+            if not price_max:
+                price_max = price_min
 
-        print(data)
-        print(sum(data) / len(data))
+            converted_price_min = int(price_min * self.KNOWN_CURRENCIES[currency])
+            converted_price_max = int(price_max * self.KNOWN_CURRENCIES[currency])
 
-        # next_page = response.css('li.next a::attr("href")').get()
-        # if next_page is not None:
-        #     yield response.follow(next_page, self.parse)
+            data.append(
+                {
+                    "name": name,
+                    "city": city,
+                    "price_min": price_min,
+                    "price_max": price_max,
+                    "currency": currency,
+                    "converted_price_min": converted_price_min,
+                    "converted_price_max": converted_price_max,
+                    "link": link,
+                }
+            )
 
-        # print(f"\n Вывод наименования вакансии:")
-        # i = 0
-        # for selector in response.xpath('//*[@id="a11y-main-content"]/div/div/div/div/div/div/h3/span/span/a/span'):
-        #     element = selector.xpath("text()").getall()
-        #     i += 1
-        #     print(f"{i}. {element}")
-        #
-        # i = 0
-        # print(f"\n Вывод городов:")
-        # for selector in response.xpath('//*[@id="a11y-main-content"]/div/div/div/div/div/div/div/div'):
-        #     element = selector.xpath("text()").getall()
-        #     if element:
-        #         i += 1
-        #         print(f"{i}. {element}")
-        #
-        # i = 0
-        # print(f"\n Вывод комапний:")
-        # for selector in response.xpath('//*[@id="a11y-main-content"]/div/div/div/div/div/div/div/div/div/div/a/span'):
-        #     element = selector.xpath("text()").getall()
-        #     if element:
-        #         i += 1
-        #         print(f"{i}. {element}")
+        for x in data:
+            print(x)
+
+        next_page = response.xpath('//div[@class="pager"]/a').attrib.get("href")
+        if next_page:
+            next_page_url = "https://hh.ru" + next_page
+            request = scrapy.Request(url=next_page_url)
+            yield request

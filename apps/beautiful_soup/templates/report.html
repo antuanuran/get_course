@@ -36,7 +36,11 @@
     <th>Дата получения Отчета</th>
   </tr>
     <tr>
-    <td style="color: Teal">{{ date }}</td>
+      {% for x in data %}
+    <td style="color: Teal">{{ x.name }}</td>
+    <td style="color: Teal">{{ x.price_min }}</td>
+    <td style="color: Teal">{{ x.price_max }}</td>
+      {% endfor %}
     </tr>
 </table>
 
