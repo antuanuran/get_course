@@ -5,6 +5,8 @@ from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from ordered_model.admin import OrderedInlineModelAdminMixin, OrderedModelAdmin, OrderedTabularInline
 
+from apps.beautiful_soup.tasks import vacancy_parser
+
 from .models import (
     Category,
     Certificate,
@@ -59,7 +61,18 @@ class ReviewInline(admin.TabularInline):
 
 @admin.register(Course)
 class CourseAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
-    list_display = ["name_course", "sellable", "tag_list", "poster", "price", "author", "is_sellable", "free", "id"]
+    list_display = [
+        "name_course",
+        "sellable",
+        "tag_list",
+        "poster",
+        "price",
+        "author",
+        "is_sellable",
+        "free",
+        "id",
+        "parsing",
+    ]
     list_filter = ["is_sellable"]
     list_editable = ["is_sellable"]
     filter_horizontal = ["favourites", "curators"]
@@ -88,9 +101,15 @@ class CourseAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
         link = reverse("admin:sel", args=[obj.id])
         return mark_safe(f"<a href='{link}'>вкл/выкл</a>")
 
+    @admin.display(description="start parsing vacancy")
+    def parsing(self, obj: Course):
+        link = reverse("admin:parsing", args=[obj.id])
+        return mark_safe(f"<a href='{link}'>start</a>")
+
     def get_urls(self):
         urls = [
             path("<obj_id>/sellable/", self.sellable_viewset, name="sel"),
+            path("<obj_id>/parsing/", self.parsing_viewset, name="parsing"),
         ] + super().get_urls()
         return urls
 
@@ -98,6 +117,12 @@ class CourseAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
         obj = get_object_or_404(Course, id=obj_id)
         obj.is_sellable = not obj.is_sellable
         obj.save(update_fields=["is_sellable"])
+        return redirect(reverse("admin:courses_course_changelist"))
+
+    def parsing_viewset(self, request, obj_id, *args, **kwargs):
+        get_object_or_404(Course, id=obj_id)
+        vacancy_parser.delay()
+
         return redirect(reverse("admin:courses_course_changelist"))
 
 

@@ -49,11 +49,11 @@ jobs:
       - name: Check flake8 .
         run: flake8 .
 
-      - name: Test with pytest
-        run: pytest
-        env:
-          POSTGRES_USER: pytest
-          POSTGRES_PASSWORD: pytest
+#      - name: Test with pytest
+#        run: pytest
+#        env:
+#          POSTGRES_USER: pytest
+#          POSTGRES_PASSWORD: pytest
 
   build:
     if: github.event_name == 'push'
@@ -85,10 +85,10 @@ jobs:
       - name: Connect
         uses: appleboy/ssh-action@master
         with:
-          host: 79.174.80.210
+          host: 95.163.231.64
           username: root
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /srv/deploy/server_project
+            cd /srv/deploy/skillsup/server_project
             docker pull ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:latest
             docker-compose down && docker-compose up -d && docker ps

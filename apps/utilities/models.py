@@ -6,7 +6,7 @@ class BlacklistedWord(models.Model):
         verbose_name = "запрещенное слово"
         verbose_name_plural = "запрещенные слова"
 
-    word = models.CharField(max_length=200)
-
     def __str__(self) -> str:
         return self.word
+
+    word = models.CharField(max_length=200)

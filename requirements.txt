@@ -16,3 +16,5 @@ weasyprint==61.2
 django-cors-headers==4.3.1
 aiogram==3.4.1
 Scrapy==2.11.1
+beautifulsoup4==4.12.3
+fake-headers==1.0.2
