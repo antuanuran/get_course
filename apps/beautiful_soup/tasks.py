@@ -9,8 +9,8 @@ from .scrapping_beautiful import main
 
 
 @shared_task(autoretry_for=(Exception,), max_retries=1)
-def vacancy_parser():
-    data_all = main()
+def vacancy_parser(course_name):
+    data_all = main(course_name)
     for data_dict in data_all:
         vacancy, _ = VacancyData.objects.get_or_create(**data_dict)
         print(f" вакансия '{vacancy}' загружена в базу........ok")

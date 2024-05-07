@@ -120,8 +120,8 @@ class CourseAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
         return redirect(reverse("admin:courses_course_changelist"))
 
     def parsing_viewset(self, request, obj_id, *args, **kwargs):
-        get_object_or_404(Course, id=obj_id)
-        vacancy_parser.delay()
+        course = get_object_or_404(Course, id=obj_id)
+        vacancy_parser.delay(course.name)
 
         return redirect(reverse("admin:courses_course_changelist"))
 

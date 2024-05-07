@@ -1,18 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
-from django.conf import settings
+
+# from django.conf import settings
 from fake_headers import Headers
 
-url = settings.URL_VACANCY
-head = Headers(browser="firefox", os="win").generate()
 
-resp = requests.get(url, headers=head)
-soup = BeautifulSoup(resp.text, "html.parser")
+def main(course_name):
+    url = f"https://hh.ru/search/vacancy?ored_clusters=true&search_period=7&search_field=name&search_field=company_name&search_field=description&enable_snippets=false&customDomain=1&currency_code=USD&text={course_name}&page=1/"  # noqa E501
+    head = Headers(browser="firefox", os="win").generate()
 
-cards_all = soup.find_all(class_="vacancy-serp-item__layout")
+    resp = requests.get(url, headers=head)
+    soup = BeautifulSoup(resp.text, "html.parser")
 
+    cards_all = soup.find_all(class_="vacancy-serp-item__layout")
 
-def main():
     data_dict = {}
     data_list = []
 
