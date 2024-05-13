@@ -1,4 +1,4 @@
-# Scrapy settings for salary_parser project
+# Scrapy settings for salary_parser_scrapy project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "salary_parser"
+BOT_NAME = "salary_parser_scrapy"
 
-SPIDER_MODULES = ["salary_parser.spiders"]
-NEWSPIDER_MODULE = "salary_parser.spiders"
+SPIDER_MODULES = ["salary_parser_scrapy.spiders"]
+NEWSPIDER_MODULE = "salary_parser_scrapy.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = "salary_parser (+http://www.yourdomain.com)"
+# USER_AGENT = "salary_parser_scrapy (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    "salary_parser.middlewares.SalaryParserSpiderMiddleware": 543,
+#    "salary_parser_scrapy.middlewares.SalaryParserSpiderMiddleware": 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    "salary_parser.middlewares.SalaryParserDownloaderMiddleware": 543,
+#    "salary_parser_scrapy.middlewares.SalaryParserDownloaderMiddleware": 543,
 # }
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 # ITEM_PIPELINES = {
-#    "salary_parser.pipelines.SalaryParserPipeline": 300,
+#    "salary_parser_scrapy.pipelines.SalaryParserPipeline": 300,
 # }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

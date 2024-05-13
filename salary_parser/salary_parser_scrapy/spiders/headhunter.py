@@ -77,8 +77,7 @@ class HeadhunterSpider(scrapy.Spider):
                 }
             )
 
-        for x in data:
-            print(x)
+        print(data)
 
         next_page = response.xpath('//div[@class="pager"]/a').attrib.get("href")
         if next_page:
