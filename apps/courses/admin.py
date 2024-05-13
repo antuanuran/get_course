@@ -5,7 +5,7 @@ from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from ordered_model.admin import OrderedInlineModelAdminMixin, OrderedModelAdmin, OrderedTabularInline
 
-from apps.beautiful_soup.tasks import vacancy_parser
+from apps.vacancies.tasks import vacancy_parser
 
 from .models import (
     Category,

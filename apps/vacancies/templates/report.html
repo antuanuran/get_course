@@ -27,25 +27,55 @@
 </head>
 
 <!--********************  Таблица ***********************-->
-
 <body>
 <h1>Отчет выгрузки актуальных вакансий</h1>
 
+
+
+
+
+
 <table style="width:100%">
+
   <tr>
-    <th>Дата получения Отчета</th>
+    <th>Вакансия</th>
+    <th>Город</th>
+    <th>З.п. мин.</th>
+    <th>З.п. max.</th>
+    <th>З.п. сред.</th>
+    <th>валюта</th>
+
+
   </tr>
-    <tr>
-      {% for x in data %}
-    <td style="color: Teal">{{ x.name }}</td>
-    <td style="color: Teal">{{ x.price_min }}</td>
-    <td style="color: Teal">{{ x.price_max }}</td>
-      {% endfor %}
-    </tr>
+
+  <tr>
+  {% for vacancy in vacancy_all %}
+
+  <td style="color: Teal">{{ vacancy.name }}</td>
+  <td style="color: Teal">{{ vacancy.city }}</td>
+  <td style="color: Teal">{{ vacancy.salary_min }}</td>
+  <td style="color: Teal">{{ vacancy.salary_max }}</td>
+  <td style="color: Teal">{{ vacancy.salary_avg }}</td>
+  <td style="color: Teal">{{ vacancy.currency }}</td>
+  </tr>
+  {% endfor %}
+
+
 </table>
 
+
+
+
+
+
+
+
+
+
+
+
+
 <main>
-  <p>Отчет сформирован!   </p>
 </main>
 </body>
 </html>

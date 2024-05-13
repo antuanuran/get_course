@@ -2,10 +2,9 @@
 from celery.app import shared_task
 from django.core.files.base import File
 
-from apps.beautiful_soup import service
-from apps.beautiful_soup.models import Report, VacancyData
-
-from .scrapping_beautiful import main
+from apps.vacancies import service
+from apps.vacancies.models import Report, VacancyData
+from salary_parser.salary_parser_beautifulsoup.scrapping_beautiful import main
 
 
 @shared_task(autoretry_for=(Exception,), max_retries=1)
