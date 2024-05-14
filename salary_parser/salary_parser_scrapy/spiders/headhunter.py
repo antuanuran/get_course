@@ -29,8 +29,6 @@ class HeadhunterSpider(scrapy.Spider):
     def parse(self, response, **kwargs):  # noqa: C901
         # page = response.url.split("/")
 
-        data = []
-
         for selector in response.xpath('//div[@class="vacancy-serp-item__layout"]'):
             name = selector.css("span.serp-item__title").xpath("text()").get()
             city = selector.css("div.vacancy-serp-item__info").xpath("div[2]/text()").get()
@@ -61,23 +59,22 @@ class HeadhunterSpider(scrapy.Spider):
             if not price_max:
                 price_max = price_min
 
+            if price_min == 0:
+                continue
+
             converted_price_min = int(price_min * self.KNOWN_CURRENCIES[currency])
             converted_price_max = int(price_max * self.KNOWN_CURRENCIES[currency])
 
-            data.append(
-                {
-                    "name": name,
-                    "city": city,
-                    "price_min": price_min,
-                    "price_max": price_max,
-                    "currency": currency,
-                    "converted_price_min": converted_price_min,
-                    "converted_price_max": converted_price_max,
-                    "link": link,
-                }
-            )
-
-        print(data)
+            yield {
+                "name": name,
+                "city": city,
+                "price_min": price_min,
+                "price_max": price_max,
+                "currency": currency,
+                "converted_price_min": converted_price_min,
+                "converted_price_max": converted_price_max,
+                "link": link,
+            }
 
         next_page = response.xpath('//div[@class="pager"]/a').attrib.get("href")
         if next_page:

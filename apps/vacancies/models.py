@@ -28,3 +28,10 @@ class Report(models.Model):
     @property
     def full_url(self) -> str:
         return urljoin(settings.BASE_PLATFORM_URL, self.pdf.url)
+
+
+class CityStatus(models.Model):
+    city = models.CharField(max_length=100)
+    min_price = models.IntegerField()
+    max_price = models.IntegerField()
+    updated_at = models.DateTimeField(auto_now=True)
