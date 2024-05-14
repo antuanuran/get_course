@@ -27,8 +27,6 @@ class HeadhunterSpider(scrapy.Spider):
         return int(float(value.replace(",", ".")))
 
     def parse(self, response, **kwargs):  # noqa: C901
-        # page = response.url.split("/")
-
         for selector in response.xpath('//div[@class="vacancy-serp-item__layout"]'):
             name = selector.css("span.serp-item__title").xpath("text()").get()
             city = selector.css("div.vacancy-serp-item__info").xpath("div[2]/text()").get()
