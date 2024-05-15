@@ -16,5 +16,8 @@ bot:
 # celery:
 #   celery -A skillsup worker
 
-scrapy:
+scrapy_all:
 	scrapy runspider salary_parser/salary_parser_scrapy/spiders/headhunter.py
+
+scrapy:
+	scrapy runspider salary_parser_scrapy/spiders/headhunter.py

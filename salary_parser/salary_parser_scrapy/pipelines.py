@@ -17,7 +17,6 @@ class SalaryParserPipeline:
         import django
 
         django.setup()
-
         from apps.vacancies.models import CityStatus
 
         df = pd.DataFrame(data=self.data)
@@ -27,3 +26,4 @@ class SalaryParserPipeline:
                 city=city,
                 defaults=dict(min_price=int(min_price), max_price=int(max_price)),
             )
+            print(city)
