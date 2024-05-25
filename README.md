@@ -86,7 +86,7 @@
 - [x] Добавить Rabbit в Celery в CI/CD
 - [x] Настроить CORS
 - [x] Добавить кеширование
-- [x] Scrapy - parsing HH.ru (на анализ средних зар.плат по каждому курсу)
+- [x] Scrapy + BeautifulSoup - (parsing HH.ru на анализ средних зар.плат по каждому курсу)
 
 #### Login Kurator User (ограниченые права):
 - "email": "python@admin.org",
