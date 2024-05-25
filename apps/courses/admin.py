@@ -5,7 +5,7 @@ from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from ordered_model.admin import OrderedInlineModelAdminMixin, OrderedModelAdmin, OrderedTabularInline
 
-from apps.beautiful_soup.tasks import vacancy_parser
+from apps.vacancies.tasks import vacancy_parser
 
 from .models import (
     Category,
@@ -120,8 +120,8 @@ class CourseAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
         return redirect(reverse("admin:courses_course_changelist"))
 
     def parsing_viewset(self, request, obj_id, *args, **kwargs):
-        get_object_or_404(Course, id=obj_id)
-        vacancy_parser.delay()
+        course = get_object_or_404(Course, id=obj_id)
+        vacancy_parser.delay(course.name)
 
         return redirect(reverse("admin:courses_course_changelist"))
 

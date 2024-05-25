@@ -1,0 +1,93 @@
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Certificate</title>
+  <meta name="description" content="Certificate"/>
+  <style>
+    @page {
+      margin-top: 60pt;
+      margin-right: 60pt;
+      margin-left: 60pt;
+    }
+  </style>
+</head>
+<!--******************** Стиль таблицы************************-->
+    <style>
+            table, th, td {
+                                border: 1px solid #4f8635;
+                                border-collapse: collapse;
+                            }
+            th, td          {
+                                padding: 5px;
+                            }
+            th              {
+                                text-align: left;
+                            }
+    </style>
+</head>
+
+<!--********************  Таблица ***********************-->
+<body>
+<h1>Отчет выгрузки актуальных вакансий</h1>
+
+
+
+
+
+
+<table style="width:100%">
+
+  <tr>
+    <th>Вакансия</th>
+    <th>Город</th>
+    <th>З.п. мин.</th>
+    <th>З.п. max.</th>
+    <th>З.п. сред.</th>
+    <th>валюта</th>
+    <th>Ссылка на вакансию</th>
+
+
+
+  </tr>
+
+  <tr>
+  {% for vacancy in vacancy_all %}
+
+  <td style="color: Teal">{{ vacancy.name }}</td>
+  <td style="color: Teal">{{ vacancy.city }}</td>
+  <td style="color: Teal">{{ vacancy.salary_min }}</td>
+  <td style="color: Teal">{{ vacancy.salary_max }}</td>
+  <td style="color: Teal">{{ vacancy.salary_avg }}</td>
+  <td style="color: Teal">{{ vacancy.currency }}</td>
+  <td style="color: Teal"> <a href="{{ vacancy.link }}">  ссылка  </a> </td>
+
+  </tr>
+  {% endfor %}
+
+
+</table>
+
+
+
+
+<button onclick="showCourses();" > Показать курсы </button>
+
+<script>
+    async function showCourses()  {
+        const response = await fetch("http://127.0.0.1:8000/api/v1/courses/");
+        const data = await response.json();
+        console.log(data);
+    }
+    </script>
+
+
+
+
+
+
+
+
+<main>
+</main>
+</body>
+</html>

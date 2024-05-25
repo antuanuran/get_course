@@ -5,7 +5,7 @@ from django.apps import AppConfig
 
 class BeautifulSoupConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.beautiful_soup"
+    name = "apps.vacancies"
 
     # def ready(self):
     #     main()

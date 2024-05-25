@@ -2,15 +2,14 @@
 from celery.app import shared_task
 from django.core.files.base import File
 
-from apps.beautiful_soup import service
-from apps.beautiful_soup.models import Report, VacancyData
-
-from .scrapping_beautiful import main
+from apps.vacancies import service
+from apps.vacancies.models import Report, VacancyData
+from salary_parser.salary_parser_beautifulsoup.scrapping_beautiful import main
 
 
 @shared_task(autoretry_for=(Exception,), max_retries=1)
-def vacancy_parser():
-    data_all = main()
+def vacancy_parser(course_name):
+    data_all = main(course_name)
     for data_dict in data_all:
         vacancy, _ = VacancyData.objects.get_or_create(**data_dict)
         print(f" вакансия '{vacancy}' загружена в базу........ok")

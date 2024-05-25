@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("beautiful_soup", "0001_initial"),
+        ("vacancies", "0001_initial"),
     ]
 
     operations = [

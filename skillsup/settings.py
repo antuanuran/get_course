@@ -46,7 +46,7 @@ LOCAL_APPS = [
     "apps.api",
     "apps.holder",
     "apps.bot",
-    "apps.beautiful_soup",
+    "apps.vacancies",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
