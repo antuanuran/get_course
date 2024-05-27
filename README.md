@@ -95,3 +95,5 @@
 #### Login Admin SuperUser (все права):
 - "email": "*******",
 - "password": "*********"
+
+Finish project
